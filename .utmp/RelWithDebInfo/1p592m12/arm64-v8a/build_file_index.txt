@@ -1,0 +1,2 @@
+F:\Unity_Projects\GIMM_City_6\GIMM_City\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+F:\Unity_Projects\GIMM_City_6\GIMM_City\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
