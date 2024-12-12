@@ -249,7 +249,7 @@ namespace ArcadeVP
         private void OnDrawGizmos()
         {
             //debug gizmos
-            radius = rb.GetComponent<SphereCollider>().radius;
+            //radius = rb.GetComponent<SphereCollider>().radius;
             float width = 0.02f;
             if (!Application.isPlaying)
             {
