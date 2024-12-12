@@ -36,13 +36,15 @@ public class Bot : MonoBehaviour {
 
             // Debug.Log("SEEKING");
             Seek(target.transform.position);
+            Debug.Log("Pursue");
             return;
+
         }
 
         // Debug.Log("LOOKING AHEAD");
         float lookAhead = targetDir.magnitude / (agent.speed + curSpeed);
         Seek(target.transform.position + target.transform.forward * lookAhead);
-        Debug.Log("Pursue");
+
 
     }
 
