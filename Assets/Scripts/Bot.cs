@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Bot : MonoBehaviour {
 
     public GameObject target;
-
     NavMeshAgent agent;
 
     void Start() {
@@ -31,27 +30,30 @@ public class Bot : MonoBehaviour {
         float relativeHeading = Vector3.Angle(transform.forward, transform.TransformVector(target.transform.forward));
         float toTarget = Vector3.Angle(transform.forward, transform.TransformVector(targetDir));
         float curSpeed = target.GetComponent<Drive>().currentSpeed;
+        float lookAhead = targetDir.magnitude / (agent.speed + curSpeed);
 
         if ((toTarget > 40.0f && relativeHeading < 20.0f) || curSpeed < 0.01f) {
 
             // Debug.Log("SEEKING");
-            Seek(target.transform.position);
-            Debug.Log("Pursue");
+
+            Seek(target.transform.position + target.transform.forward * lookAhead);
             return;
 
         }
 
         // Debug.Log("LOOKING AHEAD");
-        float lookAhead = targetDir.magnitude / (agent.speed + curSpeed);
-        Seek(target.transform.position + target.transform.forward * lookAhead);
+
 
 
     }
 
     void Update() {
-
-        Seek(target.transform.position);
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        //Seek(target.transform.position);
         // Flee(target.transform.position);
-        Pursue();
+        if (distance < 50f)
+        {
+            Pursue();
+        }
     }
 }
