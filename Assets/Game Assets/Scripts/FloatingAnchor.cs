@@ -3,8 +3,8 @@ using UnityEngine;
 public class FloatingAnchor : MonoBehaviour
 {
     [SerializeField] private OVRSkeleton ovrSkeleton; // OVRSkeleton component
-    [SerializeField] private float forwardOffset = 0.5f; // Distance in front of the joint
-    [SerializeField] private float heightOffset = -0.15f;  // Height adjustment
+    [SerializeField] private float forwardOffset = 0.0f; // Distance in front of the joint
+    [SerializeField] private float heightOffset = 0.0f;  // Height adjustment
     [SerializeField] private float smoothingfactor = 20f; // Smoothing factor
 
     private OVRSkeleton.BoneId targetBoneId = OVRSkeleton.BoneId.Body_Chest; // Default to Spine Chest
