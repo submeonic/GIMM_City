@@ -32,7 +32,7 @@ public class SteeringWheelUtilities : MonoBehaviour
         // Subscribe to the grab state event if available
         if (grabbable != null)
         {
-            grabbable.OnGrabStateChanged += HandleGrabStateChanged;
+            //grabbable.OnGrabStateChanged += HandleGrabStateChanged;
         }
         else
         {
@@ -47,7 +47,7 @@ public class SteeringWheelUtilities : MonoBehaviour
     {
         if (grabbable != null)
         {
-            grabbable.OnGrabStateChanged -= HandleGrabStateChanged;
+            //grabbable.OnGrabStateChanged -= HandleGrabStateChanged;
         }
     }
 
