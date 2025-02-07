@@ -48,7 +48,7 @@ namespace ArcadeVP
         public float skidWidth;
 
 
-        private float radius, horizontalInput, verticalInput;
+        private float radius, steeringInput, accelerationInput, brakeInput;
         private Vector3 origin;
 
         private void Start()
@@ -59,14 +59,20 @@ namespace ArcadeVP
                 Physics.defaultMaxAngularSpeed = 100;
             }
         }
+
         private void Update()
         {
-            horizontalInput = Input.GetAxis("Horizontal"); //turning input
-            verticalInput = Input.GetAxis("Vertical");     //accelaration input
             Visuals();
             AudioManager();
-
         }
+
+        public void ProvideInputs(float _steeringInput, float _accelarationInput, float _brakeInput)
+        {
+            steeringInput = _steeringInput;
+            accelerationInput = _accelarationInput;
+            brakeInput = _brakeInput;
+        }
+
         public void AudioManager()
         {
             engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(carVelocity.z) / MaxSpeed);
@@ -97,16 +103,16 @@ namespace ArcadeVP
                 //turnlogic
                 float sign = Mathf.Sign(carVelocity.z);
                 float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / MaxSpeed);
-                if (kartLike && Input.GetAxis("Jump") > 0.1f) { TurnMultiplyer *= driftMultiplier; } //turn more if drifting
+                if (kartLike && brakeInput > 0.1f) { TurnMultiplyer *= driftMultiplier; } //turn more if drifting
 
 
-                if (verticalInput > 0.1f || carVelocity.z > 1)
+                if (accelerationInput > 0.1f || carVelocity.z > 1)
                 {
-                    carBody.AddTorque(Vector3.up * horizontalInput * sign * turn * 100 * TurnMultiplyer);
+                    carBody.AddTorque(Vector3.up * steeringInput * sign * turn * 100 * TurnMultiplyer);
                 }
-                else if (verticalInput < -0.1f || carVelocity.z < -1)
+                else if (accelerationInput < -0.1f || carVelocity.z < -1)
                 {
-                    carBody.AddTorque(Vector3.up * horizontalInput * sign * turn * 100 * TurnMultiplyer);
+                    carBody.AddTorque(Vector3.up * steeringInput * sign * turn * 100 * TurnMultiplyer);
                 }
 
 
@@ -114,7 +120,7 @@ namespace ArcadeVP
                 // mormal brakelogic
                 if (!kartLike)
                 {
-                    if (Input.GetAxis("Jump") > 0.1f)
+                    if (brakeInput > 0.1f)
                     {
                         rb.constraints = RigidbodyConstraints.FreezeRotationX;
                     }
@@ -128,24 +134,24 @@ namespace ArcadeVP
 
                 if (movementMode == MovementMode.AngularVelocity)
                 {
-                    if (Mathf.Abs(verticalInput) > 0.1f && Input.GetAxis("Jump") < 0.1f && !kartLike)
+                    if (Mathf.Abs(accelerationInput) > 0.1f && brakeInput < 0.1f && !kartLike)
                     {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * verticalInput * MaxSpeed / radius, accelaration * Time.deltaTime);
+                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * accelerationInput * MaxSpeed / radius, accelaration * Time.deltaTime);
                     }
-                    else if (Mathf.Abs(verticalInput) > 0.1f && kartLike)
+                    else if (Mathf.Abs(accelerationInput) > 0.1f && kartLike)
                     {
-                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * verticalInput * MaxSpeed / radius, accelaration * Time.deltaTime);
+                        rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, carBody.transform.right * accelerationInput * MaxSpeed / radius, accelaration * Time.deltaTime);
                     }
                 }
                 else if (movementMode == MovementMode.Velocity)
                 {
-                    if (Mathf.Abs(verticalInput) > 0.1f && Input.GetAxis("Jump") < 0.1f && !kartLike)
+                    if (Mathf.Abs(accelerationInput) > 0.1f && brakeInput < 0.1f && !kartLike)
                     {
-                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * verticalInput * MaxSpeed, accelaration / 10 * Time.deltaTime);
+                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * accelerationInput * MaxSpeed, accelaration / 10 * Time.deltaTime);
                     }
-                    else if (Mathf.Abs(verticalInput) > 0.1f && kartLike)
+                    else if (Mathf.Abs(accelerationInput) > 0.1f && kartLike)
                     {
-                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * verticalInput * MaxSpeed, accelaration / 10 * Time.deltaTime);
+                        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, carBody.transform.forward * accelerationInput * MaxSpeed, accelaration / 10 * Time.deltaTime);
                     }
                 }
 
@@ -162,7 +168,7 @@ namespace ArcadeVP
                     //turnlogic
                     float TurnMultiplyer = turnCurve.Evaluate(carVelocity.magnitude / MaxSpeed);
 
-                    carBody.AddTorque(Vector3.up * horizontalInput * turn * 100 * TurnMultiplyer);
+                    carBody.AddTorque(Vector3.up * steeringInput * turn * 100 * TurnMultiplyer);
                 }
 
                 carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, Vector3.up) * carBody.transform.rotation, 0.02f));
@@ -176,7 +182,7 @@ namespace ArcadeVP
             foreach (Transform FW in FrontWheels)
             {
                 FW.localRotation = Quaternion.Slerp(FW.localRotation, Quaternion.Euler(FW.localRotation.eulerAngles.x,
-                                   30 * horizontalInput, FW.localRotation.eulerAngles.z), 0.7f * Time.deltaTime / Time.fixedDeltaTime);
+                                   30 * steeringInput, FW.localRotation.eulerAngles.z), 0.7f * Time.deltaTime / Time.fixedDeltaTime);
                 FW.GetChild(0).localRotation = rb.transform.localRotation;
             }
             RearWheels[0].localRotation = rb.transform.localRotation;
@@ -186,7 +192,7 @@ namespace ArcadeVP
             if (carVelocity.z > 1)
             {
                 BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, carVelocity.z / MaxSpeed),
-                                   BodyMesh.localRotation.eulerAngles.y, BodyTilt * horizontalInput), 0.4f * Time.deltaTime / Time.fixedDeltaTime);
+                                   BodyMesh.localRotation.eulerAngles.y, BodyTilt * steeringInput), 0.4f * Time.deltaTime / Time.fixedDeltaTime);
             }
             else
             {
@@ -196,10 +202,10 @@ namespace ArcadeVP
 
             if (kartLike)
             {
-                if (Input.GetAxis("Jump") > 0.1f)
+                if (brakeInput > 0.1f)
                 {
                     BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
-                    Quaternion.Euler(0, 45 * horizontalInput * Mathf.Sign(carVelocity.z), 0),
+                    Quaternion.Euler(0, 45 * steeringInput * Mathf.Sign(carVelocity.z), 0),
                     0.1f * Time.deltaTime / Time.fixedDeltaTime);
                 }
                 else

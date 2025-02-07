@@ -7,7 +7,7 @@ namespace ArcadeVP
     public class ArcadeVehicleCreator : EditorWindow
     {
 
-        GameObject preset;
+        ArcadeVehicleController preset;
         Transform VehicleParent;
         Transform wheelFL;
         Transform wheelFR;
@@ -19,42 +19,204 @@ namespace ArcadeVP
 
         private GameObject NewVehicle;
 
+        private const string DiscordUrl = "https://discord.gg/yU82FbNHcu";
+        private const string TutorilUrl = "https://youtu.be/2Sif8yKKl40?si=ZWJkGdyLkn4o0IHl";
+        private const string DocumentationUrl = "/Ash Assets/Arcade Vehicle Physics/Documentation/Documentation.pdf";
+        private const string AshDevAssets = "https://assetstore.unity.com/publishers/52093";
+
 
         [MenuItem("Tools/Arcade Vehicle Physics")]
 
         static void OpenWindow()
         {
             ArcadeVehicleCreator vehicleCreatorWindow = (ArcadeVehicleCreator)GetWindow(typeof(ArcadeVehicleCreator));
-            vehicleCreatorWindow.minSize = new Vector2(400, 300);
+            vehicleCreatorWindow.minSize = new Vector2(400, 500);
             vehicleCreatorWindow.Show();
         }
 
         private void OnGUI()
         {
-            var style = new GUIStyle(EditorStyles.boldLabel);
-            style.normal.textColor = Color.green;
-            GUILayout.Label("Arcade Vehicle Creator", style);
-            preset = EditorGUILayout.ObjectField("Vehicle preset", preset, typeof(GameObject), true) as GameObject;
-            GUILayout.Label("Your Vehicle", style);
-            VehicleParent = EditorGUILayout.ObjectField("Vehicle Parent", VehicleParent, typeof(Transform), true) as Transform;
-            wheelFL = EditorGUILayout.ObjectField("wheel FL", wheelFL, typeof(Transform), true) as Transform;
-            wheelFR = EditorGUILayout.ObjectField("wheel FR", wheelFR, typeof(Transform), true) as Transform;
-            wheelRL = EditorGUILayout.ObjectField("wheel RL", wheelRL, typeof(Transform), true) as Transform;
-            wheelRR = EditorGUILayout.ObjectField("wheel RR", wheelRR, typeof(Transform), true) as Transform;
+            DrawHelpAndTutorialsSection();
 
-            if (GUILayout.Button("Create Vehicle"))
+            DrawVehicleCreation();
+
+        }
+
+        private void DrawHelpAndTutorialsSection()
+        {
+            // Custom styles
+            var sectionStyle = new GUIStyle("Box")
+            {
+                padding = new RectOffset(10, 10, 10, 10),
+                margin = new RectOffset(5, 5, 5, 5)
+            };
+
+            var headerStyle = new GUIStyle(EditorStyles.boldLabel)
+            {
+                fontSize = 14,
+                alignment = TextAnchor.MiddleLeft,
+                normal = { textColor = new Color(0.2f, 0.6f, 1f) }
+            };
+
+            var buttonStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontSize = 12,
+                fontStyle = FontStyle.Bold,
+                alignment = TextAnchor.MiddleLeft,
+                padding = new RectOffset(35, 10, 5, 5)
+            };
+
+            EditorGUILayout.BeginVertical(sectionStyle);
+
+            // Header
+            EditorGUILayout.LabelField("Help & Tutorials", headerStyle);
+            EditorGUILayout.Space(5);
+
+            // First Row
+            EditorGUILayout.BeginHorizontal();
+            {
+                // Documentation Button
+                GUI.backgroundColor = new Color(0.9f, 0.9f, 0.9f);
+                if (GUILayout.Button(new GUIContent("  Documentation", EditorGUIUtility.IconContent("_Help").image),
+                    buttonStyle, GUILayout.Height(28)))
+                {
+                    string doc_path = Application.dataPath + DocumentationUrl;
+                    Application.OpenURL("file://" + doc_path);
+                }
+
+                // Tutorial Button
+                GUI.backgroundColor = new Color(1f, 0.8f, 0.8f);
+                if (GUILayout.Button(new GUIContent("  Video Tutorials", EditorGUIUtility.IconContent("VideoPlayer Icon").image),
+                    buttonStyle, GUILayout.Height(28)))
+                {
+                    Application.OpenURL(TutorilUrl);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            // Second Row
+            EditorGUILayout.BeginHorizontal();
+            {
+                // Discord Button
+                GUI.backgroundColor = new Color(0.8f, 0.8f, 1f);
+                if (GUILayout.Button(new GUIContent("  Join Discord", EditorGUIUtility.IconContent("BuildSettings.Web.Small").image),
+                    buttonStyle, GUILayout.Height(28)))
+                {
+                    Application.OpenURL(DiscordUrl);
+                }
+
+                // More Ash Dev Assets Button
+                GUI.backgroundColor = new Color(0.8f, 1f, 0.8f);
+                if (GUILayout.Button(new GUIContent("  Ash Dev Assets", EditorGUIUtility.IconContent("AssetStore Icon").image),
+                    buttonStyle, GUILayout.Height(28)))
+                {
+                    Application.OpenURL(AshDevAssets);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = Color.white; // Reset background color
+            EditorGUILayout.EndVertical();
+        }
+
+        private void DrawVehicleCreation()
+        {
+            // Styles
+            var headerStyle = new GUIStyle(EditorStyles.boldLabel)
+            {
+                fontSize = 16,
+                alignment = TextAnchor.MiddleLeft,
+                normal = { textColor = new Color(0.2f, 0.8f, 0.2f) },
+                margin = new RectOffset(5, 5, 10, 10)
+            };
+
+            var sectionStyle = new GUIStyle(EditorStyles.helpBox)
+            {
+                padding = new RectOffset(10, 10, 10, 10),
+                margin = new RectOffset(5, 5, 5, 5)
+            };
+
+            var sectionStyleFull = new GUIStyle("Box")
+            {
+                padding = new RectOffset(10, 10, 10, 10),
+                margin = new RectOffset(5, 5, 5, 5)
+            };
+
+            var buttonStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontSize = 12,
+                fontStyle = FontStyle.Bold,
+                fixedHeight = 30,
+                margin = new RectOffset(5, 5, 8, 8)
+            };
+
+            EditorGUILayout.BeginVertical(sectionStyleFull);
+
+            // Main Layout
+            EditorGUILayout.BeginVertical();
+
+            // Title
+            headerStyle.alignment = TextAnchor.MiddleCenter;
+            EditorGUILayout.LabelField("Arcade Vehicle Creator", headerStyle);
+
+            GUI.backgroundColor = new Color(0.3f, 0.8f, 0.3f);
+            // Preset Section
+            EditorGUILayout.BeginVertical(sectionStyle);
+            {
+                preset = EditorGUILayout.ObjectField("Vehicle Preset", preset,
+                    typeof(ArcadeVehicleController), true) as ArcadeVehicleController;
+            }
+            EditorGUILayout.EndVertical();
+
+            // Vehicle Setup Section
+            EditorGUILayout.BeginVertical(sectionStyle);
+            {
+                // Vehicle Parent
+                VehicleParent = EditorGUILayout.ObjectField("Vehicle Parent", VehicleParent,
+                    typeof(Transform), true) as Transform;
+
+                // Wheels Group
+                EditorGUILayout.LabelField("Wheels", EditorStyles.boldLabel);
+                EditorGUI.indentLevel++;
+                wheelFL = EditorGUILayout.ObjectField("Front Left", wheelFL,
+                    typeof(Transform), true) as Transform;
+                wheelFR = EditorGUILayout.ObjectField("Front Right", wheelFR,
+                    typeof(Transform), true) as Transform;
+                wheelRL = EditorGUILayout.ObjectField("Rear Left", wheelRL,
+                    typeof(Transform), true) as Transform;
+                wheelRR = EditorGUILayout.ObjectField("Rear Right", wheelRR,
+                    typeof(Transform), true) as Transform;
+                EditorGUI.indentLevel--;
+
+            }
+            EditorGUILayout.EndVertical();
+
+
+            if (GUILayout.Button("Create Vehicle", buttonStyle))
             {
                 createVehicle();
             }
 
-            bodyMesh = EditorGUILayout.ObjectField("Body Mesh", bodyMesh, typeof(MeshRenderer), true) as MeshRenderer;
-            wheelMesh = EditorGUILayout.ObjectField("Wheel Mesh", wheelMesh, typeof(MeshRenderer), true) as MeshRenderer;
+            GUI.backgroundColor = new Color(0.3f, 0.6f, 0.9f);
+            // Mesh Setup Section
+            EditorGUILayout.BeginVertical(sectionStyle);
+            {
+                bodyMesh = EditorGUILayout.ObjectField("Body Mesh", bodyMesh,
+                    typeof(MeshRenderer), true) as MeshRenderer;
+                wheelMesh = EditorGUILayout.ObjectField("Wheel Mesh", wheelMesh,
+                    typeof(MeshRenderer), true) as MeshRenderer;
+            }
+            EditorGUILayout.EndVertical();
 
-            if (GUILayout.Button("Adjust Colliders"))
+
+            if (GUILayout.Button("Adjust Colliders", buttonStyle))
             {
                 adjustColliders();
             }
 
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.EndVertical();
         }
 
         private void adjustColliders()
@@ -95,7 +257,7 @@ namespace ArcadeVP
         {
             Make_Vehicle_Ready_For_Setup();
 
-            NewVehicle = Instantiate(preset, bodyMesh.bounds.center, VehicleParent.rotation);
+            NewVehicle = Instantiate(preset.gameObject, bodyMesh.bounds.center, VehicleParent.rotation);
             NewVehicle.name = "Arcade_" + VehicleParent.name;
             GameObject.DestroyImmediate(NewVehicle.transform.Find("Mesh").Find("Body").GetChild(0).gameObject);
             if (NewVehicle.transform.Find("Mesh").transform.Find("Wheels").Find("WheelFL"))

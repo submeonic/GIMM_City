@@ -20,3 +20,10 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220740
+  packageName: Arcade Vehicle Ai
+  packageVersion: 1.0
+  assetPath: Assets/Ash Assets/Arcade Vehicle Ai/Audios/engine-loop-1.wav
+  uploadId: 706315

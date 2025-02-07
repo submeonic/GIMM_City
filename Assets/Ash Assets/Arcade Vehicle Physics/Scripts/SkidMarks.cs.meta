@@ -9,3 +9,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 193251
+  packageName: Arcade Vehicle Physics
+  packageVersion: 1.4
+  assetPath: Assets/Ash Assets/Arcade Vehicle Physics/Scripts/SkidMarks.cs
+  uploadId: 720603

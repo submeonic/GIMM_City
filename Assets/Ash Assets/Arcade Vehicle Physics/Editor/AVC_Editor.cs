@@ -6,7 +6,7 @@ namespace ArcadeVP
     [CustomEditor(typeof(ArcadeVehicleController))]
     public class AVC_Editor : Editor
     {
-        private const string DiscordUrl = "https://discord.com/invite/zD6AhYcYdG";
+        private const string DiscordUrl = "https://discord.gg/yU82FbNHcu";
         private const string TutorilUrl = "https://youtu.be/2Sif8yKKl40";
         private const string DocumentationUrl = "/Ash Assets/Arcade Vehicle Physics/Documentation/Documentation.pdf";
         private const string RateUrl = "https://assetstore.unity.com/packages/tools/physics/arcade-vehicle-physics-193251#reviews";
