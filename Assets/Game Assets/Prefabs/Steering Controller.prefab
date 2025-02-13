@@ -1996,7 +1996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f8766c17-aaf8-4b55-9431-de8deea83842
-  instanceId: beaf632f-cdb2-4936-ab62-8a22795044a4
+  instanceId: 7806a9c5-4b3f-4e08-868f-fc760059eaf5
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
@@ -3563,9 +3563,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2255143219759452127}
-  - component: {fileID: 1553121986780489149}
   m_Layer: 0
-  m_Name: SteeringWheel
+  m_Name: Steering Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3589,21 +3588,6 @@ Transform:
   - {fileID: 4345470236752388844}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1553121986780489149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7241638129873385901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e19cdcfe3f36b46af5fe8be0714866, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabbable: {fileID: 5239697912202796290}
-  trackingSpace: {fileID: 0}
-  pokeMenu: {fileID: 4165739704993356569}
 --- !u!1 &7339855388060336845
 GameObject:
   m_ObjectHideFlags: 0

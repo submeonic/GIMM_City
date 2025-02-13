@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 493390045}
   - component: {fileID: 493390046}
   m_Layer: 0
-  m_Name: '[BuildingBlock] Poke Interaction (1)'
+  m_Name: Poke Interaction (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 596628513}
   - component: {fileID: 596628514}
   m_Layer: 0
-  m_Name: '[BuildingBlock] Poke Interaction (2)'
+  m_Name: Poke Interaction (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1292,6 +1292,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1931652867}
     m_Modifications:
     - target: {fileID: 1553121986780489149, guid: f24258aceabc01f40a4e74d2bfbeafdc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1553121986780489149, guid: f24258aceabc01f40a4e74d2bfbeafdc, type: 3}
       propertyPath: trackingSpace
       value: 
       objectReference: {fileID: 7352805}
@@ -1349,13 +1353,18 @@ PrefabInstance:
       objectReference: {fileID: 7352805}
     - target: {fileID: 7241638129873385901, guid: f24258aceabc01f40a4e74d2bfbeafdc, type: 3}
       propertyPath: m_Name
-      value: SteeringWheel
+      value: Steering Controller
       objectReference: {fileID: 0}
     - target: {fileID: 8006679487466588863, guid: f24258aceabc01f40a4e74d2bfbeafdc, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8950947510393201389, guid: f24258aceabc01f40a4e74d2bfbeafdc, type: 3}
+      propertyPath: m_Name
+      value: SteeringWheel
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1553121986780489149, guid: f24258aceabc01f40a4e74d2bfbeafdc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1519,7 +1528,7 @@ GameObject:
   - component: {fileID: 851189650}
   - component: {fileID: 851189651}
   m_Layer: 0
-  m_Name: '[BuildingBlock] Poke Interaction'
+  m_Name: Poke Interaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1829,9 +1838,17 @@ PrefabInstance:
       propertyPath: instanceId
       value: dc160b3f-c565-4c8b-ad91-7ede3793c125
       objectReference: {fileID: 0}
+    - target: {fileID: 3300436541808092440, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3401484087450650434, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
       propertyPath: instanceId
       value: 2f1a2f6a-fb19-47d6-9738-4891f62a628a
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215685626392384517, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4547578143249045582, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
       propertyPath: LateLatching
@@ -1839,6 +1856,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4547578143249045582, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
       propertyPath: requestBodyTrackingPermissionOnStartup
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735911394053656816, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6270353141328833618, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
@@ -1902,7 +1923,8 @@ PrefabInstance:
       value: Mixed Reality Rig
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4735911394053656816, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
@@ -3337,7 +3359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00030517578
+      value: -0.0004272461
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
