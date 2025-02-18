@@ -1996,7 +1996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f8766c17-aaf8-4b55-9431-de8deea83842
-  instanceId: 7806a9c5-4b3f-4e08-868f-fc760059eaf5
+  instanceId: 50cca608-1632-4c4d-a2ae-96d382ce3f22
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
@@ -4585,6 +4585,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f1d8ae6cf6b8eda4d98663d560d19bad, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 42ac18c4c184b724ca50c47a7b96ccf6, type: 2}
+    - target: {fileID: -7511558181221131132, guid: f1d8ae6cf6b8eda4d98663d560d19bad, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 484c03daf4b9fe9419a7fe6ad64a9b98, type: 2}
     - target: {fileID: 919132149155446097, guid: f1d8ae6cf6b8eda4d98663d560d19bad, type: 3}
       propertyPath: m_Name
       value: SteeringYoke
