@@ -6,12 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Cube.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Cube.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Cube.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Cube.prefab.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Mixed Reality Rig.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Mixed Reality Rig.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/CustomNetworkManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/CustomNetworkManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/SharedNetworkGrabbable_ClientAuth.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/SharedNetworkGrabbable_ClientAuth.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/SharedNetworkGrabbable_ServerAuth.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/SharedNetworkGrabbable_ServerAuth.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/AlignmentManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/AlignmentManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/ColocationManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/ColocationManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/ColocationNetworkManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/ColocationNetworkManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/CustomKcpTransport.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/CustomKcpTransport.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/LANDiscovery.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/LANDiscovery.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/SharedNetworkGrabbable_ClientAuth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/SharedNetworkGrabbable_ClientAuth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/SharedNetworkGrabbable_ServerAuth.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/SharedNetworkGrabbable_ServerAuth.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/OVRBuildConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/OVRBuildConfig.asset.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/Mobile_RPAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Mobile_RPAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/XR/Settings/OculusSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/XR/Settings/OculusSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +42,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/CustomNetwork/Scripts/SharedNetworkGrabbable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/CustomNetwork/Scripts/LocalGrabbableProxy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/HandSkeletonOVR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/Grabbable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/OneGrabFreeTransformer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/OneGrabTranslateTransformer.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -34,20 +57,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "8-car-movement-controller",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;8-car-movement-controller&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\6000.0.33f1\Editor\Unity.exe" />
@@ -95,7 +118,9 @@
       <option name="presentableId" value="Default" />
       <updated>1738892779413</updated>
       <workItem from="1738892781932" duration="108000" />
-      <workItem from="1739908277767" duration="14840000" />
+      <workItem from="1739908277767" duration="17462000" />
+      <workItem from="1739935951952" duration="945000" />
+      <workItem from="1739983636508" duration="14241000" />
     </task>
     <servers />
   </component>
@@ -109,6 +134,9 @@
     <option name="unityProjectFolder" value="true" />
   </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="dotnet:NSubstitute" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
