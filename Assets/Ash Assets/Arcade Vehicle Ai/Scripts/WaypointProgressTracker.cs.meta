@@ -7,3 +7,10 @@ MonoImporter:
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220740
+  packageName: Arcade Vehicle Ai
+  packageVersion: 1.0
+  assetPath: Assets/Ash Assets/Arcade Vehicle Ai/Scripts/WaypointProgressTracker.cs
+  uploadId: 706315

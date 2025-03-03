@@ -22,22 +22,17 @@ public class SteeringWheelUtilities : MonoBehaviour
     /// <summary>
     /// Initializes the component by subscribing to the Grabbable's grab state change event.
     /// </summary>
-    void Start()
+    private void Awake()
     {
-        if (trackingSpace == null)
+        grabbable = GetComponentInChildren<Grabbable>();
+        if (grabbable == null)
         {
-            trackingSpace = GameObject.Find("TrackingSpace");
+            Debug.LogError("MirrorTransferOwnershipOnSelect requires a Grabbable component in its children.");
+            return;
         }
 
-        // Subscribe to the grab state event if available
-        if (grabbable != null)
-        {
-           // grabbable.OnGrabStateChanged += HandleGrabStateChanged;
-        }
-        else
-        {
-            Debug.LogError("Grabbable component not found on the GameObject!");
-        }
+        // Subscribe to pointer events (the Fusion version listens to WhenPointerEventRaised)
+        grabbable.WhenPointerEventRaised += OnPointerEventRaised;
     }
 
     /// <summary>
@@ -47,7 +42,7 @@ public class SteeringWheelUtilities : MonoBehaviour
     {
         if (grabbable != null)
         {
-         //   grabbable.OnGrabStateChanged -= HandleGrabStateChanged;
+            grabbable.WhenPointerEventRaised -= OnPointerEventRaised;
         }
     }
 
@@ -59,11 +54,11 @@ public class SteeringWheelUtilities : MonoBehaviour
     /// Handles changes in the Grabbable's grab state and updates the visibility of the Poke Menu.
     /// </summary>
     /// <param name="grabPoints">The number of hands currently grabbing the Grabbable.</param>
-    private void HandleGrabStateChanged(int grabPoints)
+    private void OnPointerEventRaised(PointerEvent pointerEvent)
     {
-        if (grabPoints == 0)
+        if (grabbable.SelectingPointsCount == 0)
         {
-            if (trackingSpace != null && transform.parent != trackingSpace)
+            if (trackingSpace != null && transform.parent != trackingSpace.transform)
             {
                 // No hand grabbing: set parent to null
                 transform.SetParent(null);
@@ -71,9 +66,9 @@ public class SteeringWheelUtilities : MonoBehaviour
             // No hands grabbing: Hide the Poke Menu
             pokeMenu.SetActive(false);
         }
-        else if (grabPoints == 1)
+        else if (grabbable.SelectingPointsCount == 1)
         {
-            if (trackingSpace != null && transform.parent != trackingSpace)
+            if (trackingSpace != null && transform.parent != trackingSpace.transform)
             {
                 // One hand grabbing: Move the object to the tracking space
                 transform.SetParent(trackingSpace.transform);
@@ -81,9 +76,9 @@ public class SteeringWheelUtilities : MonoBehaviour
             // One hand grabbing: Show the Poke Menu
             pokeMenu.SetActive(true);
         }
-        else if (grabPoints == 2)
+        else if (grabbable.SelectingPointsCount == 2)
         {
-            if (trackingSpace != null && transform.parent != trackingSpace)
+            if (trackingSpace != null && transform.parent != trackingSpace.transform)
             {
                 // Two hands grabbing: Move the object to the tracking space
                 transform.SetParent(trackingSpace.transform);
@@ -100,3 +95,4 @@ public class SteeringWheelUtilities : MonoBehaviour
         transform.SetParent(null);
     }
 }
+
