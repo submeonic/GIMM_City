@@ -61,7 +61,7 @@ public class SteeringWheelUtilities : MonoBehaviour
             if (trackingSpace != null && transform.parent != trackingSpace.transform)
             {
                 // No hand grabbing: set parent to null
-                transform.SetParent(null);
+                //transform.SetParent(null);
             }
             // No hands grabbing: Hide the Poke Menu
             pokeMenu.SetActive(false);
@@ -92,7 +92,7 @@ public class SteeringWheelUtilities : MonoBehaviour
 
     private void OnDisable()
     {
-        transform.SetParent(null);
+        //transform.SetParent(null);
     }
 }
 
