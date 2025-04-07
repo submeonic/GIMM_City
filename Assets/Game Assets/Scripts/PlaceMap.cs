@@ -9,22 +9,13 @@ public class PlaceMap : NetworkBehaviour
     private Grabbable _grabbable;
     
     private bool placeable = false;
+    private bool selected = false;
     [SyncVar] private bool placed = false;
 
     private void Awake()
     {
         _grabbable = GetComponent<Grabbable>();
         _grabbable.WhenPointerEventRaised += OnPointerEvent;
-    }
-    private void Update()
-    {
-        //highlights
-        highlight.SetActive(placeable);
-    }
-
-    private void LateUpdate()
-    {
-        placeable = false;
     }
 
     private void ClientSpawnMapRequest()
@@ -38,24 +29,61 @@ public class PlaceMap : NetworkBehaviour
         if (placed) return; // prevent multiple placements
 
         GameObject spawnedMap = Instantiate(map, transform.position, transform.rotation);
+
+        // First spawn the root map
         NetworkServer.Spawn(spawnedMap);
 
+        // Now spawn any child NetworkIdentity objects (excluding the root)
+        var childIdentities = spawnedMap.GetComponentsInChildren<NetworkIdentity>(true);
+        foreach (var netId in childIdentities)
+        {
+            if (netId.gameObject != spawnedMap) // ⬅️ This is the fix
+            {
+                NetworkServer.Spawn(netId.gameObject);
+            }
+        }
+
         placed = true;
+        highlight.SetActive(false);
     }
 
     private void OnPointerEvent(PointerEvent evt)
     {
-        if (evt.Type == PointerEventType.Unselect && placeable && !placed)
+        if (evt.Type == PointerEventType.Select)
         {
-            ClientSpawnMapRequest();
+            selected = true;
+        }
+        if (evt.Type == PointerEventType.Unselect)
+        {
+            selected = false;
+            if (placeable && !placed)
+            {
+                ClientSpawnMapRequest();
+            }
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("drivable"))
+        if (!placed)
         {
-            placeable = true;
+            if (other.gameObject.layer == LayerMask.NameToLayer("drivable") && selected)
+            {
+                placeable = true;
+                highlight.SetActive(placeable);
+            }
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (!placed)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("drivable"))
+            {
+                placeable = false;
+                highlight.SetActive(placeable);
+            }
         }
     }
     
