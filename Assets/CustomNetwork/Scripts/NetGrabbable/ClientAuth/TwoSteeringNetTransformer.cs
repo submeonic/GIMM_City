@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 namespace Oculus.Interaction
@@ -7,19 +8,23 @@ namespace Oculus.Interaction
     /// SteeringTransformer controls the rotation of a steering wheel object and calculates input
     /// for steering and throttle based on hand movements in VR using OVRSkeleton.
     /// </summary>
-    public class TwoHandSteeringTransformer : MonoBehaviour, ITransformer
+    public class TwoSteeringNetTransformer : NetworkBehaviour, ITransformer
     {
         #region Serialized Fields
 
         [Header("References")]
-        [SerializeField] private OVRSkeleton ovrSkeleton; // OVRSkeleton component reference
         [SerializeField] private GameObject steeringWheelContainer; // Steering wheel GameObject
         [SerializeField] private GameObject rightHandAttatch; // Reference to the right hand attachment
 
         #endregion
 
         #region Private Fields
-
+        
+        // [Insert Comment]
+        private SteeringNetTransformBridge transformBridge;
+        private SteeringReferenceProvider str;
+        private SteeringInputManager inputManager;
+        
         // Bone and grabbable references
         private OVRSkeleton.BoneId targetBoneId = OVRSkeleton.BoneId.Body_Chest; // Target chest joint
         private OVRBone targetBone; // Cached reference to the chest bone
@@ -45,13 +50,20 @@ namespace Oculus.Interaction
         {
             this.grabbable = grabbable;
 
-            if (ovrSkeleton == null)
+            if (!isOwned)
+                return;
+
+            str = GetComponent<SteeringReferenceProvider>();
+            transformBridge = GetComponent<SteeringNetTransformBridge>();
+            inputManager = GetComponent<SteeringInputManager>();
+            
+            if (str.OvrSkeleton == null)
             {
                 Debug.LogError("OVRSkeleton component is not set.");
                 return;
             }
 
-            if (ovrSkeleton.IsInitialized)
+            if (str.OvrSkeleton.IsInitialized)
             {
                 targetBone = FindBone(targetBoneId);
             }
@@ -66,6 +78,9 @@ namespace Oculus.Interaction
         /// </summary>
         public void BeginTransform()
         {
+            if (!isOwned)
+                return;
+            
             if (targetBone == null)
             {
                 targetBone = FindBone(targetBoneId);
@@ -88,7 +103,7 @@ namespace Oculus.Interaction
         /// </summary>
         public void UpdateTransform()
         {
-            if (targetBone == null || grabbable.GrabPoints.Count == 0)
+            if (targetBone == null || grabbable.GrabPoints.Count == 0 || !isOwned)
                 return;
 
             Transform targetTransform = grabbable.Transform;
@@ -102,12 +117,22 @@ namespace Oculus.Interaction
             Vector3 directionToChest = (chestPosition - targetTransform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(directionToChest, Vector3.up);
             targetTransform.rotation = targetRotation;
-
-            // Step 3: Rotate along Z-axis for steering input
+            
+            // Step 3: Send updated position/rotation to the network bridge for syncing
+            transformBridge.UpdateTransformFromTransformer(
+                steeringWheelContainer.transform.position,
+                steeringWheelContainer.transform.rotation
+            );
+            
+            // Step 4: Rotate along Z-axis for steering input
             CalculateSteeringInput(targetTransform);
 
-            // Step 4: Calculate throttle input based on distance to chest
+            // Step 5: Calculate throttle input based on distance to chest
             CalculateThrottleInput(targetTransform.position);
+            
+            // Step 6: Send normalized steering/throttle values to the input manager
+            float steeringInput = cumulativeRotation / maxSteeringAngle;
+            inputManager.SetInput(steeringInput, throttleInput);
         }
 
         /// <summary>
@@ -115,10 +140,16 @@ namespace Oculus.Interaction
         /// </summary>
         public void EndTransform()
         {
+            if (!isOwned)
+                return;
+            
             steeringWheelContainer.transform.localRotation = Quaternion.identity;
             cumulativeRotation = 0f;
             throttleInput = 0f;
             armLength = 0.6f;
+            
+            float steeringInput = cumulativeRotation / maxSteeringAngle;
+            inputManager.SetInput(steeringInput, throttleInput);
         }
 
         #endregion
@@ -132,7 +163,7 @@ namespace Oculus.Interaction
         /// <returns>The corresponding OVRBone, or null if not found.</returns>
         private OVRBone FindBone(OVRSkeleton.BoneId boneId)
         {
-            foreach (OVRBone bone in ovrSkeleton.Bones)
+            foreach (OVRBone bone in str.OvrSkeleton.Bones)
             {
                 if (bone.Id == boneId)
                 {
@@ -213,28 +244,6 @@ namespace Oculus.Interaction
             {
                 armLength = distanceToChest;
             }
-        }
-
-        #endregion
-
-        #region Public Accessors
-
-        /// <summary>
-        /// Gets the normalized steering input, ranging from -1 to 1.
-        /// </summary>
-        /// <returns>The normalized steering input.</returns>
-        public float GetSteeringInput()
-        {
-            return cumulativeRotation / maxSteeringAngle;
-        }
-
-        /// <summary>
-        /// Gets the throttle input, ranging from -1 to 1.
-        /// </summary>
-        /// <returns>The throttle input.</returns>
-        public float GetThrottleInput()
-        {
-            return throttleInput;
         }
 
         #endregion

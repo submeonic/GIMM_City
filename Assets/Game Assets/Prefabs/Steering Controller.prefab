@@ -2101,7 +2101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c477128f777fcaf47aeda980fedbc6cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ovrSkeleton: {fileID: 0}
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   steeringWheelContainer: {fileID: 8950947510393201389}
   rightHandAttatch: {fileID: 7058877684782437084}
 --- !u!114 &6861432290390193323
@@ -3563,6 +3565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2255143219759452127}
+  - component: {fileID: 9092739296216940241}
   m_Layer: 0
   m_Name: Steering Controller
   m_TagString: Untagged
@@ -3588,6 +3591,23 @@ Transform:
   - {fileID: 4345470236752388844}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &9092739296216940241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241638129873385901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 4251796133
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &7339855388060336845
 GameObject:
   m_ObjectHideFlags: 0

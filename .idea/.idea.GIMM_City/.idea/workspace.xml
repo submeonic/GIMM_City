@@ -6,13 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/CITY-Map.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/CITY-Map.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/Highlight.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Shaders/Highlight.shadergraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/GrabNetController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/GrabNetController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/GrabNetTransformBridge.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/GrabNetTransformBridge.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/OneGrabNetTransformer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/OneGrabNetTransformer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Steering Controller.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Steering Controller.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/DebugSteeringInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/DebugSteeringInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/InputManager_Vehicle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/InputManager_Vehicle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SteeringWheelUtilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SteeringWheelUtilities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/TwoHandSteeringTransformer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/TwoHandSteeringTransformer.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +30,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/CustomNetwork/Scripts/LocalGrabbableProxy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/OneSteeringNetTransformer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/HandSkeletonOVR.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/Grabbable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/OneGrabFreeTransformer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -105,7 +112,9 @@
       <workItem from="1741124521384" duration="3324000" />
       <workItem from="1741622734343" duration="297000" />
       <workItem from="1743706355142" duration="11828000" />
-      <workItem from="1744058254052" duration="6648000" />
+      <workItem from="1744058254052" duration="7114000" />
+      <workItem from="1744134601298" duration="15833000" />
+      <workItem from="1744151031636" duration="4526000" />
     </task>
     <servers />
   </component>
