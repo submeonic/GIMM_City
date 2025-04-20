@@ -25,7 +25,6 @@ public class SteeringNetController : NetworkBehaviour
     [Command]
     private void CmdSendTransform(Vector3 position, Quaternion rotation)
     {
-        // Optional: validation, clamping, or input control logic
         RpcApplyTransform(position, rotation);
     }
 
@@ -34,7 +33,6 @@ public class SteeringNetController : NetworkBehaviour
     {
         if (isOwned) return; // Local client already applied this
 
-        steeringTransform.position = position;
-        steeringTransform.rotation = rotation;
+        steeringTransform.SetPositionAndRotation(position, rotation);
     }
 }

@@ -1,52 +1,69 @@
 using Mirror;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class SteeringInputManager : NetworkBehaviour
 {
-    [SyncVar] private float steeringInput;
-    [SyncVar] private float accelerationInput;
-    [SyncVar] private float brakeInput;
-    //temp
+    [Header("Optional Debug UI")]
     [SerializeField] private TextMeshProUGUI debugText;
 
-    private ArcadeVP.ArcadeVehicleController carController = null;
+    // NetId of the server‑spawned car this client drives
+    private uint controlledCarNetId;
+    
+    public event Action<uint> OnCarAssigned;
 
-    public void SetInput(float _steeringInput, float _throttleInput)
+    /// <summary>
+    /// Called by MenuGrabbable.TargetAssignCar on this client.
+    /// </summary>
+    public void AssignCar(uint carNetId)
     {
-        //Temporary for testing
-        if (carController == null)
-        {
-            SetActiveCarController(FindObjectOfType<ArcadeVP.ArcadeVehicleController>());
-            Debug.Log(carController.name);
-        }
-        
-        if (!isOwned || carController == null)
-            return;
-        
-        steeringInput = _steeringInput;
-        accelerationInput = _throttleInput;
-        brakeInput = 0;
-
-        if (_steeringInput == 0 && _throttleInput == 0)
-        {
-            brakeInput = 1;
-        }
-
-        // Local input affects the linked car
-        carController.ProvideInputs(steeringInput, accelerationInput, brakeInput);
-        debugText.text = $"Steering Input: {steeringInput} /n" + $"Throttle Input: {accelerationInput}";
+        controlledCarNetId = carNetId;
+        OnCarAssigned?.Invoke(carNetId);
+        debugText?.SetText($"Driving Car: {carNetId}");
+        Debug.Log($"[Client] Assigned car NetId {carNetId}");
     }
 
-    public void SetActiveCarController(ArcadeVP.ArcadeVehicleController _carController)
+    /// <summary>
+    /// Hook this up to your VR steering wheel input events.
+    /// </summary>
+    public void SetInput(float steering, float throttle)
     {
-        carController = _carController;
+        if (!isOwned) return;             // only the local wheel owner can send
+        if (controlledCarNetId == 0) return;   // ensure a car is assigned
+        CmdSendInput(steering, throttle, controlledCarNetId);
     }
 
-    [TargetRpc]
-    public void TargetAssignCar(NetworkConnection target, NetworkIdentity carNetIdentity)
+    [Command]
+    private void CmdSendInput(float steering, float throttle, uint carNetId)
     {
-        ArcadeVP.ArcadeVehicleController car = carNetIdentity.GetComponent<ArcadeVP.ArcadeVehicleController>();
-        SetActiveCarController(car);
+        // 1) Server applies inputs to its authoritative car instance
+        if (NetworkServer.spawned.TryGetValue(carNetId, out var identity))
+        {
+            var vc = identity.GetComponent<ArcadeVehicleController>();
+            if (vc != null)
+            {
+                float brake = (steering == 0f && throttle == 0f) ? 1f : 0f;
+                vc.ProvideInputs(steering, throttle, brake);
+            }
+        }
+
+        // 2) Broadcast same inputs to all clients for local prediction
+        RpcReceiveInput(steering, throttle, carNetId);
+    }
+
+    [ClientRpc]
+    private void RpcReceiveInput(float steering, float throttle, uint carNetId)
+    {
+        // Every client—including the one who sent it—applies inputs locally
+        if (NetworkClient.spawned.TryGetValue(carNetId, out var identity))
+        {
+            var vc = identity.GetComponent<ArcadeVehicleController>();
+            if (vc != null)
+            {
+                float brake = (steering == 0f && throttle == 0f) ? 1f : 0f;
+                vc.ProvideInputs(steering, throttle, brake);
+            }
+        }
     }
 }

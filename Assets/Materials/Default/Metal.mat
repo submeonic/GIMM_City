@@ -120,8 +120,8 @@ Material:
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SpecularAmount: 0.09
-    - _SpecularColorBlend: 0.54
+    - _SpecularAmount: -0.02
+    - _SpecularColorBlend: 0.66
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1

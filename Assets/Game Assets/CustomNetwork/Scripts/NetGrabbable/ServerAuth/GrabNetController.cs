@@ -7,7 +7,7 @@ public class GrabNetController : NetworkBehaviour
     private Rigidbody _rb;
 
     // Tracks whether the object is currently grabbed.
-    [SyncVar] private bool isGrabbed = false;
+    [SyncVar] public bool isGrabbed = false;
     // Stores the network identity of the client that grabbed the object.
     [SyncVar] private NetworkIdentity grabber = null;
 
@@ -106,6 +106,13 @@ public class GrabNetController : NetworkBehaviour
     {
         _rb.isKinematic = isKinematic;
         _rb.useGravity = !isKinematic;
+        
+        if (isKinematic)
+        {
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+        }
+        
         RpcSetKinematic(isKinematic);
     }
 
@@ -114,6 +121,12 @@ public class GrabNetController : NetworkBehaviour
     {
         _rb.isKinematic = isKinematic;
         _rb.useGravity = !isKinematic;
+        
+        if (isKinematic)
+        {
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+        }
     }
 
     [ClientRpc]

@@ -4,47 +4,60 @@ using UnityEngine;
 
 public class PlaceMap : NetworkBehaviour
 {
-    [SerializeField] private GameObject map;
+    [SerializeField] private GameObject mapRoot;
     [SerializeField] private GameObject highlight;
-    private Grabbable _grabbable;
     
-    private bool placeable = false;
+    private Grabbable _grabbable;
     private bool selected = false;
-    [SyncVar] private bool placed = false;
+
+    [SyncVar(hook = nameof(OnPlaceableChanged))]
+    private bool placeable = false;
+
+    [SyncVar]
+    private bool placed = false;
 
     private void Awake()
     {
         _grabbable = GetComponent<Grabbable>();
         _grabbable.WhenPointerEventRaised += OnPointerEvent;
+        mapRoot.SetActive(false);
     }
 
-    private void ClientSpawnMapRequest()
+    #region Map Placement
+    
+    [Command(requiresAuthority = false)]
+    private void CmdShowAndMoveMap(Vector3 position, Quaternion rotation)
     {
-        CmdSpawnMap();
+        mapRoot.transform.SetPositionAndRotation(position, rotation);
+        mapRoot.SetActive(true);
+        
+        RpcShowAndMoveMap(position, rotation);
     }
+
+    [ClientRpc]
+    private void RpcShowAndMoveMap(Vector3 position, Quaternion rotation)
+    {
+        mapRoot.transform.SetPositionAndRotation(position, rotation);
+        mapRoot.SetActive(true);
+    }
+        
+    #endregion
+
+    #region Placement Control
 
     [Command(requiresAuthority = false)]
-    private void CmdSpawnMap()
+    private void CmdSetPlaceable(bool canPlace)
     {
-        if (placed) return; // prevent multiple placements
-
-        GameObject spawnedMap = Instantiate(map, transform.position, transform.rotation);
-
-        // First spawn the root map
-        NetworkServer.Spawn(spawnedMap);
-
-        // Now spawn any child NetworkIdentity objects (excluding the root)
-        var childIdentities = spawnedMap.GetComponentsInChildren<NetworkIdentity>(true);
-        foreach (var netId in childIdentities)
+        if (!placed)
         {
-            if (netId.gameObject != spawnedMap) // ⬅️ This is the fix
-            {
-                NetworkServer.Spawn(netId.gameObject);
-            }
+            placeable = canPlace;
         }
+    }
 
-        placed = true;
-        highlight.SetActive(false);
+    private void OnPlaceableChanged(bool oldValue, bool newValue)
+    {
+        if (highlight != null)
+            highlight.SetActive(newValue);
     }
 
     private void OnPointerEvent(PointerEvent evt)
@@ -53,40 +66,36 @@ public class PlaceMap : NetworkBehaviour
         {
             selected = true;
         }
+
         if (evt.Type == PointerEventType.Unselect)
         {
             selected = false;
+
             if (placeable && !placed)
             {
-                ClientSpawnMapRequest();
+                CmdShowAndMoveMap(transform.position, transform.rotation);
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!placed)
+        if (!placed && other.gameObject.layer == LayerMask.NameToLayer("drivable") && selected)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("drivable") && selected)
-            {
-                placeable = true;
-                highlight.SetActive(placeable);
-            }
+            CmdSetPlaceable(true);
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
-        if (!placed)
+        if (!placed && other.gameObject.layer == LayerMask.NameToLayer("drivable"))
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("drivable"))
-            {
-                placeable = false;
-                highlight.SetActive(placeable);
-            }
+            CmdSetPlaceable(false);
         }
     }
-    
+
+    #endregion
+
     private void OnDestroy()
     {
         if (_grabbable != null)
