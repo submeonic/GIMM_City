@@ -1,7 +1,6 @@
 using Mirror;
 using UnityEngine;
 
-
 public class ArcadeVehicleController : NetworkBehaviour
 {
     public enum groundCheck { rayCast, sphereCaste };
@@ -50,41 +49,169 @@ public class ArcadeVehicleController : NetworkBehaviour
     private Vector3 origin;
 
     private GrabNetController grabNetController;
+    
+    [SyncVar] private NetworkIdentity driver; 
 
+    private float inputLerpTimer = 0f;
+
+    private float startS;
+    private float startT;
+    private float startB;
+    
+    private float targetS;
+    private float targetT;
+    private float targetB;
+
+    private float syncTimer = 0;
+    
+    private Vector3 queuedPos;
+    private Quaternion queuedRot;
+    private Vector3 queuedVel;
+    private bool hasQueuedUpdate = false;
+    
+    private float transformLerpTimer = 0f;
+    
+    private Vector3 startPos;
+    private Vector3 targetPos;
+    
+    private Quaternion startRot;
+    private Quaternion targetRot;
+    
+    [HideInInspector]
+    public Vector3 ref_velocity;
+    private Vector3 startVel;
+    private Vector3 targetVel;
+    
+    [SerializeField] private float syncInt = 0.2f;
+    
     private void Start()
     {
         radius = rb.GetComponent<SphereCollider>().radius;
+        grabNetController = GetComponent<GrabNetController>();
         if (movementMode == MovementMode.AngularVelocity)
         {
             Physics.defaultMaxAngularSpeed = 100;
         }
-        grabNetController = GetComponent<GrabNetController>();
-    }
 
-    private void Update()
-    {
-        Visuals();
-        AudioManager();
+        syncInterval = syncInt;
     }
     
-    public void ProvideInputs(float _steeringInput, float _accelerationInput, float _brakeInput)
+    public void ServerSetDriver(NetworkIdentity id)    // called from CmdSetDriver
     {
+        driver = id;
+    }
+    
+    private bool IAmDriver
+    {
+        get
+        {
+            // If not a client, obviously not a driver.
+            if (!NetworkClient.active || NetworkClient.connection == null)
+                return false;
+
+            var myIdentity = NetworkClient.connection.identity;
+            if (myIdentity == null || driver == null)
+                return false;
+
+            // If SyncVar hasn't arrived yet, allow fallback for local player only.
+            if (isOwned && driver.netId == 0)
+                return true; // fallback assumption
+
+            return myIdentity == driver;
+        }
+    }
+
+    public void ClientProvideInputs(float s, float t, float b)
+    {
+        if (!IAmDriver) return;
+        steeringInput = s;
+        accelerationInput = t;
+        brakeInput = b;
+    }
+
+    public void ClientSyncInputs(float s, float t, float b)
+    {
+        CmdSyncInputs(s,t,b);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdSyncInputs(float s, float t, float b, NetworkConnectionToClient sender = null)
+    {
+        RpcSyncInputs(s, t, b);
+    }
+
+    [ClientRpc]
+    private void RpcSyncInputs(float s, float t, float b)
+    {
+        if (IAmDriver) return;  
+        
+        startS = steeringInput;
+        startT = accelerationInput;
+        startB = brakeInput;
+
+        targetS = s;
+        targetT = t;
+        targetB = b;
+
+        inputLerpTimer = 0f;
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdSyncTransform(Vector3 pos, Quaternion rot, Vector3 vel, NetworkConnectionToClient sender = null)
+    {
+        // everyone except connected player
+        RpcSyncTransform(pos, rot, vel);
+    }
+
+    [ClientRpc]
+    private void RpcSyncTransform(Vector3 pos, Quaternion rot, Vector3 vel)
+    {
+        if (IAmDriver) return;
+        
+        startPos = transform.position;
+        startRot = transform.rotation;
+        startVel = carVelocity;
+        
+        targetPos = pos;
+        targetRot = rot;
+        targetVel = vel;
+        
+        transformLerpTimer = 0f;
+    }
+    
+    private void Update()
+    {
+        if (!IAmDriver)               // non‑drivers interpolate
+        {
+            float i = (inputLerpTimer += Time.deltaTime)/syncInt;
+            steeringInput     = Mathf.Lerp(startS,targetS,i);
+            accelerationInput = Mathf.Lerp(startT,targetT,i);
+            brakeInput        = Mathf.Lerp(startB,targetB,i);
+
+            float t = (transformLerpTimer += Time.deltaTime)/syncInt;
+            transform.position = Vector3.Lerp(startPos,targetPos,t);
+            transform.rotation = Quaternion.Slerp(startRot,targetRot,t);
+            ref_velocity       = Vector3.Lerp(startVel,targetVel,t);
+        }
+        
         if (grabNetController.isGrabbed)
         {
             steeringInput = 0f;
             accelerationInput = 0f;
             brakeInput = 1f;
-            return;
         }
-        steeringInput = _steeringInput;
-        accelerationInput = _accelerationInput;
-        brakeInput = _brakeInput;
+        else
+        {
+            
+            Visuals();
+            AudioManager();
+        }
     }
 
     public void AudioManager()
     {
-        engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(carVelocity.z) / MaxSpeed);
-        if (Mathf.Abs(carVelocity.x) > 10 && grounded())
+        engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(ref_velocity.z) / MaxSpeed);
+        if (Mathf.Abs(ref_velocity.x) > 10 && grounded())
         {
             SkidSound.mute = false;
         }
@@ -93,10 +220,20 @@ public class ArcadeVehicleController : NetworkBehaviour
             SkidSound.mute = true;
         }
     }
-
-
+    
     void FixedUpdate()
     {
+        //Only for player with connection
+        
+        bool isGrabbed = grabNetController.isGrabbed;
+        rb.isKinematic = isGrabbed;
+        rb.useGravity = !isGrabbed;
+        carBody.isKinematic = isGrabbed;
+        carBody.useGravity = !isGrabbed;
+        
+        if (isGrabbed) return;
+        if (!IAmDriver) return;
+        
         carVelocity = carBody.transform.InverseTransformDirection(carBody.linearVelocity);
 
         if (Mathf.Abs(carVelocity.x) > 0)
@@ -104,8 +241,7 @@ public class ArcadeVehicleController : NetworkBehaviour
             //changes friction according to sideways speed of car
             frictionMaterial.dynamicFriction = frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / 100));
         }
-
-
+        
         if (grounded())
         {
             //turnlogic
@@ -122,8 +258,7 @@ public class ArcadeVehicleController : NetworkBehaviour
             {
                 carBody.AddTorque(Vector3.up * steeringInput * sign * turn * 100 * TurnMultiplyer);
             }
-
-
+            
 
             // mormal brakelogic
             if (!kartLike)
@@ -180,10 +315,23 @@ public class ArcadeVehicleController : NetworkBehaviour
             }
 
             carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, Vector3.up) * carBody.transform.rotation, 0.02f));
-            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, rb.linearVelocity + Vector3.down * gravity, Time.deltaTime * gravity);
         }
-
+        
+        //sync queue
+        queuedPos = transform.position;
+        queuedRot = transform.rotation;
+        queuedVel = carVelocity;
+        hasQueuedUpdate = true;
+        
+        if (IAmDriver && hasQueuedUpdate &&
+            (syncTimer += Time.fixedDeltaTime) >= syncInterval)
+        {
+            syncTimer = 0f; hasQueuedUpdate = false;
+            CmdSyncTransform(queuedPos, queuedRot, queuedVel);
+        }
     }
+    
+    
     public void Visuals()
     {
         //tires
@@ -197,9 +345,9 @@ public class ArcadeVehicleController : NetworkBehaviour
         RearWheels[1].localRotation = rb.transform.localRotation;
 
         //Body
-        if (carVelocity.z > 1)
+        if (ref_velocity.z > 1)
         {
-            BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, carVelocity.z / MaxSpeed),
+            BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, ref_velocity.z / MaxSpeed),
                                BodyMesh.localRotation.eulerAngles.y, BodyTilt * steeringInput), 0.4f * Time.deltaTime / Time.fixedDeltaTime);
         }
         else
@@ -213,7 +361,7 @@ public class ArcadeVehicleController : NetworkBehaviour
             if (brakeInput > 0.1f)
             {
                 BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
-                Quaternion.Euler(0, 45 * steeringInput * Mathf.Sign(carVelocity.z), 0),
+                Quaternion.Euler(0, 45 * steeringInput * Mathf.Sign(ref_velocity.z), 0),
                 0.1f * Time.deltaTime / Time.fixedDeltaTime);
             }
             else
@@ -278,4 +426,3 @@ public class ArcadeVehicleController : NetworkBehaviour
         }
     }
 }
-

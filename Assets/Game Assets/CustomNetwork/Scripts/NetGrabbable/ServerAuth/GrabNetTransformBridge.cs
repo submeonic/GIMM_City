@@ -4,18 +4,17 @@ using Oculus.Interaction;
 
 public class GrabNetTransformBridge : NetworkBehaviour
 {
+    [SerializeField] private float syncInt = 0.2f;
 
-    // Reference to the Grab Net Controller
     private GrabNetController _grabNetController;
-    
-    // Reference to Meta's Grabbable for input events.
     private Grabbable _grabbable;
 
-    private Vector3 _latestPosition;
-    private Quaternion _latestRotation;
-    
-    // Flag to track if we're currently grabbed.
+    private float syncTimer = 0f;
     private bool isGrabbed = false;
+
+    private Vector3 queuedPosition;
+    private Quaternion queuedRotation;
+    private bool hasQueuedUpdate = false;
 
     private void Awake()
     {
@@ -30,35 +29,47 @@ public class GrabNetTransformBridge : NetworkBehaviour
             _grabbable.WhenPointerEventRaised -= OnPointerEvent;
     }
 
+    private void Update()
+    {
+        if (!isGrabbed || !hasQueuedUpdate || _grabNetController == null)
+            return;
+
+        syncTimer += Time.deltaTime;
+
+        if (syncTimer >= syncInt)
+        {
+            syncTimer = 0f;
+            _grabNetController.ClientSyncTransform(queuedPosition, queuedRotation);
+            hasQueuedUpdate = false;
+        }
+    }
+
     private void OnPointerEvent(PointerEvent evt)
     {
         if (evt.Type == PointerEventType.Select)
         {
-            Debug.Log("[Local Proxy] Grabbing object");
             isGrabbed = true;
             _grabNetController.ClientRequestGrab();
         }
         else if (evt.Type == PointerEventType.Unselect)
         {
-            Debug.Log("[Local Proxy] Releasing object");
             isGrabbed = false;
             _grabNetController.ClientRequestRelease();
         }
     }
-    
-    private void Update()
-    {
-        // While grabbed, continuously send transform updates.
-        if (isGrabbed)
-        {
-            // Send updates to the server
-            _grabNetController.ClientUpdateTransform(_latestPosition, _latestRotation);
-        }
-    }
-    
+
+    /// <summary>
+    /// Called every tick from grab system with latest transform.
+    /// </summary>
     public void UpdateTransformFromTransformer(Vector3 pos, Quaternion rot)
     {
-        _latestPosition = pos;
-        _latestRotation = rot;
+        if (!isGrabbed)
+            return;
+        
+        queuedPosition = pos;
+        queuedRotation = rot;
+        hasQueuedUpdate = true;
+        
+        _grabNetController.ClientUpdateTransform(pos, rot);
     }
 }

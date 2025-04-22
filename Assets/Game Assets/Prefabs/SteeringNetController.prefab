@@ -505,6 +505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7263101577153034502}
+  - component: {fileID: 5411607409606616360}
   m_Layer: 0
   m_Name: Poke Menu
   m_TagString: Untagged
@@ -534,6 +535,21 @@ Transform:
   - {fileID: 29926638092087416}
   m_Father: {fileID: 7110740119775651953}
   m_LocalEulerAnglesHint: {x: 10, y: 180, z: 0}
+--- !u!114 &5411607409606616360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800681341704424605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaef8d26ea000a04cb47aa980d245d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &973822508844365053
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,6 +886,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  smoothingSpeed: 20
 --- !u!1 &1206864990738867164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3545,7 +3562,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _steeringSyncInterval: 0.02
 --- !u!114 &5360085566177176028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3567,7 +3583,7 @@ MonoBehaviour:
   _maxGrabPoints: -1
   _rigidbody: {fileID: 1437271732022026767}
   _kinematicWhileSelected: 1
-  _throwWhenUnselected: 1
+  _throwWhenUnselected: 0
 --- !u!114 &580063568901481273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4715,10 +4731,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  grabMenuController: {fileID: 5411607409606616360}
   prefabToSpawn: {fileID: 4490213541027580100, guid: fa2ecbdbe5f26054eb87ae97d8b69bb5, type: 3}
-  spawnableIsVehicle: 1
-  vehicleInputManager: {fileID: 5797000269142728499}
   menuModel: {fileID: 5985113101140507449}
+  spawnCollider: {fileID: 6277535058222221232}
+  spawnCooldown: 1.5
+  vehicleInputManager: {fileID: 5797000269142728499}
 --- !u!114 &6613745168530904592
 MonoBehaviour:
   m_ObjectHideFlags: 0

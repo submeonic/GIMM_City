@@ -10,125 +10,116 @@ public class MenuGrabbable : NetworkBehaviour
 {
     [Header("Spawn Settings")]
     [SerializeField] private GameObject prefabToSpawn;
-    [SerializeField] private float spawnCooldown = 1.5f;
+    [SerializeField] private float      spawnCooldown = 1.5f;
     [SerializeField] private GameObject menuModel;
 
     [Header("Local References")]
     [SerializeField] private SteeringInputManager vehicleInputManager;
 
-    // ──────────────────────────────────────────────────────────
-    private HandGrabInteractable menuInteractable;
-    private Grabbable            menuGrabbable;
-    private HandGrabInteractor   localInteractor;   // hand that grabbed the menu
-    private HandGrabInteractable spawnedCarInteractable;
-    private bool                 hasSpawned;
+    private HandGrabInteractable handGrabInteractable;
+    private Grabbable            grabbable;
 
-    // server‑only handle so we can replace the old car
-    private GameObject           spawnedCarServer;
+    private HandGrabInteractor   localInteractor;      // hand that grabbed the tile
+    private HandGrabInteractable spawnedCarGrab;       // interactable on spawned car
+
+    private bool   hasSpawned;
+    private GameObject spawnedCar;                     // server‑side handle
+
+    /* ───────────────────────────────────────────── */
 
     private void Awake()
     {
-        menuInteractable = GetComponent<HandGrabInteractable>();
-        menuGrabbable    = GetComponent<Grabbable>();
-        menuGrabbable.WhenPointerEventRaised += OnMenuPointerEvent;
+        handGrabInteractable = GetComponent<HandGrabInteractable>();
+        grabbable            = GetComponent<Grabbable>();
+        grabbable.WhenPointerEventRaised += OnMenuSelect;
     }
 
     private void OnDestroy()
     {
-        menuGrabbable.WhenPointerEventRaised -= OnMenuPointerEvent;
+        grabbable.WhenPointerEventRaised -= OnMenuSelect;
     }
 
-    // ──────────────────────────────────────────────────────────
-    /// <summary>Called every time the menu receives a pointer event.</summary>
-    private void OnMenuPointerEvent(PointerEvent e)
+    /* ───────── menu grab → spawn request ───────── */
+
+    private void OnMenuSelect(PointerEvent evt)
     {
-        // 1) Only care about an actual grab
-        if (e.Type != PointerEventType.Select)          return;
-        if (!isOwned || hasSpawned || prefabToSpawn==null) return;
+        if (evt.Type != PointerEventType.Select) return;
+        if (!isOwned || hasSpawned || prefabToSpawn == null) return;
 
-        // 2) Which hand grabbed?
-        localInteractor = e.Data as HandGrabInteractor;
-        if (localInteractor == null) return;            // safety – shouldn't happen
+        if (grabbable.SelectingPointsCount == 0 ||
+            !handGrabInteractable.SelectingInteractors.Any()) return;
 
-        // 3) Drop the menu, then hide it
-        localInteractor.ForceRelease();                 // clean release
-        menuInteractable.enabled = false;
+        localInteractor = handGrabInteractable.SelectingInteractors.First();
 
-        // 4) Block re‑entry until cooldown
+        handGrabInteractable.enabled = false;          // disable tile
+        localInteractor.Unselect();                    // drop tile
+
         hasSpawned = true;
         StartCoroutine(ResetSpawnCooldown());
 
-        // 5) Ask server to (re)spawn the networked car
-        CmdSpawnOrReplace(prefabToSpawn.name,
-                          menuModel.transform.position,
-                          menuModel.transform.rotation);
+        CmdSpawnOrReplace(
+            prefabToSpawn.name,
+            menuModel.transform.position,
+            menuModel.transform.rotation
+        );
     }
 
-    // ──────────────────────────────────────────────────────────
+    /* ───────── server spawn / replace ───────── */
+
     [Command]
     private void CmdSpawnOrReplace(string prefabName, Vector3 pos, Quaternion rot)
     {
-        if (spawnedCarServer != null)
-        {
-            NetworkServer.Destroy(spawnedCarServer);
-            spawnedCarServer = null;
-        }
+        if (spawnedCar) NetworkServer.Destroy(spawnedCar);
 
-        var prefab = NetworkManager.singleton.spawnPrefabs
-                        .FirstOrDefault(p => p.name == prefabName);
+        var prefab = NetworkManager.singleton.spawnPrefabs.FirstOrDefault(p => p.name == prefabName);
         if (prefab == null)
         {
-            Debug.LogError($"MenuGrabbable: '{prefabName}' not in spawn list.");
+            Debug.LogError($"MenuGrabbable: prefab '{prefabName}' not registered.");
             return;
         }
 
-        spawnedCarServer = Instantiate(prefab, pos, rot);
-        NetworkServer.Spawn(spawnedCarServer, connectionToClient);
+        spawnedCar = Instantiate(prefab, pos, rot);
+        NetworkServer.Spawn(spawnedCar);
+        
+        spawnedCar.GetComponent<ArcadeVehicleController>()?.ServerSetDriver(connectionToClient.identity);
 
-        uint netId = spawnedCarServer.GetComponent<NetworkIdentity>().netId;
+        uint netId = spawnedCar.GetComponent<NetworkIdentity>().netId;
         TargetAssignCar(connectionToClient, netId);
     }
+    
+    /* ───────── client auto‑grab spawned car ───────── */
 
-    // ──────────────────────────────────────────────────────────
     [TargetRpc]
-    private void TargetAssignCar(NetworkConnection _, uint carNetId)
+    private void TargetAssignCar(NetworkConnection _, uint netId)
     {
-        // 1) Hand the SteeringInputManager its new target
-        vehicleInputManager.AssignCar(carNetId);
+        vehicleInputManager.AssignCar(netId);
 
-        // 2) Grab the local clone
-        if (!NetworkClient.spawned.TryGetValue(carNetId, out var ni))
+        var carGO = NetworkClient.spawned[netId].gameObject;
+        spawnedCarGrab = carGO.GetComponent<HandGrabInteractable>();
+        if (localInteractor == null || spawnedCarGrab == null)
         {
-            Debug.LogError("Client has not yet spawned the car!");
+            handGrabInteractable.enabled = true;
             return;
         }
 
-        spawnedCarInteractable = ni.gameObject.GetComponent<HandGrabInteractable>();
-        if (localInteractor == null || spawnedCarInteractable == null)
-        {
-            menuInteractable.enabled = true;            // fail‑safe: re‑enable menu
-            return;
-        }
+        // auto‑grab (user can pinch‑open to drop)
+        localInteractor.ForceSelect(spawnedCarGrab, allowManualRelease: true);
 
-        // 3) Listen for the drop so we can re‑enable the menu later
-        spawnedCarInteractable.WhenPointerEventRaised += OnCarPointerEvent;
-
-        // 4) Force‑grab the car
-        localInteractor.ForceSelect(spawnedCarInteractable, true); // allow pinch‑open to drop
+        // wait until the car is released, then re‑enable menu
+        StartCoroutine(WaitUntilCarReleased());
     }
 
-    // ──────────────────────────────────────────────────────────
-    private void OnCarPointerEvent(PointerEvent e)
+    private IEnumerator WaitUntilCarReleased()
     {
-        if (e.Type != PointerEventType.Unselect) return;
+        // Wait while any hand is selecting the car interactable
+        yield return new WaitUntil(() => !spawnedCarGrab.SelectingInteractors.Any());
 
-        // stop listening
-        spawnedCarInteractable.WhenPointerEventRaised -= OnCarPointerEvent;
-
-        // make the menu grabbable again
-        menuInteractable.enabled = true;
-        localInteractor          = null;
+        handGrabInteractable.enabled = true; // menu usable again
+        localInteractor   = null;
+        spawnedCarGrab    = null;
     }
+
+    /* ───────── cooldown flag ───────── */
 
     private IEnumerator ResetSpawnCooldown()
     {

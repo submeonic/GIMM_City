@@ -7,91 +7,21 @@
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/ArcadeVehicleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/ArcadeVehicleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Cube.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Cube.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Mixed Reality Rig.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/Mixed Reality Rig.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/NetworkedGrabbable.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Prefabs/NetworkedGrabbable.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/OneSteeringNetTransformer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/OneSteeringNetTransformer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetTransformBridge.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetTransformBridge.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/TwoSteeringNetTransformer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/TwoSteeringNetTransformer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetTransformBridge.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetTransformBridge.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/OneGrabNetTransformer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/OneGrabNetTransformer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/AlignmentManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/AlignmentManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/ColocationManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/ColocationManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/ColocationNetworkManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/ColocationNetworkManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/CustomKcpTransport.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/CustomKcpTransport.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/LANDiscovery.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CustomNetwork/Scripts/Server/LANDiscovery.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/CITY-Map.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/CITY-Map.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/InputManager_ArcadeVP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/InputManager_ArcadeVP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/SkidMarks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/SkidMarks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Prefabs/NetworkedGrabbable.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Prefabs/NetworkedGrabbable.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetTransformBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetTransformBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetTransformBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ServerAuth/GrabNetTransformBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/InputManager_Vehicle.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/InputManager_Vehicle.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MenuGrabbable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MenuGrabbable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SteeringInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SteeringInputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelBend.shadergraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelBend.shadergraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelBendDitherClose.shadergraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelBendDitherClose.shadergraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelOccluded.shadergraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelOccluded.shadergraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp1.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp1.psd.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp2.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp2.psd.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp3.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp3.psd.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp4.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/CelRamp/CelRamp4.psd.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/AddAdditionalLights.shadersubgraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/AddAdditionalLights.shadersubgraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/AdjustSmoothness.shadersubgraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/AdjustSmoothness.shadersubgraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/CalculateLightingRamp.shadersubgraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/CalculateLightingRamp.shadersubgraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/CalculateLights.shadersubgraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/CalculateLights.shadersubgraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/CalculateMainLight.shadersubgraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/DependancyGraphs/CalculateMainLight.shadersubgraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/HLSL.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/HLSL/Lighting.hlsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/HLSL/Lighting.hlsl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/Highlight.shadergraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/Highlight.shadergraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/SubGraphs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/SubGraphs/CelShade.shadersubgraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/SubGraphs/CelShade.shadersubgraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/SubGraphs/WorldBend.shadersubgraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/SubGraphs/WorldBend.shadersubgraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Metal.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Default/Metal.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Toon Vehicles Free/Materials/Gradient/Cars_Green.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Toon Vehicles Free/Materials/Gradient/Cars_Green.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,6 +125,13 @@
       <workItem from="1745027631848" duration="704000" />
       <workItem from="1745028355308" duration="13351000" />
       <workItem from="1745187013155" duration="3420000" />
+      <workItem from="1745204844448" duration="6485000" />
+      <workItem from="1745249812125" duration="5895000" />
+      <workItem from="1745275493477" duration="3285000" />
+      <workItem from="1745279710979" duration="615000" />
+      <workItem from="1745281651185" duration="2654000" />
+      <workItem from="1745285199935" duration="3316000" />
+      <workItem from="1745289238101" duration="20780000" />
     </task>
     <servers />
   </component>

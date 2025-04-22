@@ -1,3 +1,4 @@
+using System;
 using Mirror; 
 using UnityEngine;
 
@@ -11,6 +12,17 @@ public class GrabNetController : NetworkBehaviour
     // Stores the network identity of the client that grabbed the object.
     [SyncVar] private NetworkIdentity grabber = null;
 
+    private float lerpTimer = 0f;
+    
+    private Vector3 startPos;
+    private Quaternion startRot;
+    
+    private Vector3 targetPos;
+    private Quaternion targetRot;
+    
+    [SerializeField] private bool shouldStartKinematic = false;
+    [SerializeField] private float syncInt = 0.2f;
+    
     #region Initialization
 
     private void Awake()
@@ -22,8 +34,8 @@ public class GrabNetController : NetworkBehaviour
     {
         base.OnStartServer();
         // Start with physics simulation enabled.
-        _rb.isKinematic = false;
-        _rb.useGravity = true;
+            _rb.isKinematic = shouldStartKinematic;
+            _rb.useGravity = !shouldStartKinematic;
     }
 
     #endregion
@@ -40,10 +52,30 @@ public class GrabNetController : NetworkBehaviour
         CmdTryRelease();
     }
 
-    // This method is called by the local proxy repeatedly to update the object's transform.
     public void ClientUpdateTransform(Vector3 pos, Quaternion rot)
     {
-        CmdUpdateTransform(pos, rot);
+        if (!IAmGrabber)
+            return;
+        
+        transform.position = pos;
+        transform.rotation = rot;
+    }
+
+    public void ClientSyncTransform(Vector3 pos, Quaternion rot)
+    {
+        CmdSyncTransform(pos, rot);
+    }
+    
+    private void Update()
+    {
+        if (!isGrabbed || IAmGrabber)
+            return;
+
+        lerpTimer += Time.deltaTime;
+        float t = Mathf.Clamp01(lerpTimer / syncInt);
+
+        transform.position = Vector3.Lerp(startPos, targetPos, t);
+        transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
     }
 
     #endregion
@@ -59,14 +91,19 @@ public class GrabNetController : NetworkBehaviour
             grabber = sender.identity;
             Debug.Log($"[SERVER-AUTH] {gameObject.name} grabbed by {sender}");
 
-            // Set object to kinematic so physics stops affecting it.
-            SetKinematicState(true);
+            if (!shouldStartKinematic)
+            {
+                SetKinematicState(true);
+            }
 
             RpcOnGrabbed(sender.identity);
         }
         else
         {
-            Debug.Log($"[SERVER-AUTH] {gameObject.name} already grabbed by {grabber}");
+            isGrabbed = true;
+            grabber = sender.identity;
+            Debug.Log($"[SERVER-AUTH] {gameObject.name} is now grabbed by {grabber}");
+            RpcOnGrabbed(sender.identity);
         }
     }
 
@@ -79,8 +116,11 @@ public class GrabNetController : NetworkBehaviour
             grabber = null;
             Debug.Log($"[SERVER-AUTH] {gameObject.name} released by {sender}");
 
-            SetKinematicState(false);
-            RpcOnReleased();
+            if (!shouldStartKinematic)
+            {
+                SetKinematicState(false);
+                RpcOnReleased();
+            }
         }
         else
         {
@@ -90,28 +130,41 @@ public class GrabNetController : NetworkBehaviour
 
     // Command that receives transform updates from the client.
     [Command(requiresAuthority = false)]
-    private void CmdUpdateTransform(Vector3 pos, Quaternion rot, NetworkConnectionToClient sender = null)
+    private void CmdSyncTransform(Vector3 pos, Quaternion rot, NetworkConnectionToClient sender = null)
     {
         // Only update if the sender is the client that grabbed the object.
         if (isGrabbed && grabber == sender.identity)
         {
-            // Update the object's transform on the server.
-            transform.position = Vector3.Lerp(transform.position, pos, 0.85f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, 0.85f);
+            RpcSyncTransform(pos, rot);
         }
     }
 
+    [ClientRpc] 
+    private void RpcSyncTransform(Vector3 pos, Quaternion rot)
+    {
+        if (IAmGrabber)
+            return;
+        
+        startPos = transform.position;
+        startRot = transform.rotation;
+
+        targetPos = pos;
+        targetRot = rot;
+
+        lerpTimer = 0f;
+    }
+    
     [Command(requiresAuthority = false)]
     private void SetKinematicState(bool isKinematic)
     {
-        _rb.isKinematic = isKinematic;
-        _rb.useGravity = !isKinematic;
-        
         if (isKinematic)
         {
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
         }
+        
+        _rb.isKinematic = isKinematic;
+        _rb.useGravity = !isKinematic;
         
         RpcSetKinematic(isKinematic);
     }
@@ -119,14 +172,13 @@ public class GrabNetController : NetworkBehaviour
     [ClientRpc]
     private void RpcSetKinematic(bool isKinematic)
     {
-        _rb.isKinematic = isKinematic;
-        _rb.useGravity = !isKinematic;
-        
         if (isKinematic)
         {
             _rb.linearVelocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
         }
+        _rb.isKinematic = isKinematic;
+        _rb.useGravity = !isKinematic;
     }
 
     [ClientRpc]
@@ -138,8 +190,13 @@ public class GrabNetController : NetworkBehaviour
     [ClientRpc]
     private void RpcOnReleased()
     {
+        grabber = null;
         Debug.Log($"[SERVER-AUTH] {gameObject.name} released");
     }
+    
+    private bool IAmGrabber =>
+        NetworkClient.connection != null &&
+        NetworkClient.connection.identity == grabber;
 
     #endregion
 }

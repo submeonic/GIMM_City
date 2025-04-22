@@ -10373,7 +10373,6 @@ GameObject:
   - component: {fileID: 2163812167482596758}
   - component: {fileID: 1049621861587019707}
   - component: {fileID: 432124541056696511}
-  - component: {fileID: 1077052035440318020}
   - component: {fileID: 6177994689629059904}
   - component: {fileID: 1031648298664114961}
   - component: {fileID: 6279431459313658107}
@@ -10421,6 +10420,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.02
   isGrabbed: 0
+  smoothingSpeed: 20
+  shouldStartKinematic: 1
 --- !u!114 &432124541056696511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10438,39 +10439,6 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &1077052035440318020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4490213541027580100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.02
-  target: {fileID: 2163812167482596758}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  coordinateSpace: 1
-  timelineOffset: 1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChangeCorrectionMultiplier: 2
-  rotationSensitivity: 0.01
-  positionPrecision: 0.01
-  scalePrecision: 0.01
 --- !u!114 &6177994689629059904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10483,13 +10451,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d69c44041501f4aab1c355410d67b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   movementMode: 0
   GroundCheck: 0
   drivableSurface:
     serializedVersion: 2
     m_Bits: 64
   MaxSpeed: 6
-  accelaration: 1.2
+  accelaration: 0
   turn: 0.025
   gravity: 0.75
   downforce: 0.5
@@ -10576,9 +10547,11 @@ MonoBehaviour:
   BodyTilt: 10
   engineSound: {fileID: 8407846966801091570}
   minPitch: 0.3
-  MaxPitch: 3
+  MaxPitch: 0
   SkidSound: {fileID: 8786917270843917062}
   skidWidth: 0.0034962536
+  smoothingSpeed: 20
+  targetCarVelocity: {x: 0, y: 0, z: 0}
 --- !u!65 &1031648298664114961
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10622,8 +10595,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
@@ -10734,8 +10707,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -8831854135074644673, guid: 62cdbf1f184e32a419baf5a64b58f0d1, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: a0212963d11a06c4caa454df8e2a2a57, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3b15a1f3f4b43f54b9b513d9f061a3aa, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3b15a1f3f4b43f54b9b513d9f061a3aa, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -16450,8 +16423,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1

@@ -35,7 +35,7 @@ namespace ArcadeVP
             if (carController.grounded())
             {
 
-                if (Mathf.Abs(carController.carVelocity.x) > 10)
+                if (Mathf.Abs(carController.ref_velocity.x) > 10)
                 {
                     fadeOutSpeed = 0f;
                     skidMark.materials[0].color = Color.black;
