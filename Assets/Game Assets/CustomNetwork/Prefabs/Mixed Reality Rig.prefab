@@ -343,6 +343,125 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hand: {fileID: 6625357821707616154}
+--- !u!1 &116351704535782115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1346532350904282162}
+  - component: {fileID: 2135982733594266471}
+  - component: {fileID: 6828269258198781024}
+  m_Layer: 0
+  m_Name: '[BuildingBlock] MR Utility Kit'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1346532350904282162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116351704535782115}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7415338824193428599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2135982733594266471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116351704535782115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: d4413f4f-542f-451f-92ee-4801f27d676a
+  instanceId: 1ef5fe5e-91e7-41bb-aac7-e54171731e52
+  version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
+--- !u!114 &6828269258198781024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116351704535782115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de27d7f2f20024e18898941292d6c164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <SceneLoadedEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <RoomCreatedEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <RoomUpdatedEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <RoomRemovedEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  EnableWorldLock: 1
+  TrackingSpaceOffset:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  SceneSettings:
+    DataSource: 0
+    RoomIndex: -1
+    RoomPrefabs:
+    - {fileID: 5618556046422172173, guid: 4b454e8ccd6764ccdbcd91586969863f, type: 3}
+    - {fileID: 5618556046422172173, guid: 029ede24e76b24d0888dc235dd0b96f2, type: 3}
+    - {fileID: 5618556046422172173, guid: caa3755f1f2184eb7a9fd17b7cf1f1d3, type: 3}
+    - {fileID: 1766085727792645261, guid: 989283c9dcb36a24aac11a601001dce0, type: 3}
+    - {fileID: 5618556046422172173, guid: b2217186fc11b47638c925d674e7f526, type: 3}
+    - {fileID: 5618556046422172173, guid: 531aeca35d703a64cb0e1fd73a128fc0, type: 3}
+    - {fileID: 5618556046422172173, guid: 3aaa7f66d6713834ca31af8c3d9bebda, type: 3}
+    - {fileID: 5618556046422172173, guid: 1550cf68ffa5a344e881275021bc3ffe, type: 3}
+    - {fileID: 5618556046422172173, guid: 31818101cde292945ab80af5d14bec54, type: 3}
+    - {fileID: 5618556046422172173, guid: c2bd5595e9fe2493a92d4bc0bb264603, type: 3}
+    SceneJsons: []
+    LoadSceneOnStartup: 1
+    SeatWidth: 0.6
+    SceneJson: 
+    <TrackerConfiguration>k__BackingField:
+      <KeyboardTrackingEnabled>k__BackingField: 0
+    <TrackableAdded>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
+    <TrackableRemoved>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &135229183567595611
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,7 +1231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 2bab0be6-31f6-4e30-b3af-d9de42dd2bb2
+  instanceId: f19775dc-cb37-409f-b4ab-7993768f3d99
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -1625,6 +1744,8 @@ Transform:
   m_Children:
   - {fileID: 7111569533171896847}
   - {fileID: 367903468575048795}
+  - {fileID: 1346532350904282162}
+  - {fileID: 2831780736463196822}
   m_Father: {fileID: 7153219451874361859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &541621304574988844
@@ -2306,7 +2427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f10154e0-16b2-492f-97d0-6639f69e7df6
-  instanceId: c74a1735-51bc-43a9-a02c-4f79e28c4cf8
+  instanceId: c59f7d7c-8903-4345-b36d-8ab68217dc60
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -7372,7 +7493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: 5aac15a0-6a7a-434e-842e-94591cb1b946
+  instanceId: 2046232f-0e53-43b0-a74e-fccf5aa33d20
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -8772,7 +8893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 5f2fce12-6358-49c4-9435-6ed09af56e44
+  instanceId: a9563a3d-b58e-4019-b5fb-2f6fc83e6acc
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -11818,7 +11939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: 71b5362a-25d0-42b4-8e30-d0426078d9da
+  instanceId: 3299a6de-0364-46d7-b9db-bcbf3cb5e90f
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -13041,7 +13162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 30bc44f7-9337-45c1-b625-ed1ac737fedb
+  instanceId: d1868a6d-ca30-488d-9e37-67d7b58ac71b
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -14552,6 +14673,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1545220451980919996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6084990333313227181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2831780736463196822}
+  - component: {fileID: 5461424571329251091}
+  - component: {fileID: 8514292779284340253}
+  m_Layer: 0
+  m_Name: '[BuildingBlock] Effect Mesh'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2831780736463196822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084990333313227181}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7415338824193428599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5461424571329251091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084990333313227181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 65c6e778-10b3-4490-89da-008a18aa116a
+  instanceId: ea58d299-fba6-4d37-b691-d5419d4296a2
+  version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
+--- !u!114 &8514292779284340253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084990333313227181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76943ac7e7394f3e969f0c048b26639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnOnStart: 1
+  MeshMaterial: {fileID: 2100000, guid: e6fdaf77a7f44604cbdea9224ae2d658, type: 2}
+  Colliders: 1
+  CutHoles: 0
+  castShadows: 0
+  hideMesh: 0
+  Layer: 0
+  textureCoordinateModes:
+  - WallU: 5
+    WallV: 2
+    AnchorUV: 1
+  Labels: 16159
 --- !u!1 &6097297343637018485
 GameObject:
   m_ObjectHideFlags: 0
@@ -15664,7 +15860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: 2826630c-cc95-4698-8c93-d8c68b5d95ee
+  instanceId: b4daf6a6-26cf-4db2-8692-2631b9d66981
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16157,7 +16353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 868b9e1f-9158-4f33-ae06-9746b924acdd
+  instanceId: af36d5e6-ed00-4388-8d1d-fcc27d424d97
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16601,7 +16797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: beafe141-a6da-4ed1-a700-3f5052180d6d
+  instanceId: 02d25372-38f0-4c01-bfa3-afab855ce004
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16923,7 +17119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: f761edd3-6280-4810-9067-6e320bd1c664
+  instanceId: 3dbd4182-60de-42ba-ba18-de81c82c7e98
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -17037,7 +17233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: 1369af95-055b-4bf5-857d-98376537d38b
+  instanceId: 940a5fc6-55b0-42e0-887b-ca880cad989d
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -19652,7 +19848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: c1e5d0f4-baa2-4529-8211-8641f0bf7df4
+  instanceId: 898301f2-1c0b-4392-9527-ddf72374c89a
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -20395,7 +20591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: f3e4b9a6-b53a-41fb-8c5b-050c16d8f596
+  instanceId: 311c7dbe-c8e7-414a-8dd0-b141e4d659c6
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -21443,7 +21639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 69def4ef-32b4-4e02-84be-6bdc73d4592d
+  instanceId: c94122bc-fd90-438e-9cd2-b801bb5ae010
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 

@@ -125,7 +125,7 @@ public class GrabNetController : NetworkBehaviour
     private void CmdSyncTransform(Vector3 pos, Quaternion rot, NetworkConnectionToClient sender = null)
     {
         // Only update if the sender is the client that grabbed the object.
-        if (isGrabbed && IAmGrabber)
+        if (isGrabbed && sender != null && sender.identity == grabber)
         {
             RpcSyncTransform(pos, rot);
         }

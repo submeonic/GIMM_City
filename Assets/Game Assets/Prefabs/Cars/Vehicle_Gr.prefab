@@ -10459,7 +10459,7 @@ MonoBehaviour:
   GroundCheck: 0
   drivableSurface:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
   MaxSpeed: 6
   accelaration: 1.25
   turn: 0.025

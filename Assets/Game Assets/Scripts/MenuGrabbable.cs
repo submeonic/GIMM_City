@@ -49,14 +49,13 @@ public class MenuGrabbable : NetworkBehaviour
         localInteractor = handGrabInteractable.SelectingInteractors.First();
 
         menuItemGO.SetActive(false);
-        localInteractor.Unselect();
+        localInteractor.ForceRelease();
 
         hasSpawned = true;
-        StartCoroutine(ResetSpawnCooldown());
 
         CmdSpawnOrReplace(
             prefabToSpawn.name,
-            menuModel.transform.position + new Vector3(0, 0.15f, 0),
+            menuModel.transform.position + new Vector3(0, 0.05f, 0),
             menuModel.transform.rotation.normalized
         );
     }
@@ -90,37 +89,60 @@ public class MenuGrabbable : NetworkBehaviour
     private void TargetAssignCar(NetworkConnection _, uint netId)
     {
         vehicleInputManager.AssignCar(netId);
+        StartCoroutine(WaitAndForceGrab(netId));
+    }
 
-        var carGO = NetworkClient.spawned[netId].gameObject;
+    private IEnumerator WaitAndForceGrab(uint netId)
+    {
+        GameObject carGO;
+        NetworkIdentity identity;
+
+        while (!NetworkClient.spawned.TryGetValue(netId, out identity))
+            yield return null;
+
+        carGO = identity.gameObject;
         spawnedCarGrab = carGO.GetComponent<HandGrabInteractable>();
-        if (localInteractor == null || spawnedCarGrab == null)
+
+        if (localInteractor == null)
         {
-            handGrabInteractable.enabled = true;
-            return;
+            Debug.LogWarning("[MenuGrabbable] LocalInteractor was null during WaitAndForceGrab. Cannot force grab.");
+            yield break;
+        }
+        
+        float timer = 0f;
+        while (!localInteractor.CanSelect(spawnedCarGrab))
+        {
+            if (timer >= 5)
+            {
+                Debug.LogWarning("[MenuGrabbable] Timed out waiting for CanSelect.");
+                yield break; // Exit the coroutine early
+            }
+    
+            timer += Time.deltaTime;
+            yield return null;
         }
 
-        // auto‑grab (user can pinch‑open to drop)
+        // Step 1: Force grab without manual release
+        localInteractor.ForceSelect(spawnedCarGrab, allowManualRelease: false);
+        Debug.Log("[MenuGrabbable] Force-selected with manual release disabled.");
+        
+        // Wait 2 seconds
+        yield return new WaitForSeconds(4f);
+        
+        if (spawnedCarGrab == null)
+        {
+            Debug.LogWarning("[MenuGrabbable] Cannot re-select — interactable was destroyed or missing.");
+            yield break;
+        }
+        
+        // Step 2: Re-force grab with manual release enabled
         localInteractor.ForceSelect(spawnedCarGrab, allowManualRelease: true);
+        Debug.Log("[MenuGrabbable] Re-selecting with manual release enabled.");
 
-        // wait until the car is released, then re‑enable menu
-        StartCoroutine(WaitUntilCarReleased());
-    }
-
-    private IEnumerator WaitUntilCarReleased()
-    {
-        // Wait while any hand is selecting the car interactable
-        yield return new WaitUntil(() => !spawnedCarGrab.SelectingInteractors.Any());
-
-        menuItemGO.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        menuItemGO.SetActive(true);
         localInteractor   = null;
         spawnedCarGrab    = null;
-    }
-
-    /* ───────── cooldown flag ───────── */
-
-    private IEnumerator ResetSpawnCooldown()
-    {
-        yield return new WaitForSeconds(spawnCooldown);
         hasSpawned = false;
     }
 }
