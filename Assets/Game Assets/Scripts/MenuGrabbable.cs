@@ -21,11 +21,6 @@ public class MenuGrabbable : NetworkBehaviour
     private HandGrabInteractor   localInteractor;      // hand that grabbed the tile
     private HandGrabInteractable spawnedCarGrab;       // interactable on spawned car
 
-    private bool   hasSpawned;
-    private GameObject spawnedCar;                     // server‑side handle
-
-    /* ───────────────────────────────────────────── */
-
     private void Awake()
     {
         grabbable.WhenPointerEventRaised += OnMenuSelect;
@@ -36,23 +31,23 @@ public class MenuGrabbable : NetworkBehaviour
         grabbable.WhenPointerEventRaised -= OnMenuSelect;
     }
 
-    /* ───────── menu grab → spawn request ───────── */
-
     private void OnMenuSelect(PointerEvent evt)
     {
         if (evt.Type != PointerEventType.Select) return;
-        if (!isOwned || hasSpawned || prefabToSpawn == null) return;
-
-        if (grabbable.SelectingPointsCount == 0 ||
-            !handGrabInteractable.SelectingInteractors.Any()) return;
+        if (!isOwned || prefabToSpawn == null) return;
+        if (grabbable.SelectingPointsCount == 0 || !handGrabInteractable.SelectingInteractors.Any()) return;
 
         localInteractor = handGrabInteractable.SelectingInteractors.First();
+        if (localInteractor == null)
+        {
+            Debug.LogWarning("[MenuGrabbable] LocalInteractor was null.");
+            return;
+        }
 
-        menuItemGO.SetActive(false);
         localInteractor.ForceRelease();
+        menuItemGO.SetActive(false);
 
-        hasSpawned = true;
-
+        // Send spawn request to server
         CmdSpawnOrReplace(
             prefabToSpawn.name,
             menuModel.transform.position + new Vector3(0, 0.05f, 0),
@@ -60,13 +55,9 @@ public class MenuGrabbable : NetworkBehaviour
         );
     }
 
-    /* ───────── server spawn / replace ───────── */
-
     [Command]
-    private void CmdSpawnOrReplace(string prefabName, Vector3 pos, Quaternion rot)
+    private void CmdSpawnOrReplace(string prefabName, Vector3 pos, Quaternion rot, NetworkConnectionToClient sender = null)
     {
-        if (spawnedCar) NetworkServer.Destroy(spawnedCar);
-
         var prefab = NetworkManager.singleton.spawnPrefabs.FirstOrDefault(p => p.name == prefabName);
         if (prefab == null)
         {
@@ -74,19 +65,17 @@ public class MenuGrabbable : NetworkBehaviour
             return;
         }
 
-        spawnedCar = Instantiate(prefab, pos, rot);
-        NetworkServer.Spawn(spawnedCar);
-        
-        spawnedCar.GetComponent<ArcadeVehicleController>()?.ServerSetDriver(connectionToClient.identity);
+        GameObject car = Instantiate(prefab, pos, rot);
+        NetworkServer.Spawn(car);
 
-        uint netId = spawnedCar.GetComponent<NetworkIdentity>().netId;
-        TargetAssignCar(connectionToClient, netId);
+        car.GetComponent<ArcadeVehicleController>()?.ServerSetDriver(sender.identity);
+
+        uint netId = car.GetComponent<NetworkIdentity>().netId;
+        TargetAssignCar(sender, netId);
     }
-    
-    /* ───────── client auto‑grab spawned car ───────── */
 
     [TargetRpc]
-    private void TargetAssignCar(NetworkConnection _, uint netId)
+    private void TargetAssignCar(NetworkConnection target, uint netId)
     {
         vehicleInputManager.AssignCar(netId);
         StartCoroutine(WaitAndForceGrab(netId));
@@ -94,55 +83,46 @@ public class MenuGrabbable : NetworkBehaviour
 
     private IEnumerator WaitAndForceGrab(uint netId)
     {
-        GameObject carGO;
         NetworkIdentity identity;
 
         while (!NetworkClient.spawned.TryGetValue(netId, out identity))
             yield return null;
 
-        carGO = identity.gameObject;
-        spawnedCarGrab = carGO.GetComponent<HandGrabInteractable>();
+        GameObject carGO = identity.gameObject;
+        spawnedCarGrab = carGO.GetComponentInChildren<HandGrabInteractable>();
+
+        if (spawnedCarGrab == null)
+            Debug.LogWarning("[MenuGrabbable] spawnedCarGrab was null!");
 
         if (localInteractor == null)
-        {
-            Debug.LogWarning("[MenuGrabbable] LocalInteractor was null during WaitAndForceGrab. Cannot force grab.");
-            yield break;
-        }
-        
+            Debug.LogWarning("[MenuGrabbable] localInteractor was null!");
+
         float timer = 0f;
         while (!localInteractor.CanSelect(spawnedCarGrab))
         {
-            if (timer >= 5)
+            if (timer >= 5f)
             {
                 Debug.LogWarning("[MenuGrabbable] Timed out waiting for CanSelect.");
-                yield break; // Exit the coroutine early
+                yield break;
             }
-    
             timer += Time.deltaTime;
             yield return null;
         }
 
-        // Step 1: Force grab without manual release
+        // Phase 1: Temporary lock
         localInteractor.ForceSelect(spawnedCarGrab, allowManualRelease: false);
         Debug.Log("[MenuGrabbable] Force-selected with manual release disabled.");
-        
-        // Wait 2 seconds
-        yield return new WaitForSeconds(4f);
-        
-        if (spawnedCarGrab == null)
-        {
-            Debug.LogWarning("[MenuGrabbable] Cannot re-select — interactable was destroyed or missing.");
-            yield break;
-        }
-        
-        // Step 2: Re-force grab with manual release enabled
+
+        yield return new WaitForSeconds(2f);
+
+        // Phase 2: Hand control
         localInteractor.ForceSelect(spawnedCarGrab, allowManualRelease: true);
         Debug.Log("[MenuGrabbable] Re-selecting with manual release enabled.");
 
-        yield return new WaitForSeconds(2f);
+        // Final cleanup
+        yield return new WaitForSeconds(spawnCooldown);
         menuItemGO.SetActive(true);
-        localInteractor   = null;
-        spawnedCarGrab    = null;
-        hasSpawned = false;
+        localInteractor = null;
+        spawnedCarGrab = null;
     }
 }
