@@ -7,8 +7,6 @@
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/ArcadeVehicleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/ArcadeVehicleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/InputManager_ArcadeVP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/InputManager_ArcadeVP.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/SkidMarks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/SkidMarks.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Prefabs/NetworkedGrabbable.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Prefabs/NetworkedGrabbable.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetTransformBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/NetGrabbable/ClientAuth/SteeringNetTransformBridge.cs" afterDir="false" />
@@ -18,9 +16,9 @@
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MenuGrabbable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MenuGrabbable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SteeringInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SteeringInputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Android/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Android/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +129,8 @@
       <workItem from="1745279710979" duration="615000" />
       <workItem from="1745281651185" duration="2654000" />
       <workItem from="1745285199935" duration="3316000" />
-      <workItem from="1745289238101" duration="20780000" />
+      <workItem from="1745289238101" duration="20972000" />
+      <workItem from="1745349054031" duration="19331000" />
     </task>
     <servers />
   </component>

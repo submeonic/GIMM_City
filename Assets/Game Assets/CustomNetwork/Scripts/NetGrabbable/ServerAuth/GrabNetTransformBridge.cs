@@ -1,10 +1,9 @@
-using Mirror;
 using UnityEngine;
 using Oculus.Interaction;
 
-public class GrabNetTransformBridge : NetworkBehaviour
+public class GrabNetTransformBridge : MonoBehaviour
 {
-    [SerializeField] private float syncInt = 0.2f;
+    [SerializeField] private float syncInt = 0.1f;
 
     private GrabNetController _grabNetController;
     private Grabbable _grabbable;

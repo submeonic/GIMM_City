@@ -8,7 +8,7 @@ public class SteeringInputManager : NetworkBehaviour
     [Header("Optional debug")]
     [SerializeField] private TextMeshProUGUI debugText;
 
-    [SerializeField] private float syncInt = 0.2f;   // how often to forward to server
+    [SerializeField] private float syncInt = 0.1f;   // how often to forward to server
 
     /* NetId of the car we control, set by MenuGrabbable */
     private uint controlledCarNetId;

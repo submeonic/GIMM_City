@@ -829,6 +829,7 @@ GameObject:
   - component: {fileID: 7110740119775651953}
   - component: {fileID: 5694025358181579448}
   - component: {fileID: 3541710698294379112}
+  - component: {fileID: 4335748043648330081}
   m_Layer: 0
   m_Name: SteeringNetController
   m_TagString: Untagged
@@ -886,7 +887,29 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  smoothingSpeed: 20
+  syncInt: 0.1
+--- !u!114 &4335748043648330081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181580100754310691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5beb33903b938f468f23c1386dfdcfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  prefabToSpawn: {fileID: 4490213541027580100, guid: fa2ecbdbe5f26054eb87ae97d8b69bb5, type: 3}
+  spawnCooldown: 1.5
+  menuModel: {fileID: 5985113101140507449}
+  vehicleInputManager: {fileID: 5797000269142728499}
+  menuItemGO: {fileID: 5183379671489270752}
+  handGrabInteractable: {fileID: 2710939248601135451}
+  grabbable: {fileID: 6613745168530904592}
 --- !u!1 &1206864990738867164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3505,7 +3528,6 @@ GameObject:
   - component: {fileID: 4770575488411266419}
   - component: {fileID: 5360085566177176028}
   - component: {fileID: 580063568901481273}
-  - component: {fileID: 5184118830911577911}
   - component: {fileID: 4891629416196698407}
   - component: {fileID: 3998733863351297788}
   - component: {fileID: 5797000269142728499}
@@ -3559,9 +3581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5855d4af8e959840a05ac34da04b13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
+  syncInt: 0.1
 --- !u!114 &5360085566177176028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3625,29 +3645,6 @@ MonoBehaviour:
   _movementProvider: {fileID: 0}
   _handAligment: 1
   _handGrabPoses: []
---- !u!114 &5184118830911577911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5161195499552844695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactorFilters: []
-  _maxInteractors: -1
-  _maxSelectingInteractors: -1
-  _data: {fileID: 0}
-  _pointableElement: {fileID: 5360085566177176028}
-  _rigidbody: {fileID: 1437271732022026767}
-  _grabSource: {fileID: 0}
-  _useClosestPointAsGrabSource: 0
-  _releaseDistance: 0
-  _resetGrabOnGrabsUpdated: 1
-  _physicsGrabbable: {fileID: 0}
 --- !u!114 &4891629416196698407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3729,6 +3726,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugText: {fileID: 4541479615791785289}
+  syncInt: 0.1
 --- !u!114 &8551861046522071389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4689,7 +4687,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4766690421107705945}
-  - component: {fileID: 569140101559631837}
   - component: {fileID: 6613745168530904592}
   - component: {fileID: 2710939248601135451}
   - component: {fileID: 3940644469912856215}
@@ -4716,27 +4713,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 29926638092087416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &569140101559631837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5940728707880579249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5beb33903b938f468f23c1386dfdcfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  grabMenuController: {fileID: 5411607409606616360}
-  prefabToSpawn: {fileID: 4490213541027580100, guid: fa2ecbdbe5f26054eb87ae97d8b69bb5, type: 3}
-  menuModel: {fileID: 5985113101140507449}
-  spawnCollider: {fileID: 6277535058222221232}
-  spawnCooldown: 1.5
-  vehicleInputManager: {fileID: 5797000269142728499}
 --- !u!114 &6613745168530904592
 MonoBehaviour:
   m_ObjectHideFlags: 0

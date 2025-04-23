@@ -1,11 +1,11 @@
-using System;
 using Mirror; 
 using UnityEngine;
 
 public class GrabNetController : NetworkBehaviour
 {
     // Cached component references.
-    private Rigidbody _rb;
+    [Tooltip("Optional")]
+    [SerializeField] private Rigidbody _rb;
 
     // Tracks whether the object is currently grabbed.
     [SyncVar] public bool isGrabbed = false;
@@ -20,36 +20,31 @@ public class GrabNetController : NetworkBehaviour
     private Vector3 targetPos;
     private Quaternion targetRot;
     
-    [SerializeField] private bool shouldStartKinematic = false;
-    [SerializeField] private float syncInt = 0.2f;
+    [SerializeField] private bool isVehicle = false;
+    [SerializeField] private float syncInt = 0.1f;
     
     #region Initialization
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        if (_rb == null)
+        {
+            _rb = GetComponent<Rigidbody>();
+        }
     }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        // Start with physics simulation enabled.
-            _rb.isKinematic = shouldStartKinematic;
-            _rb.useGravity = !shouldStartKinematic;
-    }
-
+    
     #endregion
 
     #region Public Methods (Called by Grab Net Transform Bridge)
 
     public void ClientRequestGrab()
     {
-        CmdTryGrab();
+        CmdTryGrab(NetworkClient.connection.identity);
     }
 
     public void ClientRequestRelease()
     {
-        CmdTryRelease();
+        CmdTryRelease(NetworkClient.connection.identity);
     }
 
     public void ClientUpdateTransform(Vector3 pos, Quaternion rot)
@@ -83,48 +78,45 @@ public class GrabNetController : NetworkBehaviour
     #region Network Commands & RPCs
 
     [Command(requiresAuthority = false)]
-    private void CmdTryGrab(NetworkConnectionToClient sender = null)
+    private void CmdTryGrab(NetworkIdentity grabberId)
     {
         if (!isGrabbed)
         {
             isGrabbed = true;
-            grabber = sender.identity;
-            Debug.Log($"[SERVER-AUTH] {gameObject.name} grabbed by {sender}");
-
-            if (!shouldStartKinematic)
+            grabber = grabberId;
+            Debug.Log($"[SERVER-AUTH] {gameObject.name} grabbed by {grabberId}");
+            RpcOnGrabbed(grabberId);
+            if (!isVehicle)
             {
                 SetKinematicState(true);
             }
-
-            RpcOnGrabbed(sender.identity);
         }
         else
         {
             isGrabbed = true;
-            grabber = sender.identity;
-            Debug.Log($"[SERVER-AUTH] {gameObject.name} is now grabbed by {grabber}");
-            RpcOnGrabbed(sender.identity);
+            grabber = grabberId;
+            Debug.Log($"[SERVER-AUTH] {gameObject.name} is now grabbed by {grabberId}");
+            RpcOnGrabbed(grabberId);
         }
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdTryRelease(NetworkConnectionToClient sender = null)
+    private void CmdTryRelease(NetworkIdentity grabberId)
     {
-        if (isGrabbed && grabber == sender.identity)
+        if (isGrabbed && grabber == grabberId)
         {
             isGrabbed = false;
             grabber = null;
-            Debug.Log($"[SERVER-AUTH] {gameObject.name} released by {sender}");
-
-            if (!shouldStartKinematic)
+            Debug.Log($"[SERVER-AUTH] {gameObject.name} released by {grabberId}");
+            RpcOnReleased();
+            if (!isVehicle)
             {
                 SetKinematicState(false);
-                RpcOnReleased();
             }
         }
         else
         {
-            Debug.LogWarning($"[SERVER-AUTH] {gameObject.name} release attempt by {sender} rejected.");
+            Debug.LogWarning($"[SERVER-AUTH] {gameObject.name} release attempt by {grabberId} rejected.");
         }
     }
 
@@ -133,7 +125,7 @@ public class GrabNetController : NetworkBehaviour
     private void CmdSyncTransform(Vector3 pos, Quaternion rot, NetworkConnectionToClient sender = null)
     {
         // Only update if the sender is the client that grabbed the object.
-        if (isGrabbed && grabber == sender.identity)
+        if (isGrabbed && IAmGrabber)
         {
             RpcSyncTransform(pos, rot);
         }
@@ -143,6 +135,8 @@ public class GrabNetController : NetworkBehaviour
     private void RpcSyncTransform(Vector3 pos, Quaternion rot)
     {
         if (IAmGrabber)
+            return;
+        if (!isGrabbed)
             return;
         
         startPos = transform.position;
@@ -190,7 +184,6 @@ public class GrabNetController : NetworkBehaviour
     [ClientRpc]
     private void RpcOnReleased()
     {
-        grabber = null;
         Debug.Log($"[SERVER-AUTH] {gameObject.name} released");
     }
     

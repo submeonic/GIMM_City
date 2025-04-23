@@ -7,7 +7,7 @@ using UnityEngine;
 public class SteeringNetController : NetworkBehaviour
 {
     [Tooltip("Must match sender's sync interval for clean interpolation")]
-    [SerializeField] private float syncInt = 0.2f;
+    [SerializeField] private float syncInt = 0.1f;
 
     private Transform steeringTransform;
 

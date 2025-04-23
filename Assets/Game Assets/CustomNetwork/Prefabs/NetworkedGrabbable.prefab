@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1800300871091045589}
   - component: {fileID: 8367342890110953553}
   - component: {fileID: 101418614271750309}
-  - component: {fileID: 4605898179961581297}
   - component: {fileID: 2956149796956001612}
   - component: {fileID: 1976138507318390480}
   - component: {fileID: 1468707059486984218}
@@ -59,7 +58,7 @@ MonoBehaviour:
   _targetTransform: {fileID: 4501879717733841103}
   _maxGrabPoints: -1
   _rigidbody: {fileID: 7497052105097760303}
-  _kinematicWhileSelected: 0
+  _kinematicWhileSelected: 1
   _throwWhenUnselected: 0
 --- !u!114 &1800300871091045589
 MonoBehaviour:
@@ -118,9 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e5dc933b8ce4a46b7c30ecb8325f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
+  syncInt: 0.1
 --- !u!114 &101418614271750309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,29 +159,6 @@ MonoBehaviour:
   _movementProvider: {fileID: 0}
   _handAligment: 0
   _handGrabPoses: []
---- !u!114 &4605898179961581297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3815052694863903153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactorFilters: []
-  _maxInteractors: -1
-  _maxSelectingInteractors: -1
-  _data: {fileID: 0}
-  _pointableElement: {fileID: 8863991491997718636}
-  _rigidbody: {fileID: 7497052105097760303}
-  _grabSource: {fileID: 0}
-  _useClosestPointAsGrabSource: 0
-  _releaseDistance: 0
-  _resetGrabOnGrabsUpdated: 1
-  _physicsGrabbable: {fileID: 0}
 --- !u!114 &2956149796956001612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,9 +347,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.02
+  _rb: {fileID: 7497052105097760303}
   isGrabbed: 0
-  smoothingSpeed: 20
-  shouldStartKinematic: 0
+  isVehicle: 0
+  syncInt: 0.1
 --- !u!114 &3275908327839056357
 MonoBehaviour:
   m_ObjectHideFlags: 0

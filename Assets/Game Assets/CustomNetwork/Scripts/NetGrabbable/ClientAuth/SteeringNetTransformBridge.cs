@@ -1,14 +1,13 @@
-using Mirror;
 using UnityEngine;
 
 /// <summary>
 /// Called every tick with a new local transform. Sends updates to the server
 /// at a fixed sync interval (e.g., 0.2s) for forwarding to other clients.
 /// </summary>
-public class SteeringNetTransformBridge : NetworkBehaviour
+public class SteeringNetTransformBridge : MonoBehaviour
 {
     [Tooltip("Seconds between network updates")]
-    [SerializeField] private float syncInt = 0.2f;
+    [SerializeField] private float syncInt = 0.1f;
 
     private SteeringNetController netController;
     private float syncTimer = 0f;
@@ -24,7 +23,7 @@ public class SteeringNetTransformBridge : NetworkBehaviour
 
     private void Update()
     {
-        if (!isOwned || netController == null || !hasQueuedUpdate)
+        if (netController == null || !hasQueuedUpdate)
             return;
 
         syncTimer += Time.deltaTime;
@@ -43,7 +42,7 @@ public class SteeringNetTransformBridge : NetworkBehaviour
     /// </summary>
     public void UpdateTransformFromTransformer(Vector3 pos, Quaternion rot)
     {
-        if (!isOwned || netController == null)
+        if (netController == null)
             return;
 
         queuedPosition = pos;

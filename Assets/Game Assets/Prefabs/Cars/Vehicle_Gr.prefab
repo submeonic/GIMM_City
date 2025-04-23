@@ -10419,9 +10419,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.02
+  _rb: {fileID: 0}
   isGrabbed: 0
-  smoothingSpeed: 20
-  shouldStartKinematic: 1
+  isVehicle: 1
+  syncInt: 0.1
 --- !u!114 &432124541056696511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10460,7 +10461,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   MaxSpeed: 6
-  accelaration: 0
+  accelaration: 1.25
   turn: 0.025
   gravity: 0.75
   downforce: 0.5
@@ -10550,8 +10551,8 @@ MonoBehaviour:
   MaxPitch: 0
   SkidSound: {fileID: 8786917270843917062}
   skidWidth: 0.0034962536
-  smoothingSpeed: 20
-  targetCarVelocity: {x: 0, y: 0, z: 0}
+  ref_velocity: {x: 0, y: 0, z: 0}
+  syncInt: 0.1
 --- !u!65 &1031648298664114961
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15889,7 +15890,6 @@ GameObject:
   - component: {fileID: 8347539453631275893}
   - component: {fileID: 3944543057016391274}
   - component: {fileID: 5912601278000467254}
-  - component: {fileID: 7021352365483823572}
   - component: {fileID: 3390856077201101256}
   - component: {fileID: 1858440891976134009}
   - component: {fileID: 5257215067141733496}
@@ -15935,7 +15935,7 @@ MonoBehaviour:
   _targetTransform: {fileID: 2163812167482596758}
   _maxGrabPoints: -1
   _rigidbody: {fileID: 6279431459313658107}
-  _kinematicWhileSelected: 1
+  _kinematicWhileSelected: 0
   _throwWhenUnselected: 0
 --- !u!114 &8347539453631275893
 MonoBehaviour:
@@ -15994,9 +15994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e5dc933b8ce4a46b7c30ecb8325f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
+  syncInt: 0.1
 --- !u!114 &5912601278000467254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16038,29 +16036,6 @@ MonoBehaviour:
   _movementProvider: {fileID: 0}
   _handAligment: 0
   _handGrabPoses: []
---- !u!114 &7021352365483823572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5964101516509126236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactorFilters: []
-  _maxInteractors: -1
-  _maxSelectingInteractors: -1
-  _data: {fileID: 0}
-  _pointableElement: {fileID: 8013701394058872497}
-  _rigidbody: {fileID: 6279431459313658107}
-  _grabSource: {fileID: 0}
-  _useClosestPointAsGrabSource: 0
-  _releaseDistance: 0
-  _resetGrabOnGrabsUpdated: 1
-  _physicsGrabbable: {fileID: 0}
 --- !u!114 &3390856077201101256
 MonoBehaviour:
   m_ObjectHideFlags: 0

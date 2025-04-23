@@ -2240,6 +2240,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7096121165300683515, guid: 27a7822831d82ac43ae9b62d9f233032, type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1348154488}
+    - target: {fileID: 8863991491997718636, guid: 27a7822831d82ac43ae9b62d9f233032, type: 3}
+      propertyPath: _kinematicWhileSelected
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3682,6 +3690,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1348154488 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7497052105097760303, guid: 27a7822831d82ac43ae9b62d9f233032, type: 3}
+  m_PrefabInstance: {fileID: 651274841}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1377110847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4936,7 +4949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00030517578
+      value: -0.0006713867
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5699,9 +5712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e5dc933b8ce4a46b7c30ecb8325f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   syncInt: 0.2
 --- !u!54 &1723642379390100990
 Rigidbody:
@@ -5745,8 +5755,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.02
+  _rb: {fileID: 0}
   isGrabbed: 0
-  shouldStartKinematic: 0
+  isVehicle: 0
   syncInt: 0.2
 --- !u!114 &4614524177470391584
 MonoBehaviour:

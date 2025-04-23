@@ -5,7 +5,6 @@ using UnityEngine;
 using Oculus.Interaction;
 using Oculus.Interaction.HandGrab;
 
-[RequireComponent(typeof(HandGrabInteractable), typeof(Grabbable))]
 public class MenuGrabbable : NetworkBehaviour
 {
     [Header("Spawn Settings")]
@@ -15,9 +14,9 @@ public class MenuGrabbable : NetworkBehaviour
 
     [Header("Local References")]
     [SerializeField] private SteeringInputManager vehicleInputManager;
-
-    private HandGrabInteractable handGrabInteractable;
-    private Grabbable            grabbable;
+    [SerializeField] private GameObject           menuItemGO;
+    [SerializeField] private HandGrabInteractable handGrabInteractable;
+    [SerializeField] private Grabbable            grabbable;
 
     private HandGrabInteractor   localInteractor;      // hand that grabbed the tile
     private HandGrabInteractable spawnedCarGrab;       // interactable on spawned car
@@ -29,8 +28,6 @@ public class MenuGrabbable : NetworkBehaviour
 
     private void Awake()
     {
-        handGrabInteractable = GetComponent<HandGrabInteractable>();
-        grabbable            = GetComponent<Grabbable>();
         grabbable.WhenPointerEventRaised += OnMenuSelect;
     }
 
@@ -51,16 +48,16 @@ public class MenuGrabbable : NetworkBehaviour
 
         localInteractor = handGrabInteractable.SelectingInteractors.First();
 
-        handGrabInteractable.enabled = false;          // disable tile
-        localInteractor.Unselect();                    // drop tile
+        menuItemGO.SetActive(false);
+        localInteractor.Unselect();
 
         hasSpawned = true;
         StartCoroutine(ResetSpawnCooldown());
 
         CmdSpawnOrReplace(
             prefabToSpawn.name,
-            menuModel.transform.position,
-            menuModel.transform.rotation
+            menuModel.transform.position + new Vector3(0, 0.15f, 0),
+            menuModel.transform.rotation.normalized
         );
     }
 
@@ -114,7 +111,7 @@ public class MenuGrabbable : NetworkBehaviour
         // Wait while any hand is selecting the car interactable
         yield return new WaitUntil(() => !spawnedCarGrab.SelectingInteractors.Any());
 
-        handGrabInteractable.enabled = true; // menu usable again
+        menuItemGO.SetActive(false);
         localInteractor   = null;
         spawnedCarGrab    = null;
     }
