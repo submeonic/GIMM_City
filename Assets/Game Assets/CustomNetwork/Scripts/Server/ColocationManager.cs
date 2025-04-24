@@ -14,11 +14,6 @@ public class ColocationManager : NetworkBehaviour
     // The session's group ID remains constant for the session.
     private Guid _sharedAnchorGroupId;
 
-    // This SyncVar holds the unique identifier (UUID) of the current spatial anchor as a string.
-    // When updated, the hook triggers clients to re-align.
-    [SyncVar(hook = nameof(OnCurrentAnchorUuidChanged))]
-    public string currentAnchorUuid = "";
-
     // Flag indicating that colocation (anchor discovery/advertisement) succeeded.
     public static bool ColocationSuccessful { get; private set; } = false;
 
@@ -29,9 +24,6 @@ public class ColocationManager : NetworkBehaviour
         base.OnStartServer();
         Debug.Log("ColocationManager: Server started, preparing colocation session.");
         StartColocationSession();
-
-        // Subscribe to host recenter events.
-        OVRManager.display.RecenteredPose += OnHostRecenteredPose;
     }
 
     /// <summary>
@@ -59,21 +51,20 @@ public class ColocationManager : NetworkBehaviour
 
             Uri parsedUri = new Uri(uri);
             string ipAddress = parsedUri.Host;
+            
             string advertisementMessage = $"SharedSpatialAnchorSession|{ipAddress}";
             byte[] advertisementData = Encoding.UTF8.GetBytes(advertisementMessage);
 
-            var startResult = await OVRColocationSession.StartAdvertisementAsync(advertisementData);
-            if (startResult.Success)
+            var startAdvertisementResult = await OVRColocationSession.StartAdvertisementAsync(advertisementData);
+            if (startAdvertisementResult.Success)
             {
-                _sharedAnchorGroupId = startResult.Value;
-                Debug.Log($"ColocationManager: Advertisement started. GroupID: {_sharedAnchorGroupId}, LAN: {ipAddress}");
-                // Optionally store the group ID as a string elsewhere if needed.
-                // Now create and share the initial anchor.
-                await CreateAndShareInitialAnchor();
+                _sharedAnchorGroupId = startAdvertisementResult.Value;
+                Debug.Log($"ColocationManager: Advertisement started. UUID: {_sharedAnchorGroupId}, LAN: {ipAddress}");
+                await CreateAndShareAlignmentAnchor();
             }
             else
             {
-                Debug.LogError($"ColocationManager: Advertisement failed with status: {startResult.Status}");
+                Debug.LogError($"ColocationManager: Advertisement failed with status: {startAdvertisementResult.Status}");
             }
         }
         catch (Exception e)
@@ -82,7 +73,7 @@ public class ColocationManager : NetworkBehaviour
         }
     }
 
-    private async Task CreateAndShareInitialAnchor()
+    private async Task CreateAndShareAlignmentAnchor()
     {
         try
         {
@@ -112,65 +103,15 @@ public class ColocationManager : NetworkBehaviour
                 Debug.LogError($"ColocationManager: Failed to share initial anchor. Error: {shareResult}");
                 return;
             }
-            // Update the SyncVar so that clients load this anchor.
-            currentAnchorUuid = anchor.Uuid.ToString();
-            Debug.Log("ColocationManager: Initial alignment anchor shared and synchronized.");
+            
+            Debug.Log($"ColocationManager: Alignment anchor shared successfull. GroupUUID: {_sharedAnchorGroupId}");
         }
         catch (Exception e)
         {
             Debug.LogError($"ColocationManager: Error during initial anchor creation and sharing: {e.Message}");
         }
     }
-
-    /// <summary>
-    /// When the host recenters, update the shared spatial anchor without starting a new session.
-    /// </summary>
-    private async void OnHostRecenteredPose()
-    {
-        if (!isServer) return;
-        Debug.Log("ColocationManager (Server): Host recentered. Updating shared anchor...");
-        await UpdateSharedAnchor();
-    }
-
-    private async Task UpdateSharedAnchor()
-    {
-        try
-        {
-            // Create a new alignment anchor at the host’s current origin.
-            var anchor = await CreateAnchor(Vector3.zero, Quaternion.identity);
-            if (anchor == null)
-            {
-                Debug.LogError("ColocationManager: Failed to update alignment anchor.");
-                return;
-            }
-            if (!anchor.Localized)
-            {
-                Debug.LogError("ColocationManager: Updated anchor is not localized.");
-                return;
-            }
-            var saveResult = await anchor.SaveAnchorAsync();
-            if (!saveResult.Success)
-            {
-                Debug.LogError($"ColocationManager: Failed to save updated anchor. Error: {saveResult}");
-                return;
-            }
-            Debug.Log($"ColocationManager: Updated alignment anchor saved. UUID: {anchor.Uuid}");
-
-            var shareResult = await OVRSpatialAnchor.ShareAsync(new List<OVRSpatialAnchor> { anchor }, _sharedAnchorGroupId);
-            if (!shareResult.Success)
-            {
-                Debug.LogError($"ColocationManager: Failed to share updated anchor. Error: {shareResult}");
-                return;
-            }
-            // Update the SyncVar so that clients are notified of the new anchor.
-            currentAnchorUuid = anchor.Uuid.ToString();
-            Debug.Log("ColocationManager: Shared anchor updated and synchronized.");
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"ColocationManager: Error during anchor update: {e.Message}");
-        }
-    }
+    
 
     // Creates an OVRSpatialAnchor at a given position and rotation.
     private async Task<OVRSpatialAnchor> CreateAnchor(Vector3 position, Quaternion rotation)
@@ -219,16 +160,6 @@ public class ColocationManager : NetworkBehaviour
         base.OnStartClient();
         Debug.Log("ColocationManager: Client started, searching for colocation session...");
         DiscoverNearbySession();
-
-        // Subscribe to client recenter events.
-        OVRManager.display.RecenteredPose += OnClientRecenteredPose;
-    }
-
-    public override void OnStopClient()
-    {
-        base.OnStopClient();
-        // Unsubscribe from client recenter events.
-        OVRManager.display.RecenteredPose -= OnClientRecenteredPose;
     }
 
     private async void DiscoverNearbySession()
@@ -242,13 +173,7 @@ public class ColocationManager : NetworkBehaviour
                 Debug.LogError($"ColocationManager: Discovery failed with status: {discoveryResult.Status}");
                 return;
             }
-            Debug.Log("ColocationManager: Discovery started. Will fall back to LAN if no session found.");
-            await Task.Delay(100000); // 100-second timeout
-            if (string.IsNullOrEmpty(currentAnchorUuid))
-            {
-                Debug.LogWarning("ColocationManager: No session discovered, switching to LAN discovery.");
-                lanDiscovery.StartClientDiscoveryWithFallback();
-            }
+            Debug.Log("ColocationManager: Discovery started successfully.");
         }
         catch (Exception e)
         {
@@ -271,25 +196,12 @@ public class ColocationManager : NetworkBehaviour
 
         _sharedAnchorGroupId = session.AdvertisementUuid;
         string lanServerAddress = splitData[1];
-        // On discovery, update the current anchor UUID if not already set.
-        if (string.IsNullOrEmpty(currentAnchorUuid))
-            currentAnchorUuid = _sharedAnchorGroupId.ToString();
-
-        Debug.Log($"ColocationManager: Discovered session. GroupID: {_sharedAnchorGroupId}, LAN: {lanServerAddress}");
-        ColocationSuccessful = true;
-        RequestAnchorSync(_sharedAnchorGroupId);
+        Debug.Log($"ColocationManager: Discovered session. UUID: {_sharedAnchorGroupId}, LAN: {lanServerAddress}");
+        LoadAndAlignToAnchor(_sharedAnchorGroupId);
         networkManager.RequestLanConnection(lanServerAddress);
     }
 
-    /// <summary>
-    /// Initiates anchor loading and alignment on the client using the current shared anchor.
-    /// </summary>
-    public void RequestAnchorSync(Guid groupUuid)
-    {
-        LoadAndAlignToAnchor(groupUuid, currentAnchorUuid);
-    }
-
-    private async void LoadAndAlignToAnchor(Guid groupUuid, string expectedAnchorUuid)
+    private async void LoadAndAlignToAnchor(Guid groupUuid)
     {
         try
         {
@@ -303,53 +215,24 @@ public class ColocationManager : NetworkBehaviour
             }
             foreach (var unboundAnchor in unboundAnchors)
             {
-                // Compare using ToString() so that both sides are strings.
-                if (unboundAnchor.Uuid.ToString() == expectedAnchorUuid)
+                if (await unboundAnchor.LocalizeAsync())
                 {
-                    if (await unboundAnchor.LocalizeAsync())
-                    {
-                        Debug.Log($"ColocationManager: Anchor {expectedAnchorUuid} localized successfully.");
-                        var anchorGO = new GameObject($"Anchor_{expectedAnchorUuid}");
-                        var spatialAnchor = anchorGO.AddComponent<OVRSpatialAnchor>();
-                        unboundAnchor.BindTo(spatialAnchor);
-                        alignmentManager.AlignUserToAnchor(spatialAnchor);
-                        return;
-                    }
+                    Debug.Log($"ColocationManager: Anchor localized successfully. UUID: {unboundAnchor.Uuid}");
+                    var anchorGO = new GameObject($"Anchor_{unboundAnchor.Uuid}");
+                    var spatialAnchor = anchorGO.AddComponent<OVRSpatialAnchor>();
+                    unboundAnchor.BindTo(spatialAnchor);
+                    alignmentManager.AlignUserToAnchor(spatialAnchor);
+                    return;
                 }
+                
+                Debug.LogWarning($"ColocationManager: Failed to localize anchor: {unboundAnchor.Uuid}");
             }
-            Debug.LogWarning($"ColocationManager: Could not localize anchor with expected UUID: {expectedAnchorUuid}");
         }
         catch (Exception e)
         {
             Debug.LogError($"ColocationManager: Error during anchor loading and alignment: {e.Message}");
         }
     }
-
-    /// <summary>
-    /// Client recenter event handler. When the client recenters, re-align with the current shared anchor.
-    /// </summary>
-    private void OnClientRecenteredPose()
-    {
-        Debug.Log("ColocationManager (Client): Recentered. Realigning to current shared anchor.");
-        if (!string.IsNullOrEmpty(currentAnchorUuid))
-        {
-            RequestAnchorSync(_sharedAnchorGroupId);
-        }
-    }
-
-    #endregion
-
-    #region SyncVar Hook
-
-    private void OnCurrentAnchorUuidChanged(string oldValue, string newValue)
-    {
-        Debug.Log($"ColocationManager: Shared anchor updated from {oldValue} to {newValue}");
-        // If we're on a client, trigger re-alignment.
-        if (!isServer && !string.IsNullOrEmpty(newValue))
-        {
-            RequestAnchorSync(_sharedAnchorGroupId);
-        }
-    }
-
+    
     #endregion
 }

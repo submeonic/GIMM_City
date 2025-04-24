@@ -27,7 +27,7 @@ MonoBehaviour:
   virtualKeyboardSupport: 0
   colocationSessionSupport: 2
   sceneSupport: 2
-  boundaryVisibilitySupport: 2
+  boundaryVisibilitySupport: 0
   disableBackups: 1
   enableNSCConfig: 1
   securityXmlPath: 

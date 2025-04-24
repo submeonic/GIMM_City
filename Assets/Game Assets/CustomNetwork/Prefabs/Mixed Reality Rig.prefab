@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: d4413f4f-542f-451f-92ee-4801f27d676a
-  instanceId: 1ef5fe5e-91e7-41bb-aac7-e54171731e52
+  instanceId: fc5aca13-82d1-4e46-bf04-82fdaeee96c8
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: f19775dc-cb37-409f-b4ab-7993768f3d99
+  instanceId: b0304cbd-0eb4-478a-a426-49cd579edd1b
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -1496,7 +1496,6 @@ Transform:
   - {fileID: 510184770893201581}
   - {fileID: 8988993162271141046}
   - {fileID: 5546487128818348573}
-  - {fileID: 2805923230361977866}
   m_Father: {fileID: 5120168714809368169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432509532373916445
@@ -2427,7 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f10154e0-16b2-492f-97d0-6639f69e7df6
-  instanceId: c59f7d7c-8903-4345-b36d-8ab68217dc60
+  instanceId: 16e18a93-5282-4bd6-ad65-559f0e18461b
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -7493,7 +7492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: 2046232f-0e53-43b0-a74e-fccf5aa33d20
+  instanceId: 0b0baf8f-e058-4e94-afb8-1e8ac9bb7034
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -8893,7 +8892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: a9563a3d-b58e-4019-b5fb-2f6fc83e6acc
+  instanceId: 27a02f20-c5c1-490d-909a-cb2f9e7504be
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -11939,7 +11938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: 3299a6de-0364-46d7-b9db-bcbf3cb5e90f
+  instanceId: f584f665-8090-49e3-9306-61ea5257946b
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -12825,7 +12824,7 @@ GameObject:
   - component: {fileID: 3183373087890518780}
   - component: {fileID: 72881534415552097}
   m_Layer: 0
-  m_Name: Skeleton
+  m_Name: BodySkeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12839,12 +12838,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5460063962927753628}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3232686915019473705}
+  m_Father: {fileID: 5120168714809368169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3183373087890518780
 MonoBehaviour:
@@ -12872,7 +12871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skeletonType: 2
-  _updateRootPose: 0
+  _updateRootPose: 1
   _updateRootScale: 0
   _enablePhysicsCapsules: 0
   _applyBoneTranslations: 1
@@ -13162,7 +13161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: d1868a6d-ca30-488d-9e37-67d7b58ac71b
+  instanceId: 389d44d7-9152-486f-8ba5-63c829b2f19b
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -14719,7 +14718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 65c6e778-10b3-4490-89da-008a18aa116a
-  instanceId: ea58d299-fba6-4d37-b691-d5419d4296a2
+  instanceId: 0cdcfaf8-91c5-4324-b55b-6cd2dc613e4b
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -15860,7 +15859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: b4daf6a6-26cf-4db2-8692-2631b9d66981
+  instanceId: 791633d1-0e5f-44dd-8f4b-92b2a6edb98d
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16353,7 +16352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: af36d5e6-ed00-4388-8d1d-fcc27d424d97
+  instanceId: 622978f8-1af2-472c-9327-1e59b10a7394
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16797,7 +16796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 02d25372-38f0-4c01-bfa3-afab855ce004
+  instanceId: 26281a48-f96c-465b-9121-82378fdbad60
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -17119,7 +17118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: 3dbd4182-60de-42ba-ba18-de81c82c7e98
+  instanceId: 26d548f3-5e64-4402-8ca5-165ecba030a6
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -17233,7 +17232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: 940a5fc6-55b0-42e0-887b-ca880cad989d
+  instanceId: e04dcd59-6ccd-4b0b-af21-603f2d1e220c
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -19848,7 +19847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 898301f2-1c0b-4392-9527-ddf72374c89a
+  instanceId: ae0e7ed1-eff3-4ebc-9a20-3fe34ddee0c9
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -20591,7 +20590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: 311c7dbe-c8e7-414a-8dd0-b141e4d659c6
+  instanceId: 56a6434d-fa9c-4b33-ab93-f6b8b53e88a3
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -21624,6 +21623,7 @@ Transform:
   m_Children:
   - {fileID: 3232686915019473705}
   - {fileID: 8828961742037167674}
+  - {fileID: 2805923230361977866}
   m_Father: {fileID: 7153219451874361859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4045254450366870157
@@ -21639,7 +21639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: c94122bc-fd90-438e-9cd2-b801bb5ae010
+  instanceId: 69df4ff6-4c8a-4d95-b092-01be8f296d03
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
