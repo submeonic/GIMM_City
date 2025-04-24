@@ -57,6 +57,12 @@ public class GrabNetTransformBridge : MonoBehaviour
         }
     }
 
+    public void RequestForceGrab()
+    {
+        isGrabbed = true;
+        _grabNetController.ClientRequestGrab();
+    }
+
     /// <summary>
     /// Called every tick from grab system with latest transform.
     /// </summary>

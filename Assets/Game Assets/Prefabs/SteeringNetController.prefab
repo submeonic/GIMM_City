@@ -829,6 +829,7 @@ GameObject:
   - component: {fileID: 7110740119775651953}
   - component: {fileID: 5694025358181579448}
   - component: {fileID: 3541710698294379112}
+  - component: {fileID: 161622143054966957}
   - component: {fileID: 4335748043648330081}
   m_Layer: 0
   m_Name: SteeringNetController
@@ -888,6 +889,21 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   syncInt: 0.1
+--- !u!114 &161622143054966957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181580100754310691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaef8d26ea000a04cb47aa980d245d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!114 &4335748043648330081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,6 +922,7 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 4490213541027580100, guid: fa2ecbdbe5f26054eb87ae97d8b69bb5, type: 3}
   spawnCooldown: 1.5
   menuModel: {fileID: 5985113101140507449}
+  grabMenuController: {fileID: 161622143054966957}
   vehicleInputManager: {fileID: 5797000269142728499}
   menuItemGO: {fileID: 5183379671489270752}
   handGrabInteractable: {fileID: 2710939248601135451}

@@ -98,8 +98,8 @@ public class SteeringWheelUtilities : NetworkBehaviour
 
         Transform targetTransform = grabbable.Transform;
 
-        // === CONFIGURABLE OFFSETS ===
-        Vector3 positionOffset = new Vector3(0.2f, 0.15f, -0.2f); // Slight forward offset from hips
+        // === CONFIGURABLE OFFSETS ===      (down, forward, right)
+        Vector3 positionOffset = new Vector3(0.2f, 0.25f, -0.25f); // Slight forward offset from hips
         Quaternion rotationOffset = Quaternion.Euler(25, 0, 0); // You can tweak this to match hand-alignment
 
         // === TARGET POSITION & ROTATION ===

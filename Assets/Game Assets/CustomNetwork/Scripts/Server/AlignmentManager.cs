@@ -27,6 +27,8 @@ public class AlignmentManager : MonoBehaviour
         _cameraRigTransform.position = new Vector3(0f, startPos.y, 0f);
         _cameraRigTransform.eulerAngles = Vector3.zero;
         
+        GameObject skeletonGO = LocalReferenceManager.Instance.OvrSkeleton.gameObject;
+        skeletonGO.transform.localPosition = Vector3.zero;
         
         Debug.Log("AlignmentManager: CameraRig aligned to world origin at startup.");
     }

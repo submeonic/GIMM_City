@@ -53,7 +53,7 @@ public class GrabNetController : NetworkBehaviour
             return;
         
         transform.position = pos;
-        transform.rotation = rot;
+        transform.rotation = SafeNorm(rot);
     }
 
     public void ClientSyncTransform(Vector3 pos, Quaternion rot)
@@ -127,7 +127,7 @@ public class GrabNetController : NetworkBehaviour
         // Only update if the sender is the client that grabbed the object.
         if (isGrabbed && sender != null && sender.identity == grabber)
         {
-            RpcSyncTransform(pos, rot);
+            RpcSyncTransform(pos, SafeNorm(rot));
         }
     }
 
@@ -143,7 +143,7 @@ public class GrabNetController : NetworkBehaviour
         startRot = transform.rotation;
 
         targetPos = pos;
-        targetRot = rot;
+        targetRot = SafeNorm(rot);
 
         lerpTimer = 0f;
     }
@@ -192,4 +192,6 @@ public class GrabNetController : NetworkBehaviour
         NetworkClient.connection.identity == grabber;
 
     #endregion
+    
+    private static Quaternion SafeNorm(Quaternion q) => Quaternion.Normalize(q);
 }

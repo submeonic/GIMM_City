@@ -1947,7 +1947,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 72881534415552097, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
       propertyPath: _updateRootPose
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 72881534415552097, guid: f8309d2338fb0ee4ab1aa7b4bf9cf95d, type: 3}
       propertyPath: _updateRootScale
@@ -3986,7 +3986,6 @@ GameObject:
   - component: {fileID: 5951269358167534132}
   - component: {fileID: 1723642379390100990}
   - component: {fileID: 7545565461847738908}
-  - component: {fileID: 7545565461847738909}
   m_Layer: 0
   m_Name: PlaceMap
   m_TagString: Untagged
@@ -4008,9 +4007,9 @@ GameObject:
   - component: {fileID: 864617123943367552}
   - component: {fileID: 9117877222637493108}
   - component: {fileID: 4614524177470391584}
-  - component: {fileID: 7245690604439962881}
   - component: {fileID: 9117877222637493109}
   - component: {fileID: 9117877222637493110}
+  - component: {fileID: 7245690604439962881}
   - component: {fileID: 7746367273463309259}
   m_Layer: 0
   m_Name: HandGrab
@@ -4138,39 +4137,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.51, y: 2.14, z: 0.63}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7545565461847738909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4809904665409629689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 4726696549208740638}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  coordinateSpace: 1
-  timelineOffset: 1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChangeCorrectionMultiplier: 2
-  rotationSensitivity: 0.01
-  positionPrecision: 0.01
-  scalePrecision: 0.01
 --- !u!82 &7746367273463309259
 AudioSource:
   m_ObjectHideFlags: 0

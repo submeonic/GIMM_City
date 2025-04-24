@@ -177,7 +177,7 @@ public class ArcadeVehicleController : NetworkBehaviour
         
         targetSpherePos = spherePos;
         targetBodyPos = bodyPos;
-        targetBodyRot = bodyRot;
+        targetBodyRot = Quaternion.Normalize(bodyRot);
         targetVel = vel;
         
         transformLerpTimer = 0f;
@@ -214,7 +214,7 @@ public class ArcadeVehicleController : NetworkBehaviour
 
             rb.position = Vector3.Lerp(startSpherePos, targetSpherePos, t);
             carBody.position = Vector3.Lerp(startBodyPos, targetBodyPos, t);
-            carBody.rotation = Quaternion.Slerp(startBodyRot, targetBodyRot, t);
+            carBody.rotation = Quaternion.Normalize(Quaternion.Slerp(startBodyRot, targetBodyRot, t));
             ref_velocity       = Vector3.Lerp(startVel, targetVel, t);
         }
         else
@@ -310,11 +310,19 @@ public class ArcadeVehicleController : NetworkBehaviour
                 }
             }
 
-            // down froce
+            // down force
             rb.AddForce(-transform.up * downforce * rb.mass);
 
             //body tilt
-            carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, hit.normal) * carBody.transform.rotation, 0.12f));
+            carBody.MoveRotation(
+                Quaternion.Normalize(
+                    Quaternion.Slerp(
+                        carBody.rotation,
+                        Quaternion.FromToRotation(carBody.transform.up, hit.normal) * carBody.transform.rotation,
+                        0.12f
+                    )
+                )
+            );
         }
         else
         {
@@ -325,8 +333,15 @@ public class ArcadeVehicleController : NetworkBehaviour
 
                 carBody.AddTorque(Vector3.up * steeringInput * turn * 100 * TurnMultiplyer);
             }
-
-            carBody.MoveRotation(Quaternion.Slerp(carBody.rotation, Quaternion.FromToRotation(carBody.transform.up, Vector3.up) * carBody.transform.rotation, 0.02f));
+            carBody.MoveRotation(
+                Quaternion.Normalize(
+                    Quaternion.Slerp(
+                        carBody.rotation,
+                        Quaternion.FromToRotation(carBody.transform.up, hit.normal) * carBody.transform.rotation,
+                        0.02f
+                    )
+                )
+            );
         }
         
         //sync queue
