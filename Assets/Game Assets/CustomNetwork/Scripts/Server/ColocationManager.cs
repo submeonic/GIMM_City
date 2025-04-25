@@ -234,5 +234,26 @@ public class ColocationManager : NetworkBehaviour
         }
     }
     
+    public async void StopColocationDiscovery()
+    {
+        try
+        {
+            var stopResult = await OVRColocationSession.StopDiscoveryAsync();
+            if (stopResult.Success)
+            {
+                Debug.Log("ColocationManager: Stopped discovery.");
+            }
+            else
+            {
+                Debug.LogWarning($"ColocationManager: Stop discovery failed with status: {stopResult.Status}");
+            }
+            OVRColocationSession.ColocationSessionDiscovered -= OnColocationSessionDiscovered;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"ColocationManager: Error stopping discovery: {e.Message}");
+        }
+    }
+    
     #endregion
 }

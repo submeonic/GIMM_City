@@ -5,6 +5,7 @@ public class ServerControlSelection : MonoBehaviour
 {
     private enum State { START, JOIN };
     [SerializeField] private State state;
+    [SerializeField] private GameObject staticMap;
     
     private void ActivateServer()
     {
@@ -19,6 +20,7 @@ public class ServerControlSelection : MonoBehaviour
         }
         
         Destroy(transform.parent.gameObject);
+        staticMap.SetActive(true);
     }
     
     private void OnTriggerEnter(Collider other)

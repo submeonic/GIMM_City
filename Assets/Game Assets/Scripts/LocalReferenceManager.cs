@@ -30,6 +30,9 @@ public class LocalReferenceManager : MonoBehaviour
 
     [SerializeField] 
     private GameObject trackingSpace;
+    
+    [SerializeField] 
+    private ColocationManager colocationManager;
 
     // Public getters for other scripts to access the references.
     public OVRSkeleton OvrSkeleton
@@ -40,6 +43,11 @@ public class LocalReferenceManager : MonoBehaviour
     public GameObject TrackingSpace
     {
         get { return trackingSpace; }
+    }
+    
+    public ColocationManager ColocationManager
+    {
+        get { return colocationManager; }
     }
 
     // Optional: Make this GameObject persist across scenes.
@@ -53,6 +61,6 @@ public class LocalReferenceManager : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject); // Comment this out if persistence across scenes is not required.
+        //DontDestroyOnLoad(gameObject); // Comment this out if persistence across scenes is not required.
     }
 }

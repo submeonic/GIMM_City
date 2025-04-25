@@ -83,6 +83,7 @@ public class ArcadeVehicleController : NetworkBehaviour
     
     [HideInInspector]
     public Vector3 ref_velocity;
+
     private Vector3 startVel;
     private Vector3 targetVel;
     
@@ -173,7 +174,7 @@ public class ArcadeVehicleController : NetworkBehaviour
         startSpherePos = rb.position;
         startBodyPos = carBody.position;
         startBodyRot = carBody.rotation;
-        startVel = carVelocity;
+        startVel  = ref_velocity;
         
         targetSpherePos = spherePos;
         targetBodyPos = bodyPos;
@@ -215,7 +216,7 @@ public class ArcadeVehicleController : NetworkBehaviour
             rb.position = Vector3.Lerp(startSpherePos, targetSpherePos, t);
             carBody.position = Vector3.Lerp(startBodyPos, targetBodyPos, t);
             carBody.rotation = Quaternion.Normalize(Quaternion.Slerp(startBodyRot, targetBodyRot, t));
-            ref_velocity       = Vector3.Lerp(startVel, targetVel, t);
+            ref_velocity = Vector3.Lerp(startVel, targetVel, t);
         }
         else
         {
@@ -343,6 +344,8 @@ public class ArcadeVehicleController : NetworkBehaviour
                 )
             );
         }
+        
+        ref_velocity = carVelocity;
         
         //sync queue
         queuedSpherePos = rb.position;

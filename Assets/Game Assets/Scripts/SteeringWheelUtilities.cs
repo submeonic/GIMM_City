@@ -100,7 +100,7 @@ public class SteeringWheelUtilities : NetworkBehaviour
 
         // === CONFIGURABLE OFFSETS ===      (down, forward, right)
         Vector3 positionOffset = new Vector3(0.2f, 0.25f, -0.25f); // Slight forward offset from hips
-        Quaternion rotationOffset = Quaternion.Euler(25, 0, 0); // You can tweak this to match hand-alignment
+        Quaternion rotationOffset = Quaternion.Euler(30, 0, 0); // You can tweak this to match hand-alignment
 
         // === TARGET POSITION & ROTATION ===
         Vector3 targetPosition = targetBone.Transform.position + targetBone.Transform.rotation * positionOffset;

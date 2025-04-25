@@ -82,7 +82,6 @@ public class ColocationNetworkManager : NetworkManager
 
     /// <summary>
     /// Initiates a LAN connection request.
-    /// If spatial anchor discovery hasn’t succeeded, the fallback kicks in.
     /// </summary>
     public void RequestLanConnection(string serverAddress)
     {

@@ -6,11 +6,21 @@ public class GrabMenuController : NetworkBehaviour
 {
     private GameObject _activeCar;
     public GameObject activeCar => _activeCar;
+    private bool _canSpawn = true;
+
+    public bool CanSpawn
+    {
+        set => _canSpawn = value;
+    }
 
     // Called by client — requests a new car to be spawned and assigned
     public void RequestSpawnCar(string prefabName, Vector3 position, Quaternion rotation)
     {
-        CmdSetActiveCar(prefabName, position, rotation);
+        if (_canSpawn)
+        {
+            CmdSetActiveCar(prefabName, position, rotation);
+            _canSpawn = false;
+        }
     }
 
     [Command]
@@ -66,4 +76,6 @@ public class GrabMenuController : NetworkBehaviour
 
     // Event for immediate response on client
     public event System.Action<GameObject> OnLocalActiveCarAssigned;
+    
+    
 }

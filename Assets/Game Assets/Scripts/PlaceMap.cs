@@ -4,43 +4,46 @@ using UnityEngine;
 
 public class PlaceMap : NetworkBehaviour
 {
-    [SerializeField] private GameObject mapRoot;
+    [Header("Visual Feedback")]
     [SerializeField] private GameObject highlight;
-    
-    private Grabbable _grabbable;
+    [SerializeField] private Grabbable _grabbable;
     private bool selected = false;
 
     [SyncVar(hook = nameof(OnPlaceableChanged))]
     private bool placeable = false;
 
-    [SyncVar]
-    private bool placed = false;
-
     private void Awake()
     {
-        _grabbable = GetComponent<Grabbable>();
         _grabbable.WhenPointerEventRaised += OnPointerEvent;
-        mapRoot.SetActive(false);
     }
 
     #region Map Placement
-    
-    [Command(requiresAuthority = false)]
-    private void CmdShowAndMoveMap(Vector3 position, Quaternion rotation)
-    {
-        mapRoot.transform.SetPositionAndRotation(position, rotation);
-        mapRoot.SetActive(true);
-        
-        RpcShowAndMoveMap(position, rotation);
-    }
 
     [ClientRpc]
-    private void RpcShowAndMoveMap(Vector3 position, Quaternion rotation)
+    private void RpcMovePlayersWithOffset()
     {
-        mapRoot.transform.SetPositionAndRotation(position, rotation);
-        mapRoot.SetActive(true);
+        AlignmentManager alignmentManager = FindObjectOfType<AlignmentManager>();
+        if (alignmentManager != null)
+        {
+            alignmentManager.OffsetPlayerToMap(transform);
+        }
+        else
+        {
+            Debug.LogError("[PlaceMap] AlignmentManager not found.");
+        }
+
+        CmdResetMapPosition(); // Server-side authoritative reset
     }
-        
+
+    [Command(requiresAuthority = false)]
+    private void CmdResetMapPosition()
+    {
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+
+        Debug.Log("[PlaceMap] Map reset to origin on server.");
+    }
+
     #endregion
 
     #region Placement Control
@@ -48,16 +51,15 @@ public class PlaceMap : NetworkBehaviour
     [Command(requiresAuthority = false)]
     private void CmdSetPlaceable(bool canPlace)
     {
-        if (!placed)
-        {
-            placeable = canPlace;
-        }
+        placeable = canPlace;
     }
 
     private void OnPlaceableChanged(bool oldValue, bool newValue)
     {
         if (highlight != null)
+        {
             highlight.SetActive(newValue);
+        }
     }
 
     private void OnPointerEvent(PointerEvent evt)
@@ -71,16 +73,16 @@ public class PlaceMap : NetworkBehaviour
         {
             selected = false;
 
-            if (placeable && !placed)
+            if (placeable)
             {
-                CmdShowAndMoveMap(transform.position, transform.rotation);
+                RpcMovePlayersWithOffset(); // Only happens on valid surface after release
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!placed && other.gameObject.layer == LayerMask.NameToLayer("drivable") && selected)
+        if (other.CompareTag("Floor") && selected)
         {
             CmdSetPlaceable(true);
         }
@@ -88,7 +90,7 @@ public class PlaceMap : NetworkBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!placed && other.gameObject.layer == LayerMask.NameToLayer("drivable"))
+        if (other.CompareTag("Floor"))
         {
             CmdSetPlaceable(false);
         }

@@ -16,7 +16,7 @@ public class MenuGrabbableVehicle : MonoBehaviour
     [SerializeField] private GrabMenuController   grabMenuController;
     [SerializeField] private SteeringInputManager vehicleInputManager;
     [SerializeField] private GameObject           menuItemGO;
-    [SerializeField] private GameObject menuModel;
+    [SerializeField] private GameObject           menuModel;
     [SerializeField] private HandGrabInteractable handGrabInteractable;
     [SerializeField] private Grabbable            grabbable;
 
@@ -25,13 +25,11 @@ public class MenuGrabbableVehicle : MonoBehaviour
     private void Awake()
     {
         grabbable.WhenPointerEventRaised += OnMenuSelect;
-        grabMenuController.OnLocalActiveCarAssigned += HandleLocalCarSpawned;
     }
 
     private void OnDestroy()
     {
         grabbable.WhenPointerEventRaised -= OnMenuSelect;
-        grabMenuController.OnLocalActiveCarAssigned -= HandleLocalCarSpawned;
     }
 
     private void OnMenuSelect(PointerEvent evt)
@@ -40,6 +38,8 @@ public class MenuGrabbableVehicle : MonoBehaviour
         if (prefabToSpawn == null) return;
         if (grabbable.SelectingPointsCount == 0 || !handGrabInteractable.SelectingInteractors.Any()) return;
 
+        grabMenuController.OnLocalActiveCarAssigned += HandleLocalCarSpawned;
+        
         localInteractor = handGrabInteractable.SelectingInteractors.FirstOrDefault();
         if (localInteractor == null)
         {
@@ -64,6 +64,7 @@ public class MenuGrabbableVehicle : MonoBehaviour
     {
         Debug.Log($"[MenuGrabbable] Received reference to newly spawned local car: {localCar.name}");
         vehicleInputManager.AssignCar(localCar.GetComponent<NetworkIdentity>().netId);
+        grabMenuController.OnLocalActiveCarAssigned -= HandleLocalCarSpawned;
         _ = TryGrabLoopAsync(localCar);
     }
     
@@ -104,6 +105,7 @@ public class MenuGrabbableVehicle : MonoBehaviour
     private IEnumerator GrabReset()
     {
         yield return new WaitForSeconds(spawnCooldown);
+        grabMenuController.CanSpawn = true;
         menuItemGO.SetActive(true);
     }
 }
