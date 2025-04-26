@@ -10460,8 +10460,8 @@ MonoBehaviour:
   drivableSurface:
     serializedVersion: 2
     m_Bits: 65
-  MaxSpeed: 6
-  accelaration: 1.5
+  MaxSpeed: 5.5
+  accelaration: 1.4
   turn: 0.025
   gravity: 0.75
   downforce: 0.5

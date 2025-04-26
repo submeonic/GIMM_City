@@ -19,10 +19,10 @@ public class AlignmentManager : MonoBehaviour
     
     private IEnumerator AlignToWorldOriginOnStart()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         
         Vector3 startPos = _cameraRigTransform.position;
-        _cameraRigTransform.position = new Vector3(0f, 0f, 0f);
+        _cameraRigTransform.position = new Vector3(0f, _cameraRigTransform.position.y, 0f);
         _cameraRigTransform.eulerAngles = Vector3.zero;
         
         GameObject skeletonGO = LocalReferenceManager.Instance.OvrSkeleton.gameObject;
@@ -79,35 +79,31 @@ public class AlignmentManager : MonoBehaviour
     #region Map Alignment
     
     /// <summary>
-    /// Offsets the user's rig based on the new map position and rotation.
-    /// Used after dropping a placement object to relocate the world origin.
+    /// Re-roots the player so that <markerPos, markerRot> becomes local (0,0,0 / +Z).
+    /// Called from PlaceMap via RPC.
     /// </summary>
-    /// <param name="newMapTransform">Transform of the placed map object</param>
-    public void OffsetPlayerToMap(Transform newMapTransform)
+    public void OffsetPlayerToMap(Vector3 markerPos, Quaternion markerRot)
     {
         if (_cameraRigTransform == null)
         {
-            Debug.LogError("AlignmentManager: Camera rig transform not found.");
+            Debug.LogError("[AlignmentManager] Camera rig transform not found.");
             return;
         }
 
-        // Get yaw rotation only
-        float yaw = newMapTransform.eulerAngles.y;
-        Quaternion rotationOffset = Quaternion.Euler(0f, yaw, 0f);
+        // ── inverse yaw (keep player upright) ───────────────────────────────
+        float      yaw  = markerRot.eulerAngles.y;
+        Quaternion Rinv = Quaternion.Euler(0f, -yaw, 0f);   // R⁻¹
 
-        // Offset player's rig relative to the map's position and rotation
-        Vector3 pivot = newMapTransform.position;
-        Vector3 direction = _cameraRigTransform.position - pivot;
+        // ── inverse translation expressed in the rotated frame ─────────────
+        Vector3    Tinv = -(Rinv * markerPos);              // –R⁻¹·Pₘ
 
-        // Rotate the direction vector around the pivot using yaw
-        direction = rotationOffset * direction;
-        _cameraRigTransform.position = pivot + direction;
+        // ── apply to rig (rotation then position) ──────────────────────────
+        _cameraRigTransform.rotation = Rinv * _cameraRigTransform.rotation;
+        _cameraRigTransform.position = Rinv * _cameraRigTransform.position + Tinv;
 
-        // Apply the yaw rotation to the rig
-        _cameraRigTransform.rotation = rotationOffset * _cameraRigTransform.rotation;
-
-        Debug.Log($"AlignmentManager: Applied map offset. New Pos: {_cameraRigTransform.position}, New Rot: {_cameraRigTransform.rotation.eulerAngles}");
+        // (optional sanity check)
+        Vector3 local = _cameraRigTransform.InverseTransformPoint(markerPos);
+        Debug.Log($"[Alignment] marker local {local:F4}  rig world {_cameraRigTransform.position:F3}");
     }
-
     #endregion
 }

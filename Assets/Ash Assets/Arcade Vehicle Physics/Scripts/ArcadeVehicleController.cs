@@ -82,7 +82,7 @@ public class ArcadeVehicleController : NetworkBehaviour
     private Quaternion targetBodyRot;
     
     [HideInInspector]
-    public Vector3 ref_velocity;
+    private Vector3 ref_velocity;
 
     private Vector3 startVel;
     private Vector3 targetVel;
@@ -231,8 +231,17 @@ public class ArcadeVehicleController : NetworkBehaviour
 
     public void AudioManager()
     {
-        engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(ref_velocity.z) / MaxSpeed);
-        if (Mathf.Abs(ref_velocity.x) > 10 && grounded())
+        Vector3 vel;
+        if (IAmDriver)
+        {
+            vel = carVelocity;
+        }
+        else
+        {
+            vel = ref_velocity;
+        }
+        engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(vel.z) / MaxSpeed);
+        if (Mathf.Abs(vel.x) > 10 && grounded())
         {
             SkidSound.mute = false;
         }
@@ -345,8 +354,6 @@ public class ArcadeVehicleController : NetworkBehaviour
             );
         }
         
-        ref_velocity = carVelocity;
-        
         //sync queue
         queuedSpherePos = rb.position;
         queuedBodyPos = carBody.position;
@@ -365,6 +372,15 @@ public class ArcadeVehicleController : NetworkBehaviour
     
     public void Visuals()
     {
+        Vector3 vel;
+        if (IAmDriver)
+        {
+            vel = carVelocity;
+        }
+        else
+        {
+            vel = ref_velocity;
+        }
         //tires
         foreach (Transform FW in FrontWheels)
         {
@@ -376,9 +392,9 @@ public class ArcadeVehicleController : NetworkBehaviour
         RearWheels[1].localRotation = rb.transform.localRotation;
 
         //Body
-        if (ref_velocity.z > 1)
+        if (vel.z > 1)
         {
-            BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, ref_velocity.z / MaxSpeed),
+            BodyMesh.localRotation = Quaternion.Slerp(BodyMesh.localRotation, Quaternion.Euler(Mathf.Lerp(0, -5, vel.z / MaxSpeed),
                                BodyMesh.localRotation.eulerAngles.y, BodyTilt * steeringInput), 0.4f * Time.deltaTime / Time.fixedDeltaTime);
         }
         else
@@ -392,7 +408,7 @@ public class ArcadeVehicleController : NetworkBehaviour
             if (brakeInput > 0.1f)
             {
                 BodyMesh.parent.localRotation = Quaternion.Slerp(BodyMesh.parent.localRotation,
-                Quaternion.Euler(0, 45 * steeringInput * Mathf.Sign(ref_velocity.z), 0),
+                Quaternion.Euler(0, 45 * steeringInput * Mathf.Sign(vel.z), 0),
                 0.1f * Time.deltaTime / Time.fixedDeltaTime);
             }
             else

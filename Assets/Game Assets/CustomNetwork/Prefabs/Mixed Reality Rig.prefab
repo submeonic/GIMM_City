@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: ea003a77-9e09-4434-ba87-b857c67f36a0
+  instanceId: 1f7ce661-a519-4343-af70-5fdb1cdc634b
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -2306,7 +2306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f10154e0-16b2-492f-97d0-6639f69e7df6
-  instanceId: 6d856103-1151-4edc-ba84-aa4018b1782d
+  instanceId: aa270bdd-95f3-4927-9846-6b8081b19bc6
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -7372,7 +7372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 0393ca30-f2a9-4865-a40f-f9a68d01c3a9
-  instanceId: 5230273f-f8f5-4466-bdbd-862262995b77
+  instanceId: 09909af3-1a6a-4f93-958b-bb4b52598623
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -8772,7 +8772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 83f9d135-2313-4f1b-b004-c67b45b916e3
+  instanceId: 59654cce-d53d-489d-aede-954d29d222cb
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -11818,7 +11818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: d1d6e01e-6585-4d26-95ed-529bb83c41c9
+  instanceId: 17976cab-e449-49ee-92f9-0ba9f18fc930
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -12751,7 +12751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skeletonType: 2
-  _updateRootPose: 1
+  _updateRootPose: 0
   _updateRootScale: 0
   _enablePhysicsCapsules: 0
   _applyBoneTranslations: 1
@@ -13041,7 +13041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: 953507a9-23d2-4b8f-b4eb-e219d75abc79
+  instanceId: 15daf844-120a-495f-a8b7-0c746ca03241
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -15664,7 +15664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 27673ac1-cdb0-443f-a07d-6ff1d34daeca
-  instanceId: 0832f97f-004a-46d7-8571-c1a27ba2dd5f
+  instanceId: bf0692a5-c34d-43f0-bc11-a2f06e773628
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16157,7 +16157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: a26e9d8b-6efe-4a84-82f2-56e84b1b0b6e
+  instanceId: 198ed2e2-5ad0-4569-bfe6-937450b3b912
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16601,7 +16601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 6b67162c-2460-4766-a931-980388647573
-  instanceId: 2f3ad9b1-5aad-439b-a2ef-d7fadf891c66
+  instanceId: 2eef6a4a-7858-429a-a3ee-abd44e2b1343
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -16923,7 +16923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: e7ad0b05-e282-4f82-981a-b520d2d3e1a2
+  instanceId: 5058df99-9f31-4cfe-9692-ca8b1b584efa
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -17037,7 +17037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: 57438dfe-ccec-41ae-98a6-9e6cfd1cf397
+  instanceId: bdf997a9-5d93-4c98-b6cd-c2de601c92a9
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -17384,7 +17384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: ece9de6e-19c8-4f64-bb33-313ed23e6c5c
-  instanceId: 76c85a18-bcc4-4719-a1e3-903a88e68182
+  instanceId: 5ae89528-db05-4644-b963-6584584d3ab8
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -19652,7 +19652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 5817f7c0-f2a5-45f9-a5ca-64264e0166e8
-  instanceId: ccbaea5c-bed8-4c70-a9c5-d3c247942099
+  instanceId: 9ac76690-4f7b-4af8-b7cb-3273253c6c95
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -20395,7 +20395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f61a01e5-61c7-4589-bd2d-107bccae8f02
-  instanceId: bacf6b47-e6c9-49a2-b252-de1b88eea45f
+  instanceId: 305ee766-0c5f-49d7-993b-eaa5e4e49b5f
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -20621,7 +20621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: 23068775-9825-40db-b8d3-22c958767b2d
+  instanceId: f04e24e3-6e9b-4688-890a-b3a7f5ec4213
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -21443,7 +21443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: d4012876-02f9-417a-b98b-26812e32e6b6
+  instanceId: aa8a5331-2270-4873-a638-f83104847cf5
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -21481,9 +21481,9 @@ MonoBehaviour:
   _enableDynamicResolution: 1
   minDynamicResolutionScale: 1
   maxDynamicResolutionScale: 1
-  quest2MinDynamicResolutionScale: 1
+  quest2MinDynamicResolutionScale: 0.7
   quest2MaxDynamicResolutionScale: 1
-  quest3MinDynamicResolutionScale: 1
+  quest3MinDynamicResolutionScale: 0.7
   quest3MaxDynamicResolutionScale: 1
   minRenderScale: 0.7
   maxRenderScale: 1
@@ -21525,24 +21525,24 @@ MonoBehaviour:
   launchSimultaneousHandsControllersOnStartup: 0
   isInsightPassthroughEnabled: 1
   shouldBoundaryVisibilityBeSuppressed: 1
-  requestBodyTrackingPermissionOnStartup: 0
+  requestBodyTrackingPermissionOnStartup: 1
   requestFaceTrackingPermissionOnStartup: 0
   requestEyeTrackingPermissionOnStartup: 0
   requestScenePermissionOnStartup: 1
   requestRecordAudioPermissionOnStartup: 0
   _localDimming: 1
-  _trackingOriginType: 1
+  _trackingOriginType: 2
   usePositionTracking: 1
   useRotationTracking: 1
   useIPDInPositionTracking: 1
   resetTrackerOnLoad: 0
   AllowRecenter: 0
-  LateControllerUpdate: 1
+  LateControllerUpdate: 0
   LateLatching: 0
   controllerDrivenHandPosesType: 0
   SimultaneousHandsAndControllersEnabled: 0
   _readOnlyWideMotionModeHandPosesEnabled: 0
-  wideMotionModeHandPosesEnabled: 0
+  wideMotionModeHandPosesEnabled: 1
   dynamicResolutionVersion: 1
 --- !u!114 &5447625995248606457
 MonoBehaviour:

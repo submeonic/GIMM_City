@@ -1,88 +1,133 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// PlaceMap.cs  ✦  revised for OffsetPlayerToMap(Transform)
+// -----------------------------------------------------------------------------
+// A network‑spawned grabbable marker. When the local user releases it on a valid
+// floor surface, the *server* tells every client to move their play‑space by the
+// inverse of the marker’s pose, so the marker appears to stay put while the
+// entire world slides underneath. After broadcasting, the server immediately
+// resets the marker back to the origin to keep the shared world tidy.
+// ─────────────────────────────────────────────────────────────────────────────
+
+using System.Collections;
 using Mirror;
 using Oculus.Interaction;
 using UnityEngine;
 
+[RequireComponent(typeof(Grabbable))]
 public class PlaceMap : NetworkBehaviour
 {
-    [Header("Visual Feedback")]
-    [SerializeField] private GameObject highlight;
-    [SerializeField] private Grabbable _grabbable;
-    private bool selected = false;
+    [Header("Visual Feedback")] 
+    [SerializeField] private Transform transformParent;
+    [SerializeField] private GrabNetController gnc;
+    [SerializeField] private GameObject highlight;  // outline / glow shown when "placeable"
+    
+    private Grabbable _grabbable;
 
+    private bool _selected  = false;   // true while hand is holding it
+
+    // Authoritative flag maintained on the server that says the marker is over a
+    // valid floor collider and may therefore be placed.
     [SyncVar(hook = nameof(OnPlaceableChanged))]
-    private bool placeable = false;
+    private bool _placeable = false;
+
+    // ─────────────────────────────────────────────────────────────────────
+    #region Unity‑lifecycle
 
     private void Awake()
     {
+        _grabbable = GetComponent<Grabbable>();
         _grabbable.WhenPointerEventRaised += OnPointerEvent;
     }
 
-    #region Map Placement
-
-    [ClientRpc]
-    private void RpcMovePlayersWithOffset()
+    private void OnDestroy()
     {
-        AlignmentManager alignmentManager = FindObjectOfType<AlignmentManager>();
-        if (alignmentManager != null)
-        {
-            alignmentManager.OffsetPlayerToMap(transform);
-        }
-        else
-        {
-            Debug.LogError("[PlaceMap] AlignmentManager not found.");
-        }
-
-        CmdResetMapPosition(); // Server-side authoritative reset
-    }
-
-    [Command(requiresAuthority = false)]
-    private void CmdResetMapPosition()
-    {
-        transform.position = Vector3.zero;
-        transform.rotation = Quaternion.identity;
-
-        Debug.Log("[PlaceMap] Map reset to origin on server.");
+        if (_grabbable != null)
+            _grabbable.WhenPointerEventRaised -= OnPointerEvent;
     }
 
     #endregion
 
-    #region Placement Control
+    // ─────────────────────────────────────────────────────────────────────
+    #region Placement logic
 
-    [Command(requiresAuthority = false)]
-    private void CmdSetPlaceable(bool canPlace)
+    /// <summary>
+    /// Called by the *server* to tell every client (server included) to inverse‑
+    /// teleport their rig so that <this> marker becomes local origin.
+    /// </summary>
+    [ClientRpc]
+    private void RpcReRootPlayers(Vector3 position, Quaternion rotation)
     {
-        placeable = canPlace;
+        AlignmentManager am = FindObjectOfType<AlignmentManager>();
+        if (am)
+        {
+            am.OffsetPlayerToMap(position, rotation);   // uses the fully corrected version
+            StartCoroutine(ResetMarker());
+        }
+        else
+        {
+            Debug.LogError("[PlaceMap] AlignmentManager not found on client.");
+        }
     }
 
-    private void OnPlaceableChanged(bool oldValue, bool newValue)
+    private IEnumerator ResetMarker()
     {
-        if (highlight != null)
-        {
-            highlight.SetActive(newValue);
-        }
+        yield return new WaitForSeconds(0.5f);
+        transformParent.position = Vector3.zero;
+        transformParent.rotation = Quaternion.identity;
+    }
+
+    /// <summary>
+    /// Server‑side entry‑point: broadcast the re‑root and then snap the marker
+    /// back to the origin so subsequent placements start from a clean slate.
+    /// </summary>
+    [Command(requiresAuthority = false)]
+    private void CmdCommitPlacement(Vector3 position, Quaternion rotation)
+    {
+        RpcReRootPlayers(position, rotation);
+
+        // Return marker to (0,0,0) in shared space so it can be moved again.
+        StartCoroutine(ResetMarker());
+        _placeable = false;     // prevent double‑fires while it resets
+
+        Debug.Log("[PlaceMap] Placement committed and marker reset on server.");
+    }
+
+    #endregion
+
+    // ─────────────────────────────────────────────────────────────────────
+    #region Pointer & trigger events
+
+    [Command(requiresAuthority = false)]
+    private void CmdSetPlaceable(bool canPlace) => _placeable = canPlace;
+
+    private void OnPlaceableChanged(bool _, bool newVal)
+    {
+        if (highlight) highlight.SetActive(newVal);
     }
 
     private void OnPointerEvent(PointerEvent evt)
     {
-        if (evt.Type == PointerEventType.Select)
+        switch (evt.Type)
         {
-            selected = true;
-        }
+            case PointerEventType.Select:
+                _selected = true;
+                break;
 
-        if (evt.Type == PointerEventType.Unselect)
-        {
-            selected = false;
-
-            if (placeable)
-            {
-                RpcMovePlayersWithOffset(); // Only happens on valid surface after release
-            }
+            case PointerEventType.Unselect:
+                _selected = false;
+                if (_placeable)
+                {
+                    transformParent.position = new Vector3(transformParent.position.x, 0f, transformParent.position.z);
+                    // Ask the server to finalise the placement.
+                    CmdCommitPlacement(transformParent.position, transformParent.rotation);
+                }
+                break;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Floor") && selected)
+        if (other.CompareTag("Floor") && _selected)
         {
             CmdSetPlaceable(true);
         }
@@ -97,12 +142,4 @@ public class PlaceMap : NetworkBehaviour
     }
 
     #endregion
-
-    private void OnDestroy()
-    {
-        if (_grabbable != null)
-        {
-            _grabbable.WhenPointerEventRaised -= OnPointerEvent;
-        }
-    }
 }
