@@ -75,7 +75,7 @@ public class PlaceMap : NetworkBehaviour
     private IEnumerator ResetMarker()
     {
         audioSource.PlayOneShot(placeSound);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         transformParent.position = Vector3.zero;
         transformParent.rotation = Quaternion.identity;
     }

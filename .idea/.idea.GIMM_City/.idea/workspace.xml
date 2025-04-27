@@ -6,18 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/AlignmentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/AlignmentManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Bl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Bl.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Rd.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Rd.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/FullReset.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/FullReset.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/OnConnected.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/OnConnected.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Materials/Default/Off-White.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Materials/Default/Off-White.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Buildings-Map.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Buildings-Map.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/GrabMenuController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/GrabMenuController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MoveMapUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MoveMapUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MusicController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MusicController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MusicTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/MusicTrigger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/OnConnected.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/OnConnected.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/ServerControlSelection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/ServerControlSelection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/AudioMixer.mixer" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Sounds/AudioMixer.mixer" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/Music/TrackA/5_Melody1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/Music/TrackA/5_Melody1.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/Music/TrackA/6_Melody2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/Music/TrackA/6_Melody2.wav.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +33,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Game Assets/Scripts/EffectMeshModifier.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Game Assets/Scripts/MenuGrabbable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.mrutilitykit/Core/Scripts/EffectMesh.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.core/Scripts/OVRPassthroughLayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/HandSkeletonOVR.cs" root0="SKIP_HIGHLIGHTING" />
@@ -141,7 +146,8 @@
       <workItem from="1745714299650" duration="86000" />
       <workItem from="1745714397746" duration="7188000" />
       <workItem from="1745773969474" duration="126000" />
-      <workItem from="1745774107457" duration="3547000" />
+      <workItem from="1745774107457" duration="5925000" />
+      <workItem from="1745788125658" duration="1141000" />
     </task>
     <servers />
   </component>
