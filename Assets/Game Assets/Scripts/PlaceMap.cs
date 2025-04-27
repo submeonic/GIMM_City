@@ -21,6 +21,8 @@ public class PlaceMap : NetworkBehaviour
     [SerializeField] private GrabNetController gnc;
     [SerializeField] private GameObject highlight;  // outline / glow shown when "placeable"
     
+    [SerializeField] private AudioClip placeSound;
+    private AudioSource audioSource;
     private Grabbable _grabbable;
 
     private bool _selected  = false;   // true while hand is holding it
@@ -37,6 +39,7 @@ public class PlaceMap : NetworkBehaviour
     {
         _grabbable = GetComponent<Grabbable>();
         _grabbable.WhenPointerEventRaised += OnPointerEvent;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnDestroy()
@@ -71,7 +74,8 @@ public class PlaceMap : NetworkBehaviour
 
     private IEnumerator ResetMarker()
     {
-        yield return new WaitForSeconds(0.5f);
+        audioSource.PlayOneShot(placeSound);
+        yield return new WaitForSeconds(0.1f);
         transformParent.position = Vector3.zero;
         transformParent.rotation = Quaternion.identity;
     }

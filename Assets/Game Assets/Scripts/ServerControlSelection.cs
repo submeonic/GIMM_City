@@ -1,10 +1,12 @@
-using Oculus.Interaction;
 using UnityEngine;
 
 public class ServerControlSelection : MonoBehaviour
 {
     private enum State { START, JOIN };
     [SerializeField] private State state;
+
+    [SerializeField] private AudioClip selectClip;
+    [SerializeField] private AudioSource audioSource;
     
     private void ActivateServer()
     {
@@ -24,6 +26,7 @@ public class ServerControlSelection : MonoBehaviour
     {
         if (other.CompareTag("Selector"))
         {
+            audioSource.PlayOneShot(selectClip);
             ActivateServer();
             Destroy(other.gameObject);
         }

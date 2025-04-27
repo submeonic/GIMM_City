@@ -10548,7 +10548,7 @@ MonoBehaviour:
   BodyTilt: 10
   engineSound: {fileID: 8407846966801091570}
   minPitch: 0.3
-  MaxPitch: 0
+  MaxPitch: 3
   SkidSound: {fileID: 8786917270843917062}
   skidWidth: 0.0034962536
   syncInt: 0.1
@@ -10622,7 +10622,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
