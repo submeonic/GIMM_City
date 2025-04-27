@@ -7,9 +7,15 @@ using Mirror;
 
 public class ColocationManager : NetworkBehaviour
 {
+    [Header("Dependencies")]
     [SerializeField] private AlignmentManager alignmentManager;
     [SerializeField] private LANDiscovery lanDiscovery;
     [SerializeField] private ColocationNetworkManager networkManager;
+    [SerializeField] private FullSceneResetManager fullSceneResetManager;
+    
+    [Header("Retry Settings")]
+    [SerializeField] private int   maxAnchorAttempts    = 10;
+    [SerializeField] private float delayBetweenAttempts = 1f;  // seconds
 
     // The session's group ID remains constant for the session.
     private Guid _sharedAnchorGroupId;
@@ -31,102 +37,134 @@ public class ColocationManager : NetworkBehaviour
     /// </summary>
     private void StartColocationSession()
     {
-        if (isServer)
-        {
-            Debug.Log("ColocationManager: Starting colocation advertisement...");
-            AdvertiseColocationSession();
-        }
+        if (!isServer) return;
+        Debug.Log("ColocationManager: Starting colocation advertisement...");
+        _ = AdvertiseColocationSessionAsync();
     }
 
-    private async Task AdvertiseColocationSession()
+    private async Task AdvertiseColocationSessionAsync()
     {
         try
         {
-            string uri = lanDiscovery.GetLanServerUri();
+            var uri = lanDiscovery.GetLanServerUri();
             if (string.IsNullOrEmpty(uri))
             {
                 Debug.LogError("ColocationManager: No valid LAN server URI found.");
                 return;
             }
 
-            Uri parsedUri = new Uri(uri);
-            string ipAddress = parsedUri.Host;
-            
-            string advertisementMessage = $"SharedSpatialAnchorSession|{ipAddress}";
-            byte[] advertisementData = Encoding.UTF8.GetBytes(advertisementMessage);
+            var parsedUri = new Uri(uri);
+            var ipAddress = parsedUri.Host;
+            var message   = $"SharedSpatialAnchorSession|{ipAddress}";
+            var data      = Encoding.UTF8.GetBytes(message);
 
-            var startAdvertisementResult = await OVRColocationSession.StartAdvertisementAsync(advertisementData);
-            if (startAdvertisementResult.Success)
+            var advResult = await OVRColocationSession.StartAdvertisementAsync(data);
+            if (!advResult.Success)
             {
-                _sharedAnchorGroupId = startAdvertisementResult.Value;
-                Debug.Log($"ColocationManager: Advertisement started. UUID: {_sharedAnchorGroupId}, LAN: {ipAddress}");
-                await CreateAndShareAlignmentAnchor();
+                Debug.LogError($"ColocationManager: Advertisement failed: {advResult.Status}");
+                return;
+            }
+
+            _sharedAnchorGroupId = advResult.Value;
+            Debug.Log($"ColocationManager: Advertisement started (UUID: {_sharedAnchorGroupId}), LAN: {ipAddress}");
+
+            bool created = await TryCreateAndShareAnchorAsync();
+            if (created)
+            {
+                ColocationSuccessful = true;
+                Debug.Log("ColocationManager: Anchor creation & share succeeded.");
             }
             else
             {
-                Debug.LogError($"ColocationManager: Advertisement failed with status: {startAdvertisementResult.Status}");
+                Debug.LogError("ColocationManager: Anchor creation & share ultimately failed after retries.");
+                fullSceneResetManager.TriggerFullReset();
             }
         }
         catch (Exception e)
         {
-            Debug.LogError($"ColocationManager: Error during advertisement: {e.Message}");
+            Debug.LogError($"ColocationManager: Error during advertisement: {e}");
         }
     }
 
-    private async Task CreateAndShareAlignmentAnchor()
+    /// <summary>
+    /// Tries up to maxAnchorAttempts to create, save, and share a spatial anchor.
+    /// </summary>
+    private async Task<bool> TryCreateAndShareAnchorAsync()
     {
-        try
+        for (int attempt = 1; attempt <= maxAnchorAttempts; attempt++)
         {
-            Debug.Log("ColocationManager: Creating initial alignment anchor...");
+            Debug.Log($"ColocationManager: Anchor attempt {attempt}/{maxAnchorAttempts}…");
+
+            // 1) Create the anchor
             var anchor = await CreateAnchor(Vector3.zero, Quaternion.identity);
             if (anchor == null)
             {
-                Debug.LogError("ColocationManager: Failed to create initial alignment anchor.");
-                return;
+                Debug.LogWarning("  • CreateAnchor returned null.");
             }
-            if (!anchor.Localized)
+            else if (!anchor.Localized)
             {
-                Debug.LogError("ColocationManager: Initial anchor is not localized. Cannot proceed with sharing.");
-                return;
+                Debug.LogWarning("  • Anchor not localized yet.");
             }
-            var saveResult = await anchor.SaveAnchorAsync();
-            if (!saveResult.Success)
+            else
             {
-                Debug.LogError($"ColocationManager: Failed to save initial anchor. Error: {saveResult}");
-                return;
-            }
-            Debug.Log($"ColocationManager: Initial alignment anchor saved. UUID: {anchor.Uuid}");
+                // 2) Save the anchor
+                var saveResult = await anchor.SaveAnchorAsync();
+                if (saveResult.Success)
+                {
+                    Debug.Log($"  • Saved anchor {anchor.Uuid}");
 
-            var shareResult = await OVRSpatialAnchor.ShareAsync(new List<OVRSpatialAnchor> { anchor }, _sharedAnchorGroupId);
-            if (!shareResult.Success)
-            {
-                Debug.LogError($"ColocationManager: Failed to share initial anchor. Error: {shareResult}");
-                return;
+                    // 3) Share the anchor
+                    var shareResult = await OVRSpatialAnchor.ShareAsync(
+                        new List<OVRSpatialAnchor> { anchor },
+                        _sharedAnchorGroupId);
+
+                    if (shareResult.Success)
+                    {
+                        Debug.Log("  • Share succeeded!");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"  • Share failed: {shareResult.Status}");
+                        
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"  • Save failed: {saveResult.Status}");
+                }
             }
-            
-            Debug.Log($"ColocationManager: Alignment anchor shared successfull. GroupUUID: {_sharedAnchorGroupId}");
+
+            // if we haven't returned success, wait then retry
+            if (attempt < maxAnchorAttempts)
+            {
+                Debug.Log($"  → Retrying in {delayBetweenAttempts} seconds…");
+                await Task.Delay(TimeSpan.FromSeconds(delayBetweenAttempts));
+            }
         }
-        catch (Exception e)
-        {
-            Debug.LogError($"ColocationManager: Error during initial anchor creation and sharing: {e.Message}");
-        }
+
+        return false;
     }
-    
 
-    // Creates an OVRSpatialAnchor at a given position and rotation.
+    /// <summary>
+    /// Creates an OVRSpatialAnchor at the given pose.
+    /// </summary>
     private async Task<OVRSpatialAnchor> CreateAnchor(Vector3 position, Quaternion rotation)
     {
         try
         {
-            var anchorGO = new GameObject("Alignment Anchor") { transform = { position = position, rotation = rotation } };
-            var spatialAnchor = anchorGO.AddComponent<OVRSpatialAnchor>();
-            while (!spatialAnchor.Created) await Task.Yield();
-            Debug.Log($"ColocationManager: Anchor created. UUID: {spatialAnchor.Uuid}");
+            var go = new GameObject("Alignment Anchor");
+            go.transform.SetPositionAndRotation(position, rotation);
+            var spatialAnchor = go.AddComponent<OVRSpatialAnchor>();
+            while (!spatialAnchor.Created)
+                await Task.Yield();
+
+            Debug.Log($"ColocationManager: Anchor created (UUID: {spatialAnchor.Uuid})");
             return spatialAnchor;
         }
         catch (Exception e)
         {
-            Debug.LogError($"ColocationManager: Error creating anchor: {e.Message}");
+            Debug.LogError($"ColocationManager: Error creating anchor: {e}");
             return null;
         }
     }
@@ -137,22 +175,18 @@ public class ColocationManager : NetworkBehaviour
         {
             var stopResult = await OVRColocationSession.StopAdvertisementAsync();
             if (stopResult.Success)
-            {
                 Debug.Log("ColocationManager: Stopped colocation advertisement.");
-            }
             else
-            {
-                Debug.LogWarning($"ColocationManager: Failed to stop advertisement. Status: {stopResult.Status}");
-            }
+                Debug.LogWarning($"ColocationManager: Failed to stop advertisement: {stopResult.Status}");
         }
         catch (Exception e)
         {
-            Debug.LogError($"ColocationManager: Error stopping advertisement: {e.Message}");
+            Debug.LogError($"ColocationManager: Error stopping advertisement: {e}");
         }
     }
 
     #endregion
-
+    
     #region Client Methods
 
     public override void OnStartClient()

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Selector
   - Floor
+  - Car
   layers:
   - Default
   - TransparentFX

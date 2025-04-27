@@ -6,18 +6,45 @@
   <component name="ChangeListManager">
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/ArcadeVehicleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/ArcadeVehicleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/SkidMarks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Ash Assets/Arcade Vehicle Physics/Scripts/SkidMarks.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Prefabs/Mixed Reality Rig.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Prefabs/Mixed Reality Rig.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/AlignmentManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/AlignmentManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Buildings/Building_.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Buildings/Building_.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Buildings/Building_.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Buildings/Building_.prefab.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Bl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Bl.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Rd.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Rd.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/StaticMap.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/StaticMap.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/ServerControlSelection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/ServerControlSelection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Blue.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Blue.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Glass.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Glass.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Green.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Green.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Metal.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Metal.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Off-White.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Off-White.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Orange.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Orange.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Water.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Water.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Yellow.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Default/Yellow.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Template_BaseMat.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Template_BaseMat.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Template_DitherCloseMat.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Template_DitherCloseMat.mat.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Map.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Map.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Subgraphs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +164,9 @@
       <workItem from="1745516017017" duration="3521000" />
       <workItem from="1745519763520" duration="24653000" />
       <workItem from="1745550119564" duration="3092000" />
-      <workItem from="1745694006582" duration="6524000" />
+      <workItem from="1745694006582" duration="8163000" />
+      <workItem from="1745714299650" duration="86000" />
+      <workItem from="1745714397746" duration="7188000" />
     </task>
     <servers />
   </component>

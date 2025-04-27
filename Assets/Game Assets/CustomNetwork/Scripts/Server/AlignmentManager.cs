@@ -4,6 +4,7 @@ using System.Collections;
 public class AlignmentManager : MonoBehaviour
 {
     private Transform _cameraRigTransform;
+    [SerializeField] private float initializationTimeout = 10f;
 
     #region Initialization
     private void Awake()
@@ -11,29 +12,49 @@ public class AlignmentManager : MonoBehaviour
         // Assumes an OVRCameraRig is present in the scene.
         _cameraRigTransform = FindObjectOfType<OVRCameraRig>().transform;
     }
-
-    private void Start()
-    {
-        StartCoroutine(AlignToWorldOriginOnStart());
-    }
     
-    private IEnumerator AlignToWorldOriginOnStart()
+    private IEnumerator Start()
     {
-        yield return new WaitForSeconds(5f);
-        
-        Vector3 startPos = _cameraRigTransform.position;
-        _cameraRigTransform.position = new Vector3(0f, _cameraRigTransform.position.y, 0f);
-        _cameraRigTransform.eulerAngles = Vector3.zero;
-        
-        GameObject skeletonGO = LocalReferenceManager.Instance.OvrSkeleton.gameObject;
-        skeletonGO.transform.localPosition = Vector3.zero;
-        skeletonGO.transform.localRotation = Quaternion.identity;
-        
-        GameObject trackingSpaceGO = LocalReferenceManager.Instance.TrackingSpace.gameObject;
-        trackingSpaceGO.transform.localPosition = Vector3.zero;
-        trackingSpaceGO.transform.localRotation = Quaternion.identity;
-        
-        Debug.Log("AlignmentManager: CameraRig aligned to world origin at startup.");
+        float timer = 0f;
+
+        // 1) Wait until the HMD is present...
+        // 2) ...and LocalReferenceManager has valid skeleton & tracking references.
+        while ((LocalReferenceManager.Instance == null
+                || LocalReferenceManager.Instance.OvrSkeleton == null
+                || LocalReferenceManager.Instance.TrackingSpace == null
+                || !OVRManager.isHmdPresent)
+               && timer < initializationTimeout)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        if (timer >= initializationTimeout)
+        {
+            Debug.LogWarning($"AlignmentManager: initialization timed out after {initializationTimeout}s.");
+        }
+
+        // one more frame to be safe
+        yield return null;
+
+        // Recenter and zero-out your rig
+        OVRManager.display.RecenterPose();
+
+        var skeletonGO = LocalReferenceManager.Instance?.OvrSkeleton?.gameObject;
+        if (skeletonGO != null)
+        {
+            skeletonGO.transform.localPosition = Vector3.zero;
+            skeletonGO.transform.localRotation = Quaternion.identity;
+        }
+
+        var trackingGO = LocalReferenceManager.Instance?.TrackingSpace?.gameObject;
+        if (trackingGO != null)
+        {
+            trackingGO.transform.localPosition = Vector3.zero;
+            trackingGO.transform.localRotation = Quaternion.identity;
+        }
+
+        Debug.Log("AlignmentManager: Camera rig aligned to world origin.");
     }
 
     #endregion
@@ -57,6 +78,8 @@ public class AlignmentManager : MonoBehaviour
 
     private IEnumerator AlignmentCoroutine(OVRSpatialAnchor anchor)
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        
         var anchorTransform = anchor.transform;
 
         for (var alignmentCount = 2; alignmentCount > 0; alignmentCount--)
