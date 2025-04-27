@@ -11,4 +11,11 @@ public class OnConnected : NetworkBehaviour
         staticMap.SetActive(true);
         musicController.currentLevel = MusicController.MusicEnergyLevel.Low;
     }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        staticMap.SetActive(true);
+        musicController.currentLevel = MusicController.MusicEnergyLevel.Low;
+    }
 }
