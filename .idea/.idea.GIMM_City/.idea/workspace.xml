@@ -5,28 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationNetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationNetworkManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/LANDiscovery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/LANDiscovery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Bl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Bl.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Gr.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Rd.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/Cars/Vehicle_Rd.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SpawnableObjects/Ramp.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SpawnableObjects/Ramp.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/SteeringNetController.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/FullSceneResetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/FullSceneResetManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SFXTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/SFXTrigger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/ServerControlSelection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/ServerControlSelection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/AudioMixer.mixer" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Sounds/AudioMixer.mixer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/SFX/StadiumChant.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Sounds/SFX/StadiumChant.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StaticMapDisabler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StaticMapDisabler.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TempAssembly.dll" beforeDir="false" afterPath="$PROJECT_DIR$/TempAssembly.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,6 +142,7 @@
       <workItem from="1745856898457" duration="38000" />
       <workItem from="1745858785664" duration="1713000" />
       <workItem from="1745860569797" duration="6168000" />
+      <workItem from="1745872112052" duration="270000" />
     </task>
     <servers />
   </component>

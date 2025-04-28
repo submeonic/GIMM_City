@@ -58,7 +58,7 @@ public class ColocationManager : MonoBehaviour
             Uri parsedUri = new Uri(uri);
             string ipAddress = parsedUri.Host;
             string advertisementMessage = $"SharedSpatialAnchorSession|{ipAddress}";
-            byte[] advertisementData = Encoding.UTF8.GetBytes($"SharedSpatialAnchorSession|{advertisementMessage}");
+            byte[] advertisementData = Encoding.UTF8.GetBytes(advertisementMessage);
 
             var startResult = await OVRColocationSession.StartAdvertisementAsync(advertisementData);
             if (!startResult.Success)
