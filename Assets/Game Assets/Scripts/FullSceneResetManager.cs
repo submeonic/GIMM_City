@@ -3,59 +3,72 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 
+/// <summary>
+/// Shuts down all colocation + networking systems and clean-reloads the active
+/// scene.  Intended as a “panic reset” when the anchor or network handshake
+/// cannot be recovered.
+/// </summary>
+[AddComponentMenu("Networking/Full-Scene Reset Manager")]
 public class FullSceneResetManager : MonoBehaviour
-{   
-    private ColocationManager colocationManager;
-    private bool isResetting = false;
+{
+    [Tooltip("Extra time (seconds) to give Mirror sockets before reloading.")]
+    [SerializeField] float shutdownGraceSeconds = 0.5f;
 
-    /// <summary>
-    /// Call this method to begin a full reset of the scene.
-    /// </summary>
+    bool isResetting;
+
+    /* ───────────────────────── public entry point ─────────────────────── */
     public void TriggerFullReset()
     {
-        if (!isResetting)
-        {
-            StartCoroutine(ResetAndReload());
-        }
+        if (!isResetting) StartCoroutine(ResetAndReload());
     }
 
-    private IEnumerator ResetAndReload()
+    /* ─────────────────────────── coroutine body ───────────────────────── */
+    IEnumerator ResetAndReload()
     {
         isResetting = true;
-        Debug.Log("[FullSceneResetManager] Starting full scene reset...");
-        
-        colocationManager = LocalReferenceManager.Instance.ColocationManager;
-        
-        // Stop Colocation Advertisement/Discovery
-        if (colocationManager != null)
+        Debug.Log("[FullSceneReset] Starting full reset…");
+
+        /* 1) Stop colocation workflows (anchor discovery / advertisement) */
+        ColocationManager cm = LocalReferenceManager.Instance?.ColocationManager;
+        if (cm != null)
         {
-            Debug.Log("[FullSceneResetManager] Stopping colocation processes...");
-            colocationManager.StopColocationAdvertisement();
-            colocationManager.StopColocationDiscovery();
-            yield return new WaitForSeconds(0.1f); // give async task a moment
+            Debug.Log("[FullSceneReset] Stopping colocation processes…");
+            cm.StopColocationDiscovery();      // also stops LANDiscovery
+            cm.StopColocationAdvertisement();
+            yield return null;                 // give async voids a frame
         }
 
-        // 2. Stop Networking (Host, Server, or Client)
+        /* 2) Shut down Mirror networking cleanly */
+        NetworkManager nm = NetworkManager.singleton;
         if (NetworkServer.active && NetworkClient.isConnected)
         {
-            Debug.Log("[FullSceneResetManager] Stopping host...");
-            NetworkManager.singleton.StopHost();
+            Debug.Log("[FullSceneReset] Stopping host (server + client) …");
+            nm.StopHost();
         }
         else if (NetworkServer.active)
         {
-            Debug.Log("[FullSceneResetManager] Stopping server...");
-            NetworkManager.singleton.StopServer();
+            Debug.Log("[FullSceneReset] Stopping dedicated server …");
+            nm.StopServer();
         }
-        else if (NetworkClient.isConnected)
+        else if (NetworkClient.isConnected || NetworkClient.active)
         {
-            Debug.Log("[FullSceneResetManager] Stopping client...");
-            NetworkManager.singleton.StopClient();
+            Debug.Log("[FullSceneReset] Stopping client …");
+            nm.StopClient();
         }
 
-        yield return new WaitForSeconds(0.5f); // allow networking to shut down cleanly
+        /* give sockets a moment to close */
+        float t = 0f;
+        while (t < shutdownGraceSeconds)
+        {
+            t += Time.unscaledDeltaTime;
+            yield return null;
+        }
 
-        //Reload Scene
-        Debug.Log("[FullSceneResetManager] Reloading scene...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        /* 3) Reset static flags so the next session starts fresh */
+        ColocationManager.ClearColocationFlag();
+
+        /* 4) Reload the active scene */
+        Debug.Log("[FullSceneReset] Reloading scene …");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 }

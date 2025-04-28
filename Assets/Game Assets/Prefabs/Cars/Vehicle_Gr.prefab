@@ -10462,9 +10462,9 @@ MonoBehaviour:
     m_Bits: 65
   MaxSpeed: 5.5
   accelaration: 1.4
-  turn: 0.025
-  gravity: 0.75
-  downforce: 0.5
+  turn: 0.02
+  gravity: 0.1
+  downforce: 0.1
   AirControl: 1
   kartLike: 0
   driftMultiplier: 1.5

@@ -1,123 +1,112 @@
 using Mirror;
 using Mirror.Discovery;
+using System;
+using System.Net;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Net;
-using System.Threading.Tasks;
 
 /// <summary>
-/// Handles LAN-based server discovery for peer-to-peer connections.
-/// Integrated with ColocationManager to prioritize spatial synchronization first.
+/// Runtime-agnostic LAN discovery component.
+/// • Hosts call <see cref="StartHostAdvertisement"/> to broadcast their URI.
+/// • Clients call <see cref="StartDiscovery"/>; when a host responds
+///   <see cref="onServerFound"/> fires with a full "scheme://ip:port" string.
+/// The component is designed to run in parallel with an anchor-discovery
+/// stage (OVR or similar).  Connection to the host should be deferred until
+/// the anchor workflow has completed.
 /// </summary>
-public class LANDiscovery : NetworkDiscoveryBase<LANDiscovery.LanRequest, LANDiscovery.LanResponse>
+[AddComponentMenu("Networking/LAN Discovery")]
+public class LANDiscovery
+       : NetworkDiscoveryBase<LANDiscovery.LanRequest, LANDiscovery.LanResponse>
 {
+    /* ──────────────────────────  public API  ───────────────────────────── */
+
+    /// <summary>Invoked on the *client* once the first host reply is received.
+    /// Argument format: "<scheme>://<ip>:<port>", e.g. "kcp://192.168.0.42:7777".</summary>
     public UnityEvent<string> onServerFound = new();
-    private bool isSearching = false;
-    
-    #region Data Structures
 
-    /// <summary>
-    /// Structure for a LAN discovery request (sent by clients).
-    /// </summary>
-    [System.Serializable]
-    public class LanRequest : NetworkMessage {}
+    /// <summary>Server-side: start broadcasting the transport’s URI.</summary>
+    public void StartHostAdvertisement() => AdvertiseServer();
 
-    /// <summary>
-    /// Structure for a LAN discovery response (sent by servers).
-    /// </summary>
-    [System.Serializable]
-    public class LanResponse : NetworkMessage
+    /// <summary>Client-side: begin searching the LAN (safe to call repeatedly).</summary>
+    public new void StartDiscovery()
     {
-        public string serverUri;
-    }
+        if (isSearching) return;   // already running
 
-    #endregion
-
-    #region Discovery Methods
-
-    /// <summary>
-    /// Processes LAN discovery requests sent by clients.
-    /// </summary>
-    protected override LanResponse ProcessRequest(LanRequest request, IPEndPoint endpoint)
-    {
-        ColocationNetworkManager networkManager = GetComponent<ColocationNetworkManager>();
-
-        if (networkManager == null || networkManager.transport == null)
-        {
-            Debug.LogError("LANDiscovery: No valid NetworkManager or Transport found.");
-            return new LanResponse { serverUri = "INVALID" }; // Avoid returning null
-        }
-
-        return new LanResponse
-        {
-            serverUri = networkManager.transport.ServerUri().ToString()
-        };
-    }
-
-    /// <summary>
-    /// Processes LAN discovery responses and connects to the first available server.
-    /// </summary>
-    protected override void ProcessResponse(LanResponse response, IPEndPoint endpoint)
-    {
-        if (isSearching)
-        {
-            Debug.Log($"LANDiscovery: Found LAN Server at {endpoint.Address}");
-            onServerFound.Invoke(endpoint.Address.ToString());
-            StopDiscovery(); // Stop searching once a server is found
-        }
-    }
-
-    /// <summary>
-    /// Starts LAN discovery but only if colocation is unavailable.
-    /// </summary>
-    public async void StartClientDiscoveryWithFallback()
-    {
-        if (isSearching)
-        {
-            Debug.Log("LANDiscovery: Already searching for LAN servers.");
-            return;
-        }
-
+        base.StartDiscovery();     // returns void
         isSearching = true;
-        Debug.Log("LANDiscovery: Waiting for colocation before starting LAN discovery...");
-
-        if (!ColocationManager.ColocationSuccessful)
-        {
-            Debug.LogWarning("LANDiscovery: No colocation session found, switching to LAN discovery.");
-            StartDiscovery();
-        }
-        else
-        {
-            Debug.Log("LANDiscovery: Colocation succeeded, skipping LAN discovery.");
-        }
     }
 
-    /// <summary>
-    /// Starts advertising the host's LAN server.
-    /// </summary>
-    public void StartHostAdvertisement()
-    {
-        AdvertiseServer();
-    }
-
-    /// <summary>
-    /// Stops LAN Discovery when a connection is established.
-    /// </summary>
+    /// <summary>Stop searching/broadcasting and clear state.</summary>
     public new void StopDiscovery()
     {
-        Debug.Log("LANDiscovery: Stopping LAN Discovery...");
+        Debug.Log("LANDiscovery: Stopping LAN discovery…");
         base.StopDiscovery();
         isSearching = false;
     }
 
     /// <summary>
-    /// Returns the LAN Server URI for integration with ColocationManager.
+    /// Convenience helper for the *server* to embed its URI in an anchor
+    /// advertisement or similar metadata packet.
     /// </summary>
     public string GetLanServerUri()
     {
-        ColocationNetworkManager networkManager = GetComponent<ColocationNetworkManager>();
-        return networkManager?.transport?.ServerUri()?.ToString() ?? string.Empty;
+        ColocationNetworkManager nm = GetComponent<ColocationNetworkManager>();
+        return nm?.transport?.ServerUri()?.ToString() ?? string.Empty;
     }
 
-    #endregion
+    /* ───────────────────────  NetworkDiscoveryBase  ────────────────────── */
+
+    [Serializable] public class LanRequest  : NetworkMessage { }
+    [Serializable] public class LanResponse : NetworkMessage
+    {
+        public string serverUri;   // populated by the host
+    }
+
+    /// <summary>Server replies to every discovery request with its URI.</summary>
+    protected override LanResponse ProcessRequest(LanRequest req, IPEndPoint ep)
+    {
+        ColocationNetworkManager nm = GetComponent<ColocationNetworkManager>();
+        if (nm == null || nm.transport == null)
+        {
+            Debug.LogError("LANDiscovery: NetworkManager / transport missing.");
+            return new LanResponse { serverUri = string.Empty };
+        }
+
+        return new LanResponse
+        {
+            serverUri = nm.transport.ServerUri().ToString()
+        };
+    }
+
+    /// <summary>Client handles the first response, forwards it, then stops.</summary>
+    protected override void ProcessResponse(LanResponse res, IPEndPoint ep)
+    {
+        if (!isSearching) return;
+
+        // Prefer the URI explicitly sent by the host; if absent, build one
+        // from the sender’s IP plus the active transport’s port.
+        string uriStr = string.IsNullOrWhiteSpace(res.serverUri)
+                      ? $"kcp://{ep.Address}:{GetDefaultPort()}"
+                      : res.serverUri;
+
+        Debug.Log($"LANDiscovery: server reply → {uriStr}");
+        onServerFound.Invoke(uriStr);
+        StopDiscovery();   // first hit wins
+    }
+
+    /* ───────────────────────────  helpers  ─────────────────────────────── */
+
+    static ushort GetDefaultPort()
+    {
+        Transport t = Transport.active;
+        return t switch
+        {
+            kcp2k.KcpTransport   kcp => kcp.Port,
+            TelepathyTransport   tel => tel.Port,
+            // add other transport types here if needed
+            _                       => 7777
+        };
+    }
+
+    bool isSearching = false;
 }

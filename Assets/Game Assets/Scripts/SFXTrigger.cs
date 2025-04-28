@@ -13,7 +13,10 @@ public class SFXTrigger : MonoBehaviour
     {
         if (other.CompareTag("Car"))
         {
-            audioSource.PlayOneShot(clip);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(clip);
+            }
         }
     }
 }

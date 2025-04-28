@@ -164,7 +164,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: ac73782846e54874d83080f350e09397, type: 3}
   m_Resource: {fileID: 8300000, guid: ac73782846e54874d83080f350e09397, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -588,7 +588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &266040206
 Transform:
   m_ObjectHideFlags: 0
@@ -598,7 +598,7 @@ Transform:
   m_GameObject: {fileID: 266040205}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.27200007, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -700,7 +700,6 @@ GameObject:
   m_Component:
   - component: {fileID: 384766414}
   - component: {fileID: 384766413}
-  - component: {fileID: 384766412}
   - component: {fileID: 384766415}
   m_Layer: 0
   m_Name: '[NetworkSessionManager]'
@@ -709,30 +708,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &384766412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384766407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 038d44592ef4afb479ba819377f3b8ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableActiveDiscovery: 1
-  BroadcastAddress: 
-  serverBroadcastListenPort: 47777
-  ActiveDiscoveryInterval: 3
-  transport: {fileID: 384766415}
-  OnServerFound:
-    m_PersistentCalls:
-      m_Calls: []
-  secretHandshake: -5902449582806281446
-  onServerFound:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &384766413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,8 +757,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  lanDiscovery: {fileID: 384766412}
-  colocationManager: {fileID: 1514565428}
+  colocationManager: {fileID: 1357039421}
 --- !u!4 &384766414
 Transform:
   m_ObjectHideFlags: 0
@@ -856,7 +830,7 @@ Transform:
   m_GameObject: {fileID: 458019307}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.748, y: 0.6443, z: 0.013}
+  m_LocalPosition: {x: -1.476, y: 0.6443, z: 0.013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1458,7 +1432,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 384766414}
-  - {fileID: 1514565429}
+  - {fileID: 1357039419}
   - {fileID: 861786886}
   - {fileID: 591574547}
   - {fileID: 829894285}
@@ -2485,7 +2459,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2869,7 +2843,7 @@ Transform:
   m_GameObject: {fileID: 739979177}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.748, y: 0.56, z: 0.013000011}
+  m_LocalPosition: {x: -1.476, y: 0.56, z: 0.013000011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2972,7 +2946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ovrSkeleton: {fileID: 1341867356}
   trackingSpace: {fileID: 1014441039}
-  colocationManager: {fileID: 1514565428}
+  colocationManager: {fileID: 1357039421}
 --- !u!1 &861786885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,8 +3243,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.4, y: 0.2, z: 1.4825556}
-  m_Center: {x: 0, y: 0.1, z: -0.0832206}
+  m_Size: {x: 3.4, y: 0.2, z: 1.1635892}
+  m_Center: {x: 0, y: 0.1, z: 0.017608315}
 --- !u!114 &1015871428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3337,8 +3311,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.4, y: 0.2, z: 1.1929046}
-  m_Center: {x: 0, y: 0.1, z: -0.033504426}
+  m_Size: {x: 3.4, y: 0.2, z: 1.117133}
+  m_Center: {x: 0, y: 0.1, z: 0.0043813586}
 --- !u!114 &1017433027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3575,8 +3549,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.4, y: 0.2, z: 0.94}
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Size: {x: 3.4, y: 0.2, z: 0.95673436}
+  m_Center: {x: 0, y: 0.1, z: 0.008367211}
 --- !u!114 &1216889297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3772,7 +3746,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 3f7093a351e4c53428604b78dea64dd7, type: 3}
   m_Resource: {fileID: 8300000, guid: 3f7093a351e4c53428604b78dea64dd7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3867,6 +3841,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1357039418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1357039419}
+  - component: {fileID: 1357039421}
+  - component: {fileID: 1357039420}
+  m_Layer: 0
+  m_Name: '[ColocationManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1357039419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357039418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524029279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1357039420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357039418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e035542f98a9041a4ec919613161b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shutdownGraceSeconds: 0.5
+--- !u!114 &1357039421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357039418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f7a7be969699c459942d423749ba8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alignmentManager: {fileID: 861786887}
+  networkManager: {fileID: 384766413}
+  fullSceneResetManager: {fileID: 1357039420}
 --- !u!1 &1398091775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3935,7 +3970,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3943,8 +3978,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 30
+  MinDistance: 0.2
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -4031,7 +4066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591a3c675d658484ba61073acedb60d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 6194c4304d4e82b4f9791fe0120a60ef, type: 3}
+  clip: {fileID: 8300000, guid: 4d041c684c8a02b409e134d06ed86f0e, type: 3}
 --- !u!1 &1432694158
 GameObject:
   m_ObjectHideFlags: 0
@@ -4166,90 +4201,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1514565426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1514565429}
-  - component: {fileID: 1514565428}
-  - component: {fileID: 1514565427}
-  - component: {fileID: 1514565430}
-  m_Layer: 0
-  m_Name: '[ColocationManager]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1514565427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514565426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 192854555
-  _assetId: 0
-  serverOnly: 0
-  visibility: 2
-  hasSpawned: 0
---- !u!114 &1514565428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514565426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9f7a7be969699c459942d423749ba8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  alignmentManager: {fileID: 861786887}
-  lanDiscovery: {fileID: 384766412}
-  networkManager: {fileID: 384766413}
-  fullSceneResetManager: {fileID: 1514565430}
-  maxAnchorAttempts: 5
-  delayBetweenAttempts: 1
---- !u!4 &1514565429
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514565426}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 524029279}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1514565430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514565426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89e035542f98a9041a4ec919613161b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1548764431
 GameObject:
   m_ObjectHideFlags: 0
@@ -4297,11 +4248,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  networkManager: {fileID: 384766413}
+  colocationManager: {fileID: 1357039421}
   selectClip: {fileID: 8300000, guid: 2d779a6b1d1d690498d99a2daf57bdcd, type: 3}
   audioSource: {fileID: 1931652869}
-  _musicController: {fileID: 591574559}
-  _musicSnapShotLevel: 1
-  _staticMap: {fileID: 4184781957092017593}
+  musicController: {fileID: 591574559}
+  snapshot: 1
+  staticMap: {fileID: 4184781957092017593}
 --- !u!135 &1548764434
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4602,11 +4555,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 1
+  networkManager: {fileID: 384766413}
+  colocationManager: {fileID: 1357039421}
   selectClip: {fileID: 8300000, guid: 2d779a6b1d1d690498d99a2daf57bdcd, type: 3}
   audioSource: {fileID: 1931652869}
-  _musicController: {fileID: 591574559}
-  _musicSnapShotLevel: 1
-  _staticMap: {fileID: 4184781957092017593}
+  musicController: {fileID: 591574559}
+  snapshot: 1
+  staticMap: {fileID: 4184781957092017593}
 --- !u!135 &1679441426
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5275,7 +5230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4622338881456843899, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4735063746643141391, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -6437,7 +6392,7 @@ GameObject:
   - component: {fileID: 3776021779103265494}
   - component: {fileID: 3732598687746968561}
   - component: {fileID: 2487152987291845862}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6926,7 +6881,7 @@ GameObject:
   - component: {fileID: 791625245328058263}
   - component: {fileID: 2126596473507191991}
   - component: {fileID: 617676322809674713}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7719,7 +7674,7 @@ GameObject:
   - component: {fileID: 4937320898434793641}
   - component: {fileID: 4404636829689356384}
   - component: {fileID: 3165137582789131476}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8452,7 +8407,7 @@ GameObject:
   - component: {fileID: 866899580057177754}
   - component: {fileID: 2042446872665392691}
   - component: {fileID: 1840569684884579649}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12175,7 +12130,7 @@ GameObject:
   - component: {fileID: 499507271462222493}
   - component: {fileID: 1329881598542674995}
   - component: {fileID: 3935411960572651547}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14103,7 +14058,7 @@ GameObject:
   - component: {fileID: 1579146958980460207}
   - component: {fileID: 6492637521784168940}
   - component: {fileID: 2619982997479892673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14468,7 +14423,7 @@ GameObject:
   - component: {fileID: 8795883493029328351}
   - component: {fileID: 279171293464531109}
   - component: {fileID: 6103560050705158167}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14496,7 +14451,7 @@ GameObject:
   - component: {fileID: 8756084418691392078}
   - component: {fileID: 3988301755098865840}
   - component: {fileID: 618414930720900288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16267,7 +16222,7 @@ GameObject:
   - component: {fileID: 7313576580020720264}
   - component: {fileID: 3037084580378722097}
   - component: {fileID: 7340772694421657066}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20408,7 +20363,7 @@ GameObject:
   - component: {fileID: 4853826544201236775}
   - component: {fileID: 2774856568599530576}
   - component: {fileID: 2150309238280229228}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20858,7 +20813,7 @@ GameObject:
   - component: {fileID: 3388484625326261978}
   - component: {fileID: 4445857134413241631}
   - component: {fileID: 8747562224217554315}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26126,7 +26081,7 @@ GameObject:
   - component: {fileID: 3401739173825066957}
   - component: {fileID: 3329101027623639147}
   - component: {fileID: 6792804156430741677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27203,7 +27158,7 @@ GameObject:
   - component: {fileID: 6903308274666670944}
   - component: {fileID: 6205281219707566677}
   - component: {fileID: 1339802454696959638}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29671,7 +29626,7 @@ GameObject:
   - component: {fileID: 5684112983070068417}
   - component: {fileID: 1002877250153554313}
   - component: {fileID: 2350416276330236454}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30423,7 +30378,7 @@ GameObject:
   - component: {fileID: 7501192590347631041}
   - component: {fileID: 2407473301019207244}
   - component: {fileID: 3699804354732863930}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32216,7 +32171,7 @@ GameObject:
   - component: {fileID: 5348465233931083662}
   - component: {fileID: 5108204076739137747}
   - component: {fileID: 5344350695876834068}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34093,7 +34048,7 @@ GameObject:
   - component: {fileID: 8337827299085337092}
   - component: {fileID: 2843932885153351982}
   - component: {fileID: 2492601857673746702}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35106,7 +35061,7 @@ GameObject:
   - component: {fileID: 9090528630909015894}
   - component: {fileID: 6030724637998136026}
   - component: {fileID: 4789260485422982434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35320,7 +35275,7 @@ GameObject:
   - component: {fileID: 3414179349570555085}
   - component: {fileID: 3637472467087588893}
   - component: {fileID: 4375364284408621320}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35462,7 +35417,7 @@ GameObject:
   - component: {fileID: 1758207484889585651}
   - component: {fileID: 4187096641672895213}
   - component: {fileID: 7062816430458840823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37305,7 +37260,7 @@ GameObject:
   - component: {fileID: 4041438458331799821}
   - component: {fileID: 8041850841273433808}
   - component: {fileID: 6080294444710075977}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38391,7 +38346,7 @@ GameObject:
   - component: {fileID: 5697579983470541017}
   - component: {fileID: 951927052989856258}
   - component: {fileID: 7098697661411138692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38853,7 +38808,7 @@ GameObject:
   - component: {fileID: 715971535952216365}
   - component: {fileID: 3835868228943851660}
   - component: {fileID: 1581002232443577545}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41951,7 +41906,7 @@ GameObject:
   - component: {fileID: 2314767027736633802}
   - component: {fileID: 5318752941294285670}
   - component: {fileID: 5379193844888615926}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44306,7 +44261,7 @@ GameObject:
   - component: {fileID: 6299214906356984775}
   - component: {fileID: 5321002669138005121}
   - component: {fileID: 998709589670091695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46215,7 +46170,7 @@ GameObject:
   - component: {fileID: 6345402520935683441}
   - component: {fileID: 7877805487460824836}
   - component: {fileID: 5518215063837267831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47213,7 +47168,7 @@ GameObject:
   - component: {fileID: 4702718630804632898}
   - component: {fileID: 1762253463822717117}
   - component: {fileID: 5737666464566989127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47522,7 +47477,7 @@ GameObject:
   - component: {fileID: 3652687984621575939}
   - component: {fileID: 1980519643054705618}
   - component: {fileID: 2448845408650375683}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52060,7 +52015,7 @@ GameObject:
   - component: {fileID: 7100033889312156288}
   - component: {fileID: 5559046261410076248}
   - component: {fileID: 5967654597125026648}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52736,7 +52691,7 @@ GameObject:
   - component: {fileID: 8025195553668525332}
   - component: {fileID: 1282451535019270346}
   - component: {fileID: 1935392120939905271}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53051,7 +53006,7 @@ GameObject:
   - component: {fileID: 7946440328780277274}
   - component: {fileID: 2308692010825968389}
   - component: {fileID: 7117842523243404784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53618,7 +53573,7 @@ GameObject:
   - component: {fileID: 210947864833482525}
   - component: {fileID: 4333632761371302023}
   - component: {fileID: 1107258291338328921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53984,7 +53939,7 @@ GameObject:
   - component: {fileID: 5141424613188475780}
   - component: {fileID: 1652090259566874292}
   - component: {fileID: 4876698275677623904}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55940,7 +55895,7 @@ GameObject:
   - component: {fileID: 4734593839702210228}
   - component: {fileID: 7498537887434258891}
   - component: {fileID: 8785812764316959715}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56971,7 +56926,7 @@ GameObject:
   - component: {fileID: 6203228545450567744}
   - component: {fileID: 8842378175714186103}
   - component: {fileID: 2853937649167734116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60758,7 +60713,7 @@ GameObject:
   - component: {fileID: 1043307506693198730}
   - component: {fileID: 6814337608476533313}
   - component: {fileID: 8705457966169439073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61223,7 +61178,7 @@ GameObject:
   - component: {fileID: 6776838466107661031}
   - component: {fileID: 7746337809212058022}
   - component: {fileID: 9046525350470035008}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61498,7 +61453,7 @@ GameObject:
   - component: {fileID: 6792936885574175676}
   - component: {fileID: 5207071621557156191}
   - component: {fileID: 1193947200181051126}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61880,7 +61835,7 @@ GameObject:
   - component: {fileID: 6860704806034891950}
   - component: {fileID: 2690194523807322538}
   - component: {fileID: 3548444506307501299}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63336,7 +63291,7 @@ GameObject:
   - component: {fileID: 4840238521325936471}
   - component: {fileID: 8951457268024356743}
   - component: {fileID: 1183848609091551904}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63942,7 +63897,7 @@ GameObject:
   - component: {fileID: 8166876929700601475}
   - component: {fileID: 6562532369283087478}
   - component: {fileID: 1853597040902846486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64027,7 +63982,7 @@ GameObject:
   - component: {fileID: 4046680265542647554}
   - component: {fileID: 3808960985668802567}
   - component: {fileID: 6482299025827101209}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64233,7 +64188,7 @@ GameObject:
   - component: {fileID: 2000591468724234009}
   - component: {fileID: 4897950126305152927}
   - component: {fileID: 3220030245435396101}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65857,7 +65812,7 @@ GameObject:
   - component: {fileID: 2855763720352854709}
   - component: {fileID: 1904936126586236847}
   - component: {fileID: 356291306358743275}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68654,7 +68609,7 @@ GameObject:
   - component: {fileID: 8644936917048426520}
   - component: {fileID: 2437090762031711658}
   - component: {fileID: 2471830949636932258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70429,7 +70384,7 @@ GameObject:
   - component: {fileID: 1361745785722052674}
   - component: {fileID: 5743335534151562291}
   - component: {fileID: 5271836897102006266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72123,7 +72078,7 @@ GameObject:
   - component: {fileID: 3455130646012757819}
   - component: {fileID: 7746675418720736334}
   - component: {fileID: 741804367199437469}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73428,7 +73383,7 @@ GameObject:
   - component: {fileID: 1882938594869015921}
   - component: {fileID: 1835613035650679562}
   - component: {fileID: 6288460621899196910}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73595,7 +73550,7 @@ GameObject:
   - component: {fileID: 2967232863889094495}
   - component: {fileID: 6884812698076665254}
   - component: {fileID: 9216086129766099129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74529,7 +74484,7 @@ GameObject:
   - component: {fileID: 3384189152589584347}
   - component: {fileID: 6801879321874549973}
   - component: {fileID: 5861321695000985900}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74643,7 +74598,7 @@ GameObject:
   - component: {fileID: 1087494640582445038}
   - component: {fileID: 5087009163191489919}
   - component: {fileID: 6363895353159627356}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79021,7 +78976,7 @@ GameObject:
   - component: {fileID: 6243223450296050598}
   - component: {fileID: 5014715946862026488}
   - component: {fileID: 385330380984633146}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81982,7 +81937,7 @@ GameObject:
   - component: {fileID: 5265958910767449522}
   - component: {fileID: 8146343522934480038}
   - component: {fileID: 7065551180897430511}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85383,7 +85338,7 @@ GameObject:
   - component: {fileID: 2067348954552270726}
   - component: {fileID: 3210275591963807663}
   - component: {fileID: 3246058319023344683}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85403,7 +85358,7 @@ GameObject:
   - component: {fileID: 5600390821161148301}
   - component: {fileID: 1890301573366939692}
   - component: {fileID: 6437655564395817060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86017,7 +85972,7 @@ GameObject:
   - component: {fileID: 8646351339600897056}
   - component: {fileID: 7609161087298619497}
   - component: {fileID: 5686485949508303962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88772,7 +88727,7 @@ GameObject:
   - component: {fileID: 7169934296609548802}
   - component: {fileID: 5240052430899820579}
   - component: {fileID: 8374115232387140229}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88897,7 +88852,7 @@ GameObject:
   - component: {fileID: 239628239570133837}
   - component: {fileID: 7709333016537529773}
   - component: {fileID: 3325948504466865308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91294,7 +91249,7 @@ GameObject:
   - component: {fileID: 7200616945366233959}
   - component: {fileID: 3441850034548410505}
   - component: {fileID: 4608935736674348388}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97062,7 +97017,7 @@ GameObject:
   - component: {fileID: 5841069206144692679}
   - component: {fileID: 7680602596137621315}
   - component: {fileID: 6998377377700850908}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103890,7 +103845,7 @@ GameObject:
   - component: {fileID: 386595732981769299}
   - component: {fileID: 1034318501410368675}
   - component: {fileID: 6126807162831976380}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104085,7 +104040,7 @@ GameObject:
   - component: {fileID: 1043159030038852325}
   - component: {fileID: 1303593015671437014}
   - component: {fileID: 7931113010378193834}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104906,7 +104861,7 @@ GameObject:
   - component: {fileID: 6491862658721645006}
   - component: {fileID: 3889919289751090696}
   - component: {fileID: 5730486793109126459}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105359,7 +105314,7 @@ GameObject:
   - component: {fileID: 1043308895176031556}
   - component: {fileID: 230827168496889683}
   - component: {fileID: 4203417026711287620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105626,7 +105581,7 @@ GameObject:
   - component: {fileID: 283927887464736269}
   - component: {fileID: 8280778398466479811}
   - component: {fileID: 2899674864560394813}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106463,7 +106418,7 @@ GameObject:
   - component: {fileID: 4367893969774549062}
   - component: {fileID: 1720924760409585917}
   - component: {fileID: 2342061504970497901}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109793,7 +109748,7 @@ GameObject:
   - component: {fileID: 8136523018749256546}
   - component: {fileID: 8657175668223896517}
   - component: {fileID: 9054028129046272493}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111071,7 +111026,7 @@ GameObject:
   - component: {fileID: 5317031447497515873}
   - component: {fileID: 7973505681136387609}
   - component: {fileID: 4201647382300883615}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BuildingGrabbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
