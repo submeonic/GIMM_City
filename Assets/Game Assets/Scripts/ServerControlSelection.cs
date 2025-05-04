@@ -1,32 +1,56 @@
-using Oculus.Interaction;
 using UnityEngine;
 
+/// <summary>
+/// Simple “Start” / “Join” selector.  When the user’s hand enters the trigger
+/// it either hosts a session (Mirror + anchor advertisement) or starts the
+/// anchor-discovery workflow that will connect to an existing host.
+/// </summary>
 public class ServerControlSelection : MonoBehaviour
 {
-    private enum State { START, JOIN };
-    [SerializeField] private State state;
-    
-    private void ActivateServer()
-    {
-        if (state == State.START)
-        {
-            ColocationNetworkManager.singleton.StartHost();
-        }
+    enum State { START, JOIN }
 
-        if (state == State.JOIN)
-        {
-            ColocationNetworkManager.singleton.StartClient();
-        }
-        
+    [Header("Mode")]
+    [SerializeField] State state = State.START;
+
+    [Header("Systems")]
+    [SerializeField] ColocationNetworkManager networkManager;
+    [SerializeField] ColocationManager colocationManager;   // drag from scene
+                                                            // (LANDiscovery ref no longer needed)
+
+    [Header("Feedback")]
+    [SerializeField] AudioClip  selectClip;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] MusicController          musicController;
+    [SerializeField] MusicController.MusicSnapShotLevel snapshot;
+    [SerializeField] GameObject  staticMap;                 // map overlay
+
+    /* ───────────────────────── trigger logic ────────────────────────── */
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Selector")) return;
+
+        musicController.SetSnapshotLevel(snapshot);
+        audioSource.PlayOneShot(selectClip);
+
+        Activate();                         // ≤–––– the important call
+
+        staticMap.SetActive(true);
+        Destroy(other.gameObject);          // consume selector
         Destroy(transform.parent.gameObject);
     }
-    
-    private void OnTriggerEnter(Collider other)
+
+    /* ───────────────────────── session start / join ─────────────────── */
+    void Activate()
     {
-        if (other.CompareTag("Selector"))
+        switch (state)
         {
-            ActivateServer();
-            Destroy(other.gameObject);
+            case State.START:   // HOST
+                networkManager.StartHost();
+                break;
+
+            case State.JOIN:    // CLIENT
+                colocationManager.StartColocationDiscovery();
+                break;
         }
     }
 }

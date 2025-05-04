@@ -1,98 +1,136 @@
+using Mirror;
 using Oculus.Interaction;
 using UnityEngine;
 
-public class SteeringWheelUtilities : MonoBehaviour
+public class SteeringWheelUtilities : NetworkBehaviour
 {
-    #region Serialized Fields
-
-    [Header("References")]
-    [Tooltip("The Grabbable component this script listens to. If not assigned, it will attempt to find one on the same GameObject.")]
-    [SerializeField] private Grabbable grabbable;
-
-    [Tooltip("The GameObject that represents the tracking space. If not assigned, it will attempt to find one in the scene.")]
-    [SerializeField] private GameObject trackingSpace;
-
+    [Header("Poke Menu")]
     [Tooltip("The Poke Menu GameObject to toggle based on grab state.")]
     [SerializeField] private GameObject pokeMenu;
 
-    #endregion
+    private Grabbable grabbable;
+    private GameObject trackingSpace;
+    private SteeringNetTransformBridge transformBridge;
+    private OVRSkeleton.BoneId targetBoneId = OVRSkeleton.BoneId.Body_Hips; // Target chest joint
+    private OVRBone targetBone;
+    private OVRSkeleton ovrSkeleton;
+    private bool grabbed = false;
 
-    #region Unity Lifecycle Methods
-
-    /// <summary>
-    /// Initializes the component by subscribing to the Grabbable's grab state change event.
-    /// </summary>
-    private void Awake()
+    public override void OnStartAuthority()
     {
+        // Always get the grabbable, regardless of authority
         grabbable = GetComponentInChildren<Grabbable>();
+
         if (grabbable == null)
         {
-            Debug.LogError("MirrorTransferOwnershipOnSelect requires a Grabbable component in its children.");
+            Debug.LogError("[SteeringWheelUtilities] No Grabbable found on this object or children.");
             return;
         }
 
-        // Subscribe to pointer events (the Fusion version listens to WhenPointerEventRaised)
+        // Only subscribe/interact if this client owns the object
+        if (!isOwned)
+            return;
+
+        // Get tracking space from shared steering reference
+        var provider = GetComponent<SteeringReferenceProvider>();
+        if (provider != null)
+        {
+            trackingSpace = provider.TrackingSpace;
+            ovrSkeleton = provider.OvrSkeleton;
+            targetBone = FindBone(targetBoneId);
+        }
+        else
+        {
+            Debug.LogWarning("[SteeringWheelUtilities] No SteeringReferenceProvider found.");
+        }
+        
+        transformBridge = GetComponent<SteeringNetTransformBridge>();
+        
         grabbable.WhenPointerEventRaised += OnPointerEventRaised;
     }
 
-    /// <summary>
-    /// Ensures the event is unsubscribed when the object is destroyed to avoid memory leaks.
-    /// </summary>
     private void OnDestroy()
     {
+        // Always unsubscribe if we had the grabbable
         if (grabbable != null)
         {
             grabbable.WhenPointerEventRaised -= OnPointerEventRaised;
         }
     }
 
-    #endregion
-
-    #region Event Handlers
-
-    /// <summary>
-    /// Handles changes in the Grabbable's grab state and updates the visibility of the Poke Menu.
-    /// </summary>
-    /// <param name="grabPoints">The number of hands currently grabbing the Grabbable.</param>
     private void OnPointerEventRaised(PointerEvent pointerEvent)
     {
-        if (grabbable.SelectingPointsCount == 0)
+        if (!isOwned || grabbable == null)
+            return;
+
+        int grabbingCount = grabbable.SelectingPointsCount;
+
+        // Parent to tracking space if necessary
+        if (trackingSpace != null && transform.parent != trackingSpace.transform)
         {
-            if (trackingSpace != null && transform.parent != trackingSpace.transform)
-            {
-                // No hand grabbing: set parent to null
-                //transform.SetParent(null);
-            }
-            // No hands grabbing: Hide the Poke Menu
-            pokeMenu.SetActive(false);
+            transform.SetParent(trackingSpace.transform);
         }
-        else if (grabbable.SelectingPointsCount == 1)
+
+        // Show/hide poke menu based on grab count
+        if (grabbingCount == 1)
         {
-            if (trackingSpace != null && transform.parent != trackingSpace.transform)
-            {
-                // One hand grabbing: Move the object to the tracking space
-                transform.SetParent(trackingSpace.transform);
-            }
-            // One hand grabbing: Show the Poke Menu
-            pokeMenu.SetActive(true);
+            pokeMenu?.SetActive(true);
         }
-        else if (grabbable.SelectingPointsCount == 2)
+        else
         {
-            if (trackingSpace != null && transform.parent != trackingSpace.transform)
-            {
-                // Two hands grabbing: Move the object to the tracking space
-                transform.SetParent(trackingSpace.transform);
-            }
-            // Two hands grabbing: Hide the Poke Menu
-            pokeMenu.SetActive(false);
+            pokeMenu?.SetActive(false);
+        }
+
+        if (grabbingCount == 0)
+        {
+            grabbed = false;
+        }
+        else
+        {
+            grabbed = true;
         }
     }
 
-    #endregion
+    private void Update()
+    {
+        if (!isOwned || grabbed || targetBone == null || transformBridge == null)
+            return;
+
+        Transform targetTransform = grabbable.Transform;
+
+        // === CONFIGURABLE OFFSETS ===      (down, forward, right)
+        Vector3 positionOffset = new Vector3(0.2f, 0.25f, -0.25f); // Slight forward offset from hips
+        Quaternion rotationOffset = Quaternion.Euler(30, 0, 0); // You can tweak this to match hand-alignment
+
+        // === TARGET POSITION & ROTATION ===
+        Vector3 targetPosition = targetBone.Transform.position + targetBone.Transform.rotation * positionOffset;
+        Quaternion targetRotation = targetBone.Transform.rotation * rotationOffset;
+
+        // === SMOOTH LERPING ===
+        float lerpSpeed = 5f; // Increase for faster return-to-position
+        targetTransform.position = Vector3.Lerp(targetTransform.position, targetPosition, Time.deltaTime * lerpSpeed);
+        targetTransform.rotation = Quaternion.Slerp(targetTransform.rotation, targetRotation, Time.deltaTime * lerpSpeed);
+
+        // === NETWORK SYNC ===
+        transformBridge.UpdateTransformFromTransformer(targetTransform.position, targetTransform.rotation);
+    }
+
 
     private void OnDisable()
     {
-        //transform.SetParent(null);
+        // Optional: detach when disabled
+        // transform.SetParent(null);
+    }
+    
+    private OVRBone FindBone(OVRSkeleton.BoneId boneId)
+    {
+        foreach (OVRBone bone in ovrSkeleton.Bones)
+        {
+            if (bone.Id == boneId)
+            {
+                return bone;
+            }
+        }
+        return null;
     }
 }
-

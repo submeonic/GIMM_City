@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6b57b40-c6a0-416a-bf89-4c88e12eceb1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GIMM_City/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/CITY-Map.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Prefabs/CITY-Map.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/Scripts/PlaceMap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Shaders/Highlight.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Shaders/Highlight.shadergraph" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game Assets/CustomNetwork/Scripts/Server/ColocationManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,11 +16,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/CustomNetwork/Scripts/LocalGrabbableProxy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Game Assets/Scripts/MenuGrabbable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.mrutilitykit/Core/Scripts/EffectMesh.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.core/Editor/OVRBuild.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.core/Scripts/OVRPassthroughLayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/HandSkeletonOVR.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/Grabbable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/OneGrabFreeTransformer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/OneGrabTranslateTransformer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabInteractable.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -105,7 +102,47 @@
       <workItem from="1741124521384" duration="3324000" />
       <workItem from="1741622734343" duration="297000" />
       <workItem from="1743706355142" duration="11828000" />
-      <workItem from="1744058254052" duration="6648000" />
+      <workItem from="1744058254052" duration="7114000" />
+      <workItem from="1744134601298" duration="15833000" />
+      <workItem from="1744151031636" duration="5536000" />
+      <workItem from="1744313091863" duration="14617000" />
+      <workItem from="1744329222084" duration="817000" />
+      <workItem from="1745005653757" duration="280000" />
+      <workItem from="1745005944058" duration="18457000" />
+      <workItem from="1745026556736" duration="23000" />
+      <workItem from="1745027631848" duration="704000" />
+      <workItem from="1745028355308" duration="13351000" />
+      <workItem from="1745187013155" duration="3420000" />
+      <workItem from="1745204844448" duration="6485000" />
+      <workItem from="1745249812125" duration="5895000" />
+      <workItem from="1745275493477" duration="3285000" />
+      <workItem from="1745279710979" duration="615000" />
+      <workItem from="1745281651185" duration="2654000" />
+      <workItem from="1745285199935" duration="3316000" />
+      <workItem from="1745289238101" duration="20972000" />
+      <workItem from="1745349054031" duration="28530000" />
+      <workItem from="1745384179507" duration="5466000" />
+      <workItem from="1745458803032" duration="773000" />
+      <workItem from="1745516017017" duration="3521000" />
+      <workItem from="1745519763520" duration="24653000" />
+      <workItem from="1745550119564" duration="3092000" />
+      <workItem from="1745694006582" duration="8163000" />
+      <workItem from="1745714299650" duration="86000" />
+      <workItem from="1745714397746" duration="7188000" />
+      <workItem from="1745773969474" duration="126000" />
+      <workItem from="1745774107457" duration="5925000" />
+      <workItem from="1745788125658" duration="1141000" />
+      <workItem from="1745794051211" duration="1654000" />
+      <workItem from="1745800204780" duration="537000" />
+      <workItem from="1745800786372" duration="1044000" />
+      <workItem from="1745803276159" duration="418000" />
+      <workItem from="1745803898256" duration="7453000" />
+      <workItem from="1745814252622" duration="616000" />
+      <workItem from="1745848565719" duration="6062000" />
+      <workItem from="1745856898457" duration="38000" />
+      <workItem from="1745858785664" duration="1713000" />
+      <workItem from="1745860569797" duration="6168000" />
+      <workItem from="1745872112052" duration="270000" />
     </task>
     <servers />
   </component>

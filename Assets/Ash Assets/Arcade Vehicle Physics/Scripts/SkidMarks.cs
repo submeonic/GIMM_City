@@ -19,7 +19,6 @@ namespace ArcadeVP
 
         }
 
-
         private void OnEnable()
         {
             skidMark.enabled = true;

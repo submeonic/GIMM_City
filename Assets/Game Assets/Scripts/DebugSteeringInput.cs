@@ -5,7 +5,7 @@ using UnityEngine;
 public class DebugSteeringInput : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI debugText;
-    [SerializeField] private TwoHandSteeringTransformer steeringTransformer;
+    [SerializeField] private TwoSteeringNetTransformer steeringTransformer;
 
     private void Update()
     {
@@ -14,6 +14,6 @@ public class DebugSteeringInput : MonoBehaviour
             return;
         }
 
-        debugText.text = $"Steering Input: {steeringTransformer.GetSteeringInput()} /n" + $"Throttle Input: {steeringTransformer.GetThrottleInput()}";
+        //debugText.text = $"Steering Input: {steeringTransformer.GetSteeringInput()} /n" + $"Throttle Input: {steeringTransformer.GetThrottleInput()}";
     }
 }

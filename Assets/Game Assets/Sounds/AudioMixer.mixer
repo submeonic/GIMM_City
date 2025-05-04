@@ -15,6 +15,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 2218407630143982196}
+  - {fileID: 8748403992037680185}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -39,6 +40,31 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!245 &-8143781809524688840
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DrumsMelody
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 2e9c5ca2107388f40805c5b55d6fb43a
+  m_FloatValues:
+    f1a0a4100d48ec2459b9ab94fe229d53: -0.037667945
+    513f27c18178a654b8cf213a9db4ed33: -0.006632561
+    701ec422b8e78754ca2d52580a57f717: -0.006632561
+    0558c444f8ab19e48b612a503f43c052: -0.017639272
+    9b9c2c056b5e51041bbf162bb70c956c: 5.19
+    4ceb8095c6eae2d4892db338f8afd22a: -7
+    f8a394e58963eda47939c60e45ed058f: -30.1
+    45ccda5612128aa4c8b354d968c555e2: -80
+    db323cb6ebefc084ca2bd729aa53fc68: -0.037668336
+    663331c7f2dc1504a8cff80226266d54: -0.15292017
+    0dea986d8bedb114fbfa3798cc97332e: -0.15291877
+    830fd6fd07d8b114aaca8daf25c401bb: -0.15292017
+    a996224e17042f740b1bc4014672bb3e: -39.2
+    d4bfb48f7ea4fe04fa8ca75d0eb2165d: -0.2328735
+  m_TransitionOverrides: {}
 --- !u!243 &-7189141147795906033
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -159,6 +185,31 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!245 &-2864870976206872412
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MediumMelody
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 92266bbb62b1f264d992acba2e2b76c6
+  m_FloatValues:
+    f1a0a4100d48ec2459b9ab94fe229d53: 0.052899733
+    513f27c18178a654b8cf213a9db4ed33: -0.006632561
+    701ec422b8e78754ca2d52580a57f717: -80
+    0558c444f8ab19e48b612a503f43c052: -0.017639272
+    9b9c2c056b5e51041bbf162bb70c956c: 5.19
+    4ceb8095c6eae2d4892db338f8afd22a: -7
+    f8a394e58963eda47939c60e45ed058f: -30.1
+    45ccda5612128aa4c8b354d968c555e2: -80
+    db323cb6ebefc084ca2bd729aa53fc68: -0.037668336
+    663331c7f2dc1504a8cff80226266d54: -80
+    0dea986d8bedb114fbfa3798cc97332e: -80
+    830fd6fd07d8b114aaca8daf25c401bb: -0.15292017
+    a996224e17042f740b1bc4014672bb3e: -39.2
+    d4bfb48f7ea4fe04fa8ca75d0eb2165d: -0.2328735
+  m_TransitionOverrides: {}
 --- !u!244 &-2619863156104278680
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -188,6 +239,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 1537247096016617353}
+  - {fileID: 5311098535675549353}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -241,6 +293,36 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!245 &-25053719436059521
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DrumsFill
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: fb4c8389f5e94a04e949ff68d349ed0f
+  m_FloatValues:
+    f1a0a4100d48ec2459b9ab94fe229d53: -80
+    824505a1bde3b6a47960aca324fb333c: 0
+    513f27c18178a654b8cf213a9db4ed33: -0.006632561
+    701ec422b8e78754ca2d52580a57f717: 0.052900337
+    0558c444f8ab19e48b612a503f43c052: -0.017639272
+    288429b401597924c9b0a8213eacfe72: 0
+    9b9c2c056b5e51041bbf162bb70c956c: 5.19
+    16948d0577c499049903c55757d4dbba: 5.14
+    4ceb8095c6eae2d4892db338f8afd22a: -7
+    f8a394e58963eda47939c60e45ed058f: -30.1
+    45ccda5612128aa4c8b354d968c555e2: 0.3594691
+    db323cb6ebefc084ca2bd729aa53fc68: -0.037668336
+    663331c7f2dc1504a8cff80226266d54: 0
+    8b71fbda49931654ab192db2c02c2b92: -61.1
+    0dea986d8bedb114fbfa3798cc97332e: 0.23288131
+    830fd6fd07d8b114aaca8daf25c401bb: -0.15292017
+    a996224e17042f740b1bc4014672bb3e: -39.2
+    d4bfb48f7ea4fe04fa8ca75d0eb2165d: -80
+    10a219ef4c2529745b805a5064db988d: 1.325
+  m_TransitionOverrides: {}
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -251,28 +333,17 @@ AudioMixerController:
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
-  - {fileID: 24500006}
-  m_StartSnapshot: {fileID: 24500006}
+  - {fileID: 4308410775210880169}
+  - {fileID: 8997664260363139959}
+  - {fileID: -2864870976206872412}
+  - {fileID: -25053719436059521}
+  - {fileID: 7501695688646595166}
+  - {fileID: -8143781809524688840}
+  m_StartSnapshot: {fileID: 4308410775210880169}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters:
-  - guid: 0dea986d8bedb114fbfa3798cc97332e
-    name: AuxAVolume
-  - guid: f1a0a4100d48ec2459b9ab94fe229d53
-    name: AuxBVolume
-  - guid: 663331c7f2dc1504a8cff80226266d54
-    name: DrumsFullLoopVolume
-  - guid: 45ccda5612128aa4c8b354d968c555e2
-    name: DrumsInFillVolume
-  - guid: 347f5c5bbe0639c4bb6a06a6615777c6
-    name: MainBassVolume
-  - guid: db323cb6ebefc084ca2bd729aa53fc68
-    name: MelodyAVolume
-  - guid: 830fd6fd07d8b114aaca8daf25c401bb
-    name: MelodyBVolume
-  - guid: 513f27c18178a654b8cf213a9db4ed33
-    name: SubBassVolume
+  m_ExposedParameters: []
   m_AudioMixerGroupViews:
   - guids:
     - 153f5bad3c5ada04d896b8748c4e3fd8
@@ -293,7 +364,7 @@ AudioMixerController:
     - f66eaea6e988c3f49a77dd4b1d78edc1
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 24500006}
+  m_TargetSnapshot: {fileID: -8143781809524688840}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -330,20 +401,6 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
---- !u!245 &24500006
-AudioMixerSnapshotController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Snapshot
-  m_AudioMixer: {fileID: 24100000}
-  m_SnapshotID: 57079c239b4b2c2489441bbffe87eeca
-  m_FloatValues:
-    9b9c2c056b5e51041bbf162bb70c956c: 5.19
-    f8a394e58963eda47939c60e45ed058f: -30.1
-    a996224e17042f740b1bc4014672bb3e: -39.2
-  m_TransitionOverrides: {}
 --- !u!244 &599439374555909393
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -523,6 +580,60 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!245 &4308410775210880169
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Start
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 6c6fd4d85a8ab8740b0520fd401e1dbf
+  m_FloatValues:
+    f1a0a4100d48ec2459b9ab94fe229d53: -0.006632751
+    513f27c18178a654b8cf213a9db4ed33: -80
+    701ec422b8e78754ca2d52580a57f717: -80
+    0558c444f8ab19e48b612a503f43c052: -0.017639272
+    9b9c2c056b5e51041bbf162bb70c956c: 5.19
+    4ceb8095c6eae2d4892db338f8afd22a: -7
+    f8a394e58963eda47939c60e45ed058f: -30.1
+    45ccda5612128aa4c8b354d968c555e2: -80
+    db323cb6ebefc084ca2bd729aa53fc68: -0.037668336
+    663331c7f2dc1504a8cff80226266d54: -80
+    bd32e16ddc8bda345b5e6a8a0948ba21: -80
+    0dea986d8bedb114fbfa3798cc97332e: 0.052899733
+    830fd6fd07d8b114aaca8daf25c401bb: -0.15292017
+    a996224e17042f740b1bc4014672bb3e: -39.2
+    d4bfb48f7ea4fe04fa8ca75d0eb2165d: -80
+  m_TransitionOverrides: {}
+--- !u!244 &5311098535675549353
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 9f1e6dddbae4614458bac964a55ba882
+  m_EffectName: Duck Volume
+  m_MixLevel: c0c49c7d2e9432f48844169b36566de2
+  m_Parameters:
+  - m_ParameterName: Threshold
+    m_GUID: 8b71fbda49931654ab192db2c02c2b92
+  - m_ParameterName: Ratio
+    m_GUID: 16948d0577c499049903c55757d4dbba
+  - m_ParameterName: Attack Time
+    m_GUID: 10a219ef4c2529745b805a5064db988d
+  - m_ParameterName: Release Time
+    m_GUID: 824505a1bde3b6a47960aca324fb333c
+  - m_ParameterName: Make-up Gain
+    m_GUID: 8e52ad7dfb96e3a44b168f7893eb076c
+  - m_ParameterName: Knee
+    m_GUID: 137530b1961bb9648b18291d85c5a4c9
+  - m_ParameterName: Sidechain Mix
+    m_GUID: ec47017c063142243bef6c6352b8de5f
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &5918817067063520080
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -607,6 +718,36 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!245 &7501695688646595166
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Drums
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: e330974236731c84b809d5963fcb8def
+  m_FloatValues:
+    f1a0a4100d48ec2459b9ab94fe229d53: -80
+    824505a1bde3b6a47960aca324fb333c: 0
+    513f27c18178a654b8cf213a9db4ed33: -0.006632561
+    701ec422b8e78754ca2d52580a57f717: 0.052900337
+    0558c444f8ab19e48b612a503f43c052: -0.017639272
+    288429b401597924c9b0a8213eacfe72: 0
+    9b9c2c056b5e51041bbf162bb70c956c: 5.19
+    16948d0577c499049903c55757d4dbba: 10
+    4ceb8095c6eae2d4892db338f8afd22a: -7
+    f8a394e58963eda47939c60e45ed058f: 0
+    45ccda5612128aa4c8b354d968c555e2: -80
+    db323cb6ebefc084ca2bd729aa53fc68: -0.037668336
+    663331c7f2dc1504a8cff80226266d54: 0.0070011187
+    8b71fbda49931654ab192db2c02c2b92: -40
+    0dea986d8bedb114fbfa3798cc97332e: 0.12981617
+    830fd6fd07d8b114aaca8daf25c401bb: -0.15292017
+    a996224e17042f740b1bc4014672bb3e: -39.2
+    d4bfb48f7ea4fe04fa8ca75d0eb2165d: -80
+    10a219ef4c2529745b805a5064db988d: 0
+  m_TransitionOverrides: {}
 --- !u!244 &7515724863737508979
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -654,3 +795,43 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &8748403992037680185
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: d635aae8a81e7574794aecf2950da1a9
+  m_EffectName: Send
+  m_MixLevel: 288429b401597924c9b0a8213eacfe72
+  m_Parameters: []
+  m_SendTarget: {fileID: 5311098535675549353}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &8997664260363139959
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LowMelody
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: e196f2b35ece27342a8065b550858b79
+  m_FloatValues:
+    f1a0a4100d48ec2459b9ab94fe229d53: 0.23288353
+    513f27c18178a654b8cf213a9db4ed33: -80
+    701ec422b8e78754ca2d52580a57f717: -80
+    0558c444f8ab19e48b612a503f43c052: -0.017639272
+    9b9c2c056b5e51041bbf162bb70c956c: 5.19
+    4ceb8095c6eae2d4892db338f8afd22a: -7
+    f8a394e58963eda47939c60e45ed058f: -30.1
+    45ccda5612128aa4c8b354d968c555e2: -80
+    db323cb6ebefc084ca2bd729aa53fc68: -0.037668336
+    663331c7f2dc1504a8cff80226266d54: -80
+    bd32e16ddc8bda345b5e6a8a0948ba21: -80
+    0dea986d8bedb114fbfa3798cc97332e: 0.12981531
+    830fd6fd07d8b114aaca8daf25c401bb: -0.15292017
+    a996224e17042f740b1bc4014672bb3e: -39.2
+    d4bfb48f7ea4fe04fa8ca75d0eb2165d: -0.2328735
+  m_TransitionOverrides: {}
